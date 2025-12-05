@@ -1,0 +1,1 @@
+{"version":3,"file":"endpoint.d.ts","sourceRoot":"","sources":["../../../src/api/dispatch-shipment/endpoint.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAEhD,OAAO,EAAE,uBAAuB,EAAE,MAAM,wCAAwC,CAAA;AAEhF,wBAAgB,wBAAwB,CAAC,OAAO,EAAE,uBAAuB,IAC/D,KAAK,OAAO,EAAE,KAAK,QAAQ,KAAG,IAAI,CAuB3C"}

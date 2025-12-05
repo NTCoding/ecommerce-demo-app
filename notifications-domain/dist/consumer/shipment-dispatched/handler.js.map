@@ -1,0 +1,1 @@
+{"version":3,"file":"handler.js","sourceRoot":"","sources":["../../../src/consumer/shipment-dispatched/handler.ts"],"names":[],"mappings":"AAGA,MAAM,UAAU,wBAAwB,CACtC,KAAyB,EACzB,OAAwC;IAExC,OAAO,CAAC,GAAG,CACT,4DAA4D,KAAK,CAAC,UAAU,EAAE,CAC/E,CAAA;IAED,OAAO,CAAC,KAAK,CAAC,KAAK,CAAC,OAAO,EAAE,KAAK,CAAC,UAAU,EAAE,KAAK,CAAC,WAAW,CAAC,CAAA;AACnE,CAAC"}
