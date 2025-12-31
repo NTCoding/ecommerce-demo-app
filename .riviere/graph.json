@@ -410,9 +410,26 @@
       ],
       "behavior": {
         "modifies": [
-          "this.state <- Placed"
+          "this.placedAt <- current date",
+          "this.state <- Placed",
+          "this.total <- calculated sum of item prices"
+        ],
+        "reads": [
+          "this.customerId",
+          "this.items",
+          "this.state"
+        ],
+        "validates": [
+          "customerId is defined",
+          "items.length > 0",
+          "state === Draft"
         ]
-      }
+      },
+      "businessRules": [
+        "Order must be in Draft state to begin",
+        "Order must have at least one item",
+        "Order must have a customer"
+      ]
     },
     {
       "id": "orders-domain:domain:domainop:order.markinventoryreserved",
@@ -429,6 +446,10 @@
       "entity": "Order",
       "stateChanges": [
         {
+          "from": "PaymentCompleted",
+          "to": "InventoryReserved"
+        },
+        {
           "from": "Placed",
           "to": "InventoryReserved"
         }
@@ -437,8 +458,17 @@
         "modifies": [
           "this.inventoryReserved <- true",
           "this.state <- InventoryReserved"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Placed || state === PaymentCompleted"
         ]
-      }
+      },
+      "businessRules": [
+        "Order must be in Placed or PaymentCompleted state to mark inventory reserved"
+      ]
     },
     {
       "id": "orders-domain:domain:domainop:order.markpaymentcompleted",
@@ -455,6 +485,10 @@
       "entity": "Order",
       "stateChanges": [
         {
+          "from": "InventoryReserved",
+          "to": "PaymentCompleted"
+        },
+        {
           "from": "Placed",
           "to": "PaymentCompleted"
         }
@@ -463,8 +497,17 @@
         "modifies": [
           "this.paymentCompleted <- true",
           "this.state <- PaymentCompleted"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Placed || state === InventoryReserved"
         ]
-      }
+      },
+      "businessRules": [
+        "Order must be in Placed or InventoryReserved state to mark payment completed"
+      ]
     },
     {
       "id": "orders-domain:domain:domainop:order.confirm",
@@ -481,7 +524,11 @@
       "entity": "Order",
       "stateChanges": [
         {
-          "from": "InventoryReserved,PaymentCompleted",
+          "from": "InventoryReserved",
+          "to": "Confirmed"
+        },
+        {
+          "from": "PaymentCompleted",
           "to": "Confirmed"
         }
       ],
@@ -523,8 +570,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Shipped"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Confirmed"
         ]
-      }
+      },
+      "businessRules": [
+        "Order must be in Confirmed state to ship"
+      ]
     },
     {
       "id": "orders-domain:domain:domainop:order.deliver",
@@ -548,8 +604,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Delivered"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Shipped"
         ]
-      }
+      },
+      "businessRules": [
+        "Order must be in Shipped state to deliver"
+      ]
     },
     {
       "id": "orders-domain:domain:domainop:order.cancel",
@@ -566,15 +631,46 @@
       "entity": "Order",
       "stateChanges": [
         {
-          "from": "Draft,Placed,InventoryReserved,PaymentCompleted,Confirmed",
+          "from": "Confirmed",
+          "to": "Cancelled"
+        },
+        {
+          "from": "Draft",
+          "to": "Cancelled"
+        },
+        {
+          "from": "InventoryReserved",
+          "to": "Cancelled"
+        },
+        {
+          "from": "PaymentCompleted",
+          "to": "Cancelled"
+        },
+        {
+          "from": "Placed",
+          "to": "Cancelled"
+        },
+        {
+          "from": "Shipped",
           "to": "Cancelled"
         }
       ],
       "behavior": {
         "modifies": [
           "this.state <- Cancelled"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state !== Cancelled",
+          "state !== Delivered"
         ]
-      }
+      },
+      "businessRules": [
+        "Cannot cancel a delivered order",
+        "Cannot cancel an already cancelled order"
+      ]
     },
     {
       "id": "inventory-domain:domain:domainop:inventoryitem.reserve",
@@ -608,7 +704,10 @@
           "this.reservedQuantity += quantity",
           "this.state <- Reserved"
         ]
-      }
+      },
+      "businessRules": [
+        "Must have sufficient available quantity to reserve"
+      ]
     },
     {
       "id": "inventory-domain:domain:domainop:inventoryitem.allocate",
@@ -638,11 +737,14 @@
           "reservedQuantity >= quantity"
         ],
         "modifies": [
-          "this.reservedQuantity -= quantity",
           "this.allocatedQuantity += quantity",
+          "this.reservedQuantity -= quantity",
           "this.state <- Allocated"
         ]
-      }
+      },
+      "businessRules": [
+        "Must have sufficient reserved quantity to allocate"
+      ]
     },
     {
       "id": "inventory-domain:domain:domainop:inventoryitem.release",
@@ -665,14 +767,23 @@
       ],
       "behavior": {
         "reads": [
-          "quantity parameter"
+          "quantity parameter",
+          "this.allocatedQuantity",
+          "this.reservedQuantity"
         ],
         "modifies": [
-          "this.reservedQuantity -= quantity",
           "this.availableQuantity += quantity",
-          "this.state <- Available (conditionally)"
+          "this.reservedQuantity -= quantity",
+          "this.state <- Available (conditionally)",
+          "this.state <- Available (when reservedQuantity and allocatedQuantity are zero)"
+        ],
+        "validates": [
+          "reservedQuantity >= quantity"
         ]
-      }
+      },
+      "businessRules": [
+        "Cannot release more than reserved quantity"
+      ]
     },
     {
       "id": "inventory-domain:domain:domainop:inventoryitem.replenish",
@@ -689,7 +800,15 @@
       "entity": "InventoryItem",
       "stateChanges": [
         {
-          "from": "Depleted,Reserved,Allocated",
+          "from": "Allocated",
+          "to": "Available"
+        },
+        {
+          "from": "Depleted",
+          "to": "Available"
+        },
+        {
+          "from": "Reserved",
           "to": "Available"
         }
       ],
@@ -700,8 +819,14 @@
         "modifies": [
           "this.availableQuantity += quantity",
           "this.state <- Available"
+        ],
+        "validates": [
+          "quantity > 0"
         ]
-      }
+      },
+      "businessRules": [
+        "Replenish quantity must be positive"
+      ]
     },
     {
       "id": "inventory-domain:domain:domainop:inventoryitem.markdepleted",
@@ -732,7 +857,10 @@
         "modifies": [
           "this.state <- Depleted"
         ]
-      }
+      },
+      "businessRules": [
+        "Cannot mark as depleted when available quantity is not zero"
+      ]
     },
     {
       "id": "shipping-domain:domain:domainop:shipment.create",
@@ -755,13 +883,22 @@
       ],
       "behavior": {
         "reads": [
+          "this.state",
           "trackingNumber parameter"
         ],
         "modifies": [
-          "this.trackingNumber <- trackingNumber",
-          "this.state <- Created"
+          "this.state <- Created",
+          "this.trackingNumber <- trackingNumber"
+        ],
+        "validates": [
+          "state === Pending",
+          "trackingNumber is defined"
         ]
-      }
+      },
+      "businessRules": [
+        "Shipment must be in Pending state to create",
+        "Tracking number is required"
+      ]
     },
     {
       "id": "shipping-domain:domain:domainop:shipment.dispatch",
@@ -785,8 +922,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Dispatched"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Created"
         ]
-      }
+      },
+      "businessRules": [
+        "Shipment must be in Created state to dispatch"
+      ]
     },
     {
       "id": "shipping-domain:domain:domainop:shipment.markintransit",
@@ -810,8 +956,17 @@
       "behavior": {
         "modifies": [
           "this.state <- InTransit"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Dispatched"
         ]
-      }
+      },
+      "businessRules": [
+        "Shipment must be in Dispatched state to mark in transit"
+      ]
     },
     {
       "id": "shipping-domain:domain:domainop:shipment.deliver",
@@ -835,8 +990,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Delivered"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === InTransit"
         ]
-      }
+      },
+      "businessRules": [
+        "Shipment must be in InTransit state to deliver"
+      ]
     },
     {
       "id": "shipping-domain:domain:domainop:shipment.cancel",
@@ -853,15 +1017,38 @@
       "entity": "Shipment",
       "stateChanges": [
         {
-          "from": "Pending,Created,Dispatched,InTransit",
+          "from": "Created",
+          "to": "Cancelled"
+        },
+        {
+          "from": "Dispatched",
+          "to": "Cancelled"
+        },
+        {
+          "from": "InTransit",
+          "to": "Cancelled"
+        },
+        {
+          "from": "Pending",
           "to": "Cancelled"
         }
       ],
       "behavior": {
         "modifies": [
           "this.state <- Cancelled"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state !== Cancelled",
+          "state !== Delivered"
         ]
-      }
+      },
+      "businessRules": [
+        "Cannot cancel a delivered shipment",
+        "Cannot cancel an already cancelled shipment"
+      ]
     },
     {
       "id": "payment-domain:domain:domainop:payment.authorize",
@@ -885,8 +1072,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Authorized"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Pending"
         ]
-      }
+      },
+      "businessRules": [
+        "Payment must be in Pending state to authorize"
+      ]
     },
     {
       "id": "payment-domain:domain:domainop:payment.complete",
@@ -910,8 +1106,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Completed"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Authorized"
         ]
-      }
+      },
+      "businessRules": [
+        "Payment must be in Authorized state to complete"
+      ]
     },
     {
       "id": "payment-domain:domain:domainop:payment.fail",
@@ -928,15 +1133,24 @@
       "entity": "Payment",
       "stateChanges": [
         {
-          "from": "Pending,Authorized",
+          "from": "Authorized",
           "to": "Failed"
         }
       ],
       "behavior": {
         "modifies": [
           "this.state <- Failed"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Authorized"
         ]
-      }
+      },
+      "businessRules": [
+        "Payment must be in Authorized state to fail"
+      ]
     },
     {
       "id": "payment-domain:domain:domainop:payment.refund",
@@ -960,8 +1174,17 @@
       "behavior": {
         "modifies": [
           "this.state <- Refunded"
+        ],
+        "reads": [
+          "this.state"
+        ],
+        "validates": [
+          "state === Completed"
         ]
-      }
+      },
+      "businessRules": [
+        "Payment must be in Completed state to refund"
+      ]
     },
     {
       "id": "notifications-domain:domain:domainop:notification.marksent",
@@ -985,8 +1208,17 @@
       "behavior": {
         "modifies": [
           "this.status <- Sent"
+        ],
+        "reads": [
+          "this.status"
+        ],
+        "validates": [
+          "status === Pending"
         ]
-      }
+      },
+      "businessRules": [
+        "Notification must be in Pending status to mark as sent"
+      ]
     },
     {
       "id": "notifications-domain:domain:domainop:notification.markfailed",
@@ -1010,8 +1242,17 @@
       "behavior": {
         "modifies": [
           "this.status <- Failed"
+        ],
+        "reads": [
+          "this.status"
+        ],
+        "validates": [
+          "status === Pending"
         ]
-      }
+      },
+      "businessRules": [
+        "Notification must be in Pending status to mark as failed"
+      ]
     },
     {
       "id": "orders-domain:infrastructure:event:orderplaced",
