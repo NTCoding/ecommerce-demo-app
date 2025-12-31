@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@living-architecture/riviere-cli": "^0.3.5"
+  }
+}

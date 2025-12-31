@@ -1,0 +1,1720 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "sources": [
+      {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app"
+      }
+    ],
+    "domains": {
+      "orders-domain": {
+        "description": "Core order management: placement, confirmation, cancellation, state transitions",
+        "systemType": "domain"
+      },
+      "inventory-domain": {
+        "description": "Stock management: checking, reservation, allocation",
+        "systemType": "domain"
+      },
+      "shipping-domain": {
+        "description": "Shipment lifecycle: creation, dispatch, tracking updates",
+        "systemType": "domain"
+      },
+      "payment-domain": {
+        "description": "Payment processing: authorization, completion",
+        "systemType": "domain"
+      },
+      "notifications-domain": {
+        "description": "Notification dispatch for order and shipment events",
+        "systemType": "domain"
+      },
+      "bff": {
+        "description": "Backend-for-frontend aggregating orders and inventory services",
+        "systemType": "bff"
+      },
+      "ui": {
+        "description": "React frontend for order placement",
+        "systemType": "ui"
+      }
+    },
+    "customTypes": {
+      "BackgroundJob": {
+        "requiredProperties": {
+          "schedule": {
+            "type": "string",
+            "description": "Interval or cron expression"
+          }
+        },
+        "description": "Scheduled background task running on an interval"
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "ui:pages:ui:orderpage",
+      "type": "UI",
+      "name": "OrderPage",
+      "domain": "ui",
+      "module": "pages",
+      "route": "/",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "ui/src/pages/OrderPage.tsx",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "shipping-domain:server:api:put-/shipments/:shipmentid/dispatch",
+      "type": "API",
+      "name": "PUT /shipments/:shipmentId/dispatch",
+      "domain": "shipping-domain",
+      "module": "server",
+      "apiType": "REST",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/server.ts",
+        "lineNumber": 19
+      },
+      "httpMethod": "PUT",
+      "path": "/shipments/:shipmentId/dispatch"
+    },
+    {
+      "id": "orders-domain:server:api:post-/orders",
+      "type": "API",
+      "name": "POST /orders",
+      "domain": "orders-domain",
+      "module": "server",
+      "apiType": "REST",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/server.ts",
+        "lineNumber": 25
+      },
+      "httpMethod": "POST",
+      "path": "/orders"
+    },
+    {
+      "id": "orders-domain:server:api:delete-/orders/:orderid",
+      "type": "API",
+      "name": "DELETE /orders/:orderId",
+      "domain": "orders-domain",
+      "module": "server",
+      "apiType": "REST",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/server.ts",
+        "lineNumber": 26
+      },
+      "httpMethod": "DELETE",
+      "path": "/orders/:orderId"
+    },
+    {
+      "id": "inventory-domain:server:api:get-/inventory/:sku",
+      "type": "API",
+      "name": "GET /inventory/:sku",
+      "domain": "inventory-domain",
+      "module": "server",
+      "apiType": "REST",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/server.ts",
+        "lineNumber": 26
+      },
+      "httpMethod": "GET",
+      "path": "/inventory/:sku"
+    },
+    {
+      "id": "bff:server:api:post-/bff/orders",
+      "type": "API",
+      "name": "POST /bff/orders",
+      "domain": "bff",
+      "module": "server",
+      "apiType": "REST",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "bff/src/server.ts",
+        "lineNumber": 12
+      },
+      "httpMethod": "POST",
+      "path": "/bff/orders"
+    },
+    {
+      "id": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "type": "UseCase",
+      "name": "UpdateTrackingUseCase",
+      "domain": "shipping-domain",
+      "module": "jobs/update-tracking/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/jobs/update-tracking/use-cases/update-tracking-use-case.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "shipping-domain:consumer/order-confirmed/use-cases:usecase:createshipmentusecase",
+      "type": "UseCase",
+      "name": "CreateShipmentUseCase",
+      "domain": "shipping-domain",
+      "module": "consumer/order-confirmed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/consumer/order-confirmed/use-cases/create-shipment-use-case.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "shipping-domain:api/dispatch-shipment/use-cases:usecase:dispatchshipmentusecase",
+      "type": "UseCase",
+      "name": "DispatchShipmentUseCase",
+      "domain": "shipping-domain",
+      "module": "api/dispatch-shipment/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/api/dispatch-shipment/use-cases/dispatch-shipment-use-case.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/order-placed/use-cases:usecase:reserveinventoryusecase",
+      "type": "UseCase",
+      "name": "ReserveInventoryUseCase",
+      "domain": "inventory-domain",
+      "module": "consumer/order-placed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/order-placed/use-cases/reserve-inventory-use-case.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/shipment-delivered/use-cases:usecase:notifyshipmentdeliveredusecase",
+      "type": "UseCase",
+      "name": "NotifyShipmentDeliveredUseCase",
+      "domain": "notifications-domain",
+      "module": "consumer/shipment-delivered/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/shipment-delivered/use-cases/notify-shipment-delivered-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "type": "UseCase",
+      "name": "ProcessPaymentUseCase",
+      "domain": "payment-domain",
+      "module": "consumer/order-placed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/consumer/order-placed/use-cases/process-payment-use-case.ts",
+        "lineNumber": 9
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/shipment-created/use-cases:usecase:allocateinventoryusecase",
+      "type": "UseCase",
+      "name": "AllocateInventoryUseCase",
+      "domain": "inventory-domain",
+      "module": "consumer/shipment-created/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/shipment-created/use-cases/allocate-inventory-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/payment-completed/use-cases:usecase:notifypaymentcompletedusecase",
+      "type": "UseCase",
+      "name": "NotifyPaymentCompletedUseCase",
+      "domain": "notifications-domain",
+      "module": "consumer/payment-completed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/payment-completed/use-cases/notify-payment-completed-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/order-cancelled/use-cases:usecase:releaseinventoryusecase",
+      "type": "UseCase",
+      "name": "ReleaseInventoryUseCase",
+      "domain": "inventory-domain",
+      "module": "consumer/order-cancelled/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/order-cancelled/use-cases/release-inventory-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "payment-domain:consumer/order-cancelled/use-cases:usecase:refundpaymentusecase",
+      "type": "UseCase",
+      "name": "RefundPaymentUseCase",
+      "domain": "payment-domain",
+      "module": "consumer/order-cancelled/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/consumer/order-cancelled/use-cases/refund-payment-use-case.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "inventory-domain:api/check-stock/use-cases:usecase:checkstockusecase",
+      "type": "UseCase",
+      "name": "CheckStockUseCase",
+      "domain": "inventory-domain",
+      "module": "api/check-stock/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/api/check-stock/use-cases/check-stock-use-case.ts",
+        "lineNumber": 11
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/order-placed/use-cases:usecase:notifyorderplacedusecase",
+      "type": "UseCase",
+      "name": "NotifyOrderPlacedUseCase",
+      "domain": "notifications-domain",
+      "module": "consumer/order-placed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/order-placed/use-cases/notify-order-placed-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/shipment-dispatched/use-cases:usecase:notifyshipmentdispatchedusecase",
+      "type": "UseCase",
+      "name": "NotifyShipmentDispatchedUseCase",
+      "domain": "notifications-domain",
+      "module": "consumer/shipment-dispatched/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/shipment-dispatched/use-cases/notify-shipment-dispatched-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "orders-domain:consumer/shipment-delivered/use-cases:usecase:completeorderusecase",
+      "type": "UseCase",
+      "name": "CompleteOrderUseCase",
+      "domain": "orders-domain",
+      "module": "consumer/shipment-delivered/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/shipment-delivered/use-cases/complete-order-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "orders-domain:consumer/payment-failed/use-cases:usecase:cancelorderafterpaymentfailureusecase",
+      "type": "UseCase",
+      "name": "CancelOrderAfterPaymentFailureUseCase",
+      "domain": "orders-domain",
+      "module": "consumer/payment-failed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/payment-failed/use-cases/cancel-order-after-payment-failure-use-case.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "orders-domain:consumer/payment-completed/use-cases:usecase:confirmorderafterpaymentusecase",
+      "type": "UseCase",
+      "name": "ConfirmOrderAfterPaymentUseCase",
+      "domain": "orders-domain",
+      "module": "consumer/payment-completed/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/payment-completed/use-cases/confirm-order-after-payment-use-case.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "orders-domain:consumer/inventory-reserved/use-cases:usecase:confirmorderafterinventoryusecase",
+      "type": "UseCase",
+      "name": "ConfirmOrderAfterInventoryUseCase",
+      "domain": "orders-domain",
+      "module": "consumer/inventory-reserved/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/inventory-reserved/use-cases/confirm-order-after-inventory-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "orders-domain:consumer/shipment-dispatched/use-cases:usecase:shiporderusecase",
+      "type": "UseCase",
+      "name": "ShipOrderUseCase",
+      "domain": "orders-domain",
+      "module": "consumer/shipment-dispatched/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/shipment-dispatched/use-cases/ship-order-use-case.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "orders-domain:api/cancel-order/use-cases:usecase:cancelorderusecase",
+      "type": "UseCase",
+      "name": "CancelOrderUseCase",
+      "domain": "orders-domain",
+      "module": "api/cancel-order/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/api/cancel-order/use-cases/cancel-order-use-case.ts",
+        "lineNumber": 9
+      }
+    },
+    {
+      "id": "orders-domain:api/place-order/use-cases:usecase:placeorderusecase",
+      "type": "UseCase",
+      "name": "PlaceOrderUseCase",
+      "domain": "orders-domain",
+      "module": "api/place-order/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/api/place-order/use-cases/place-order-use-case.ts",
+        "lineNumber": 10
+      }
+    },
+    {
+      "id": "bff:api/place-order/use-cases:usecase:placeorderbffusecase",
+      "type": "UseCase",
+      "name": "PlaceOrderBFFUseCase",
+      "domain": "bff",
+      "module": "api/place-order/use-cases",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "bff/src/api/place-order/use-cases/place-order-bff-use-case.ts",
+        "lineNumber": 14
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.begin",
+      "type": "DomainOp",
+      "name": "Order.begin",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "begin",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 23
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Draft",
+          "to": "Placed"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Placed"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.markinventoryreserved",
+      "type": "DomainOp",
+      "name": "Order.markInventoryReserved",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "markInventoryReserved",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 27
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Placed",
+          "to": "InventoryReserved"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.inventoryReserved <- true",
+          "this.state <- InventoryReserved"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.markpaymentcompleted",
+      "type": "DomainOp",
+      "name": "Order.markPaymentCompleted",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "markPaymentCompleted",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 33
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Placed",
+          "to": "PaymentCompleted"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.paymentCompleted <- true",
+          "this.state <- PaymentCompleted"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.confirm",
+      "type": "DomainOp",
+      "name": "Order.confirm",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "confirm",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 45
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "InventoryReserved,PaymentCompleted",
+          "to": "Confirmed"
+        }
+      ],
+      "businessRules": [
+        "Both inventory must be reserved and payment must be completed before confirmation"
+      ],
+      "behavior": {
+        "reads": [
+          "this.inventoryReserved",
+          "this.paymentCompleted"
+        ],
+        "validates": [
+          "inventoryReserved === true && paymentCompleted === true"
+        ],
+        "modifies": [
+          "this.state <- Confirmed"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.ship",
+      "type": "DomainOp",
+      "name": "Order.ship",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "ship",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 49
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Confirmed",
+          "to": "Shipped"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Shipped"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.deliver",
+      "type": "DomainOp",
+      "name": "Order.deliver",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "deliver",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 53
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Shipped",
+          "to": "Delivered"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Delivered"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:domain:domainop:order.cancel",
+      "type": "DomainOp",
+      "name": "Order.cancel",
+      "domain": "orders-domain",
+      "module": "domain",
+      "operationName": "cancel",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/domain/Order.ts",
+        "lineNumber": 57
+      },
+      "entity": "Order",
+      "stateChanges": [
+        {
+          "from": "Draft,Placed,InventoryReserved,PaymentCompleted,Confirmed",
+          "to": "Cancelled"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Cancelled"
+        ]
+      }
+    },
+    {
+      "id": "inventory-domain:domain:domainop:inventoryitem.reserve",
+      "type": "DomainOp",
+      "name": "InventoryItem.reserve",
+      "domain": "inventory-domain",
+      "module": "domain",
+      "operationName": "reserve",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/domain/InventoryItem.ts",
+        "lineNumber": 18
+      },
+      "entity": "InventoryItem",
+      "stateChanges": [
+        {
+          "from": "Available",
+          "to": "Reserved"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "quantity parameter",
+          "this.availableQuantity"
+        ],
+        "validates": [
+          "availableQuantity >= quantity"
+        ],
+        "modifies": [
+          "this.availableQuantity -= quantity",
+          "this.reservedQuantity += quantity",
+          "this.state <- Reserved"
+        ]
+      }
+    },
+    {
+      "id": "inventory-domain:domain:domainop:inventoryitem.allocate",
+      "type": "DomainOp",
+      "name": "InventoryItem.allocate",
+      "domain": "inventory-domain",
+      "module": "domain",
+      "operationName": "allocate",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/domain/InventoryItem.ts",
+        "lineNumber": 26
+      },
+      "entity": "InventoryItem",
+      "stateChanges": [
+        {
+          "from": "Reserved",
+          "to": "Allocated"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "quantity parameter",
+          "this.reservedQuantity"
+        ],
+        "validates": [
+          "reservedQuantity >= quantity"
+        ],
+        "modifies": [
+          "this.reservedQuantity -= quantity",
+          "this.allocatedQuantity += quantity",
+          "this.state <- Allocated"
+        ]
+      }
+    },
+    {
+      "id": "inventory-domain:domain:domainop:inventoryitem.release",
+      "type": "DomainOp",
+      "name": "InventoryItem.release",
+      "domain": "inventory-domain",
+      "module": "domain",
+      "operationName": "release",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/domain/InventoryItem.ts",
+        "lineNumber": 34
+      },
+      "entity": "InventoryItem",
+      "stateChanges": [
+        {
+          "from": "Reserved",
+          "to": "Available"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "quantity parameter"
+        ],
+        "modifies": [
+          "this.reservedQuantity -= quantity",
+          "this.availableQuantity += quantity",
+          "this.state <- Available (conditionally)"
+        ]
+      }
+    },
+    {
+      "id": "inventory-domain:domain:domainop:inventoryitem.replenish",
+      "type": "DomainOp",
+      "name": "InventoryItem.replenish",
+      "domain": "inventory-domain",
+      "module": "domain",
+      "operationName": "replenish",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/domain/InventoryItem.ts",
+        "lineNumber": 43
+      },
+      "entity": "InventoryItem",
+      "stateChanges": [
+        {
+          "from": "Depleted,Reserved,Allocated",
+          "to": "Available"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "quantity parameter"
+        ],
+        "modifies": [
+          "this.availableQuantity += quantity",
+          "this.state <- Available"
+        ]
+      }
+    },
+    {
+      "id": "inventory-domain:domain:domainop:inventoryitem.markdepleted",
+      "type": "DomainOp",
+      "name": "InventoryItem.markDepleted",
+      "domain": "inventory-domain",
+      "module": "domain",
+      "operationName": "markDepleted",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/domain/InventoryItem.ts",
+        "lineNumber": 48
+      },
+      "entity": "InventoryItem",
+      "stateChanges": [
+        {
+          "from": "Available",
+          "to": "Depleted"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "this.availableQuantity"
+        ],
+        "validates": [
+          "availableQuantity === 0"
+        ],
+        "modifies": [
+          "this.state <- Depleted"
+        ]
+      }
+    },
+    {
+      "id": "shipping-domain:domain:domainop:shipment.create",
+      "type": "DomainOp",
+      "name": "Shipment.create",
+      "domain": "shipping-domain",
+      "module": "domain",
+      "operationName": "create",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/domain/Shipment.ts",
+        "lineNumber": 20
+      },
+      "entity": "Shipment",
+      "stateChanges": [
+        {
+          "from": "Pending",
+          "to": "Created"
+        }
+      ],
+      "behavior": {
+        "reads": [
+          "trackingNumber parameter"
+        ],
+        "modifies": [
+          "this.trackingNumber <- trackingNumber",
+          "this.state <- Created"
+        ]
+      }
+    },
+    {
+      "id": "shipping-domain:domain:domainop:shipment.dispatch",
+      "type": "DomainOp",
+      "name": "Shipment.dispatch",
+      "domain": "shipping-domain",
+      "module": "domain",
+      "operationName": "dispatch",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/domain/Shipment.ts",
+        "lineNumber": 25
+      },
+      "entity": "Shipment",
+      "stateChanges": [
+        {
+          "from": "Created",
+          "to": "Dispatched"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Dispatched"
+        ]
+      }
+    },
+    {
+      "id": "shipping-domain:domain:domainop:shipment.markintransit",
+      "type": "DomainOp",
+      "name": "Shipment.markInTransit",
+      "domain": "shipping-domain",
+      "module": "domain",
+      "operationName": "markInTransit",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/domain/Shipment.ts",
+        "lineNumber": 29
+      },
+      "entity": "Shipment",
+      "stateChanges": [
+        {
+          "from": "Dispatched",
+          "to": "InTransit"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- InTransit"
+        ]
+      }
+    },
+    {
+      "id": "shipping-domain:domain:domainop:shipment.deliver",
+      "type": "DomainOp",
+      "name": "Shipment.deliver",
+      "domain": "shipping-domain",
+      "module": "domain",
+      "operationName": "deliver",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/domain/Shipment.ts",
+        "lineNumber": 33
+      },
+      "entity": "Shipment",
+      "stateChanges": [
+        {
+          "from": "InTransit",
+          "to": "Delivered"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Delivered"
+        ]
+      }
+    },
+    {
+      "id": "shipping-domain:domain:domainop:shipment.cancel",
+      "type": "DomainOp",
+      "name": "Shipment.cancel",
+      "domain": "shipping-domain",
+      "module": "domain",
+      "operationName": "cancel",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/domain/Shipment.ts",
+        "lineNumber": 37
+      },
+      "entity": "Shipment",
+      "stateChanges": [
+        {
+          "from": "Pending,Created,Dispatched,InTransit",
+          "to": "Cancelled"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Cancelled"
+        ]
+      }
+    },
+    {
+      "id": "payment-domain:domain:domainop:payment.authorize",
+      "type": "DomainOp",
+      "name": "Payment.authorize",
+      "domain": "payment-domain",
+      "module": "domain",
+      "operationName": "authorize",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/domain/Payment.ts",
+        "lineNumber": 19
+      },
+      "entity": "Payment",
+      "stateChanges": [
+        {
+          "from": "Pending",
+          "to": "Authorized"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Authorized"
+        ]
+      }
+    },
+    {
+      "id": "payment-domain:domain:domainop:payment.complete",
+      "type": "DomainOp",
+      "name": "Payment.complete",
+      "domain": "payment-domain",
+      "module": "domain",
+      "operationName": "complete",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/domain/Payment.ts",
+        "lineNumber": 23
+      },
+      "entity": "Payment",
+      "stateChanges": [
+        {
+          "from": "Authorized",
+          "to": "Completed"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Completed"
+        ]
+      }
+    },
+    {
+      "id": "payment-domain:domain:domainop:payment.fail",
+      "type": "DomainOp",
+      "name": "Payment.fail",
+      "domain": "payment-domain",
+      "module": "domain",
+      "operationName": "fail",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/domain/Payment.ts",
+        "lineNumber": 27
+      },
+      "entity": "Payment",
+      "stateChanges": [
+        {
+          "from": "Pending,Authorized",
+          "to": "Failed"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Failed"
+        ]
+      }
+    },
+    {
+      "id": "payment-domain:domain:domainop:payment.refund",
+      "type": "DomainOp",
+      "name": "Payment.refund",
+      "domain": "payment-domain",
+      "module": "domain",
+      "operationName": "refund",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/domain/Payment.ts",
+        "lineNumber": 31
+      },
+      "entity": "Payment",
+      "stateChanges": [
+        {
+          "from": "Completed",
+          "to": "Refunded"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.state <- Refunded"
+        ]
+      }
+    },
+    {
+      "id": "notifications-domain:domain:domainop:notification.marksent",
+      "type": "DomainOp",
+      "name": "Notification.markSent",
+      "domain": "notifications-domain",
+      "module": "domain",
+      "operationName": "markSent",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/domain/Notification.ts",
+        "lineNumber": 24
+      },
+      "entity": "Notification",
+      "stateChanges": [
+        {
+          "from": "Pending",
+          "to": "Sent"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.status <- Sent"
+        ]
+      }
+    },
+    {
+      "id": "notifications-domain:domain:domainop:notification.markfailed",
+      "type": "DomainOp",
+      "name": "Notification.markFailed",
+      "domain": "notifications-domain",
+      "module": "domain",
+      "operationName": "markFailed",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/domain/Notification.ts",
+        "lineNumber": 28
+      },
+      "entity": "Notification",
+      "stateChanges": [
+        {
+          "from": "Pending",
+          "to": "Failed"
+        }
+      ],
+      "behavior": {
+        "modifies": [
+          "this.status <- Failed"
+        ]
+      }
+    },
+    {
+      "id": "orders-domain:infrastructure:event:orderplaced",
+      "type": "Event",
+      "name": "OrderPlaced",
+      "domain": "orders-domain",
+      "module": "infrastructure",
+      "eventName": "OrderPlaced",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/infrastructure/events.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "orders-domain:infrastructure:event:orderconfirmed",
+      "type": "Event",
+      "name": "OrderConfirmed",
+      "domain": "orders-domain",
+      "module": "infrastructure",
+      "eventName": "OrderConfirmed",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/infrastructure/events.ts",
+        "lineNumber": 12
+      }
+    },
+    {
+      "id": "orders-domain:infrastructure:event:ordercancelled",
+      "type": "Event",
+      "name": "OrderCancelled",
+      "domain": "orders-domain",
+      "module": "infrastructure",
+      "eventName": "OrderCancelled",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/infrastructure/events.ts",
+        "lineNumber": 18
+      }
+    },
+    {
+      "id": "inventory-domain:infrastructure:event:inventoryreserved",
+      "type": "Event",
+      "name": "InventoryReserved",
+      "domain": "inventory-domain",
+      "module": "infrastructure",
+      "eventName": "InventoryReserved",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/infrastructure/events.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "shipping-domain:infrastructure:event:shipmentcreated",
+      "type": "Event",
+      "name": "ShipmentCreated",
+      "domain": "shipping-domain",
+      "module": "infrastructure",
+      "eventName": "ShipmentCreated",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/infrastructure/events.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "shipping-domain:infrastructure:event:shipmentdispatched",
+      "type": "Event",
+      "name": "ShipmentDispatched",
+      "domain": "shipping-domain",
+      "module": "infrastructure",
+      "eventName": "ShipmentDispatched",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/infrastructure/events.ts",
+        "lineNumber": 11
+      }
+    },
+    {
+      "id": "shipping-domain:infrastructure:event:shipmentdelivered",
+      "type": "Event",
+      "name": "ShipmentDelivered",
+      "domain": "shipping-domain",
+      "module": "infrastructure",
+      "eventName": "ShipmentDelivered",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/infrastructure/events.ts",
+        "lineNumber": 19
+      }
+    },
+    {
+      "id": "payment-domain:infrastructure:event:paymentcompleted",
+      "type": "Event",
+      "name": "PaymentCompleted",
+      "domain": "payment-domain",
+      "module": "infrastructure",
+      "eventName": "PaymentCompleted",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/infrastructure/events.ts",
+        "lineNumber": 3
+      }
+    },
+    {
+      "id": "payment-domain:infrastructure:event:paymentfailed",
+      "type": "Event",
+      "name": "PaymentFailed",
+      "domain": "payment-domain",
+      "module": "infrastructure",
+      "eventName": "PaymentFailed",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/infrastructure/events.ts",
+        "lineNumber": 11
+      }
+    },
+    {
+      "id": "payment-domain:infrastructure:event:paymentrefunded",
+      "type": "Event",
+      "name": "PaymentRefunded",
+      "domain": "payment-domain",
+      "module": "infrastructure",
+      "eventName": "PaymentRefunded",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/infrastructure/events.ts",
+        "lineNumber": 19
+      }
+    },
+    {
+      "id": "shipping-domain:consumer/order-confirmed:eventhandler:handleorderconfirmed",
+      "type": "EventHandler",
+      "name": "handleOrderConfirmed",
+      "domain": "shipping-domain",
+      "module": "consumer/order-confirmed",
+      "subscribedEvents": [
+        "OrderConfirmed"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/consumer/order-confirmed/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/shipment-delivered:eventhandler:handleshipmentdelivered",
+      "type": "EventHandler",
+      "name": "handleShipmentDelivered",
+      "domain": "notifications-domain",
+      "module": "consumer/shipment-delivered",
+      "subscribedEvents": [
+        "ShipmentDelivered"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/shipment-delivered/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "payment-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "type": "EventHandler",
+      "name": "handleOrderPlaced",
+      "domain": "payment-domain",
+      "module": "consumer/order-placed",
+      "subscribedEvents": [
+        "OrderPlaced"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/consumer/order-placed/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/payment-completed:eventhandler:handlepaymentcompleted",
+      "type": "EventHandler",
+      "name": "handlePaymentCompleted",
+      "domain": "notifications-domain",
+      "module": "consumer/payment-completed",
+      "subscribedEvents": [
+        "PaymentCompleted"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/payment-completed/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "type": "EventHandler",
+      "name": "handleOrderPlaced",
+      "domain": "notifications-domain",
+      "module": "consumer/order-placed",
+      "subscribedEvents": [
+        "OrderPlaced"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/order-placed/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "type": "EventHandler",
+      "name": "handleOrderPlaced",
+      "domain": "inventory-domain",
+      "module": "consumer/order-placed",
+      "subscribedEvents": [
+        "OrderPlaced"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/order-placed/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "notifications-domain:consumer/shipment-dispatched:eventhandler:handleshipmentdispatched",
+      "type": "EventHandler",
+      "name": "handleShipmentDispatched",
+      "domain": "notifications-domain",
+      "module": "consumer/shipment-dispatched",
+      "subscribedEvents": [
+        "ShipmentDispatched"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "notifications-domain/src/consumer/shipment-dispatched/handler.ts",
+        "lineNumber": 4
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/shipment-created:eventhandler:handleshipmentcreated",
+      "type": "EventHandler",
+      "name": "handleShipmentCreated",
+      "domain": "inventory-domain",
+      "module": "consumer/shipment-created",
+      "subscribedEvents": [
+        "ShipmentCreated"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/shipment-created/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "orders-domain:consumer/shipment-delivered:eventhandler:handleshipmentdelivered",
+      "type": "EventHandler",
+      "name": "handleShipmentDelivered",
+      "domain": "orders-domain",
+      "module": "consumer/shipment-delivered",
+      "subscribedEvents": [
+        "ShipmentDelivered"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/shipment-delivered/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "orders-domain:consumer/payment-failed:eventhandler:handlepaymentfailed",
+      "type": "EventHandler",
+      "name": "handlePaymentFailed",
+      "domain": "orders-domain",
+      "module": "consumer/payment-failed",
+      "subscribedEvents": [
+        "PaymentFailed"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/payment-failed/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "inventory-domain:consumer/order-cancelled:eventhandler:handleordercancelled",
+      "type": "EventHandler",
+      "name": "handleOrderCancelled",
+      "domain": "inventory-domain",
+      "module": "consumer/order-cancelled",
+      "subscribedEvents": [
+        "OrderCancelled"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "inventory-domain/src/consumer/order-cancelled/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "orders-domain:consumer/payment-completed:eventhandler:handlepaymentcompleted",
+      "type": "EventHandler",
+      "name": "handlePaymentCompleted",
+      "domain": "orders-domain",
+      "module": "consumer/payment-completed",
+      "subscribedEvents": [
+        "PaymentCompleted"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/payment-completed/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "orders-domain:consumer/inventory-reserved:eventhandler:handleinventoryreserved",
+      "type": "EventHandler",
+      "name": "handleInventoryReserved",
+      "domain": "orders-domain",
+      "module": "consumer/inventory-reserved",
+      "subscribedEvents": [
+        "InventoryReserved"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/inventory-reserved/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "orders-domain:consumer/shipment-dispatched:eventhandler:handleshipmentdispatched",
+      "type": "EventHandler",
+      "name": "handleShipmentDispatched",
+      "domain": "orders-domain",
+      "module": "consumer/shipment-dispatched",
+      "subscribedEvents": [
+        "ShipmentDispatched"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "orders-domain/src/consumer/shipment-dispatched/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "payment-domain:consumer/order-cancelled:eventhandler:handleordercancelled",
+      "type": "EventHandler",
+      "name": "handleOrderCancelled",
+      "domain": "payment-domain",
+      "module": "consumer/order-cancelled",
+      "subscribedEvents": [
+        "OrderCancelled"
+      ],
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "payment-domain/src/consumer/order-cancelled/handler.ts",
+        "lineNumber": 5
+      }
+    },
+    {
+      "id": "shipping-domain:jobs/update-tracking:custom:update-tracking",
+      "type": "Custom",
+      "customTypeName": "BackgroundJob",
+      "name": "update-tracking",
+      "domain": "shipping-domain",
+      "module": "jobs/update-tracking",
+      "sourceLocation": {
+        "repository": "https://github.com/ntcoding/ecommerce-demo-app",
+        "filePath": "shipping-domain/src/jobs/update-tracking/cron.ts",
+        "lineNumber": 18
+      },
+      "schedule": "every 5 minutes"
+    }
+  ],
+  "links": [
+    {
+      "source": "ui:pages:ui:orderpage",
+      "target": "bff:server:api:post-/bff/orders",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:server:api:put-/shipments/:shipmentid/dispatch",
+      "target": "shipping-domain:api/dispatch-shipment/use-cases:usecase:dispatchshipmentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:server:api:post-/orders",
+      "target": "orders-domain:api/place-order/use-cases:usecase:placeorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:server:api:delete-/orders/:orderid",
+      "target": "orders-domain:api/cancel-order/use-cases:usecase:cancelorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:server:api:get-/inventory/:sku",
+      "target": "inventory-domain:api/check-stock/use-cases:usecase:checkstockusecase",
+      "type": "sync"
+    },
+    {
+      "source": "bff:server:api:post-/bff/orders",
+      "target": "bff:api/place-order/use-cases:usecase:placeorderbffusecase",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "target": "shipping-domain:domain:domainop:shipment.markintransit",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "target": "shipping-domain:domain:domainop:shipment.deliver",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "target": "shipping-domain:infrastructure:event:shipmentdelivered",
+      "type": "async"
+    },
+    {
+      "source": "shipping-domain:consumer/order-confirmed/use-cases:usecase:createshipmentusecase",
+      "target": "shipping-domain:domain:domainop:shipment.create",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:consumer/order-confirmed/use-cases:usecase:createshipmentusecase",
+      "target": "shipping-domain:infrastructure:event:shipmentcreated",
+      "type": "async"
+    },
+    {
+      "source": "shipping-domain:api/dispatch-shipment/use-cases:usecase:dispatchshipmentusecase",
+      "target": "shipping-domain:domain:domainop:shipment.dispatch",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:api/dispatch-shipment/use-cases:usecase:dispatchshipmentusecase",
+      "target": "shipping-domain:infrastructure:event:shipmentdispatched",
+      "type": "async"
+    },
+    {
+      "source": "orders-domain:api/place-order/use-cases:usecase:placeorderusecase",
+      "target": "orders-domain:domain:domainop:order.begin",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:api/place-order/use-cases:usecase:placeorderusecase",
+      "target": "orders-domain:infrastructure:event:orderplaced",
+      "type": "async"
+    },
+    {
+      "source": "orders-domain:api/cancel-order/use-cases:usecase:cancelorderusecase",
+      "target": "orders-domain:domain:domainop:order.cancel",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:api/cancel-order/use-cases:usecase:cancelorderusecase",
+      "target": "orders-domain:infrastructure:event:ordercancelled",
+      "type": "async"
+    },
+    {
+      "source": "inventory-domain:consumer/order-placed/use-cases:usecase:reserveinventoryusecase",
+      "target": "inventory-domain:domain:domainop:inventoryitem.reserve",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:consumer/order-placed/use-cases:usecase:reserveinventoryusecase",
+      "target": "inventory-domain:infrastructure:event:inventoryreserved",
+      "type": "async"
+    },
+    {
+      "source": "inventory-domain:consumer/shipment-created/use-cases:usecase:allocateinventoryusecase",
+      "target": "inventory-domain:domain:domainop:inventoryitem.allocate",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:consumer/order-cancelled/use-cases:usecase:releaseinventoryusecase",
+      "target": "inventory-domain:domain:domainop:inventoryitem.release",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": "payment-domain:domain:domainop:payment.authorize",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": "payment-domain:domain:domainop:payment.complete",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": "payment-domain:domain:domainop:payment.fail",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": "payment-domain:infrastructure:event:paymentcompleted",
+      "type": "async"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": "payment-domain:infrastructure:event:paymentfailed",
+      "type": "async"
+    },
+    {
+      "source": "payment-domain:consumer/order-cancelled/use-cases:usecase:refundpaymentusecase",
+      "target": "payment-domain:domain:domainop:payment.refund",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-cancelled/use-cases:usecase:refundpaymentusecase",
+      "target": "payment-domain:infrastructure:event:paymentrefunded",
+      "type": "async"
+    },
+    {
+      "source": "notifications-domain:consumer/shipment-delivered/use-cases:usecase:notifyshipmentdeliveredusecase",
+      "target": "notifications-domain:domain:domainop:notification.marksent",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/payment-completed/use-cases:usecase:notifypaymentcompletedusecase",
+      "target": "notifications-domain:domain:domainop:notification.marksent",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/order-placed/use-cases:usecase:notifyorderplacedusecase",
+      "target": "notifications-domain:domain:domainop:notification.marksent",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/shipment-dispatched/use-cases:usecase:notifyshipmentdispatchedusecase",
+      "target": "notifications-domain:domain:domainop:notification.marksent",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/shipment-delivered/use-cases:usecase:completeorderusecase",
+      "target": "orders-domain:domain:domainop:order.deliver",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/payment-failed/use-cases:usecase:cancelorderafterpaymentfailureusecase",
+      "target": "orders-domain:domain:domainop:order.cancel",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/payment-failed/use-cases:usecase:cancelorderafterpaymentfailureusecase",
+      "target": "orders-domain:infrastructure:event:ordercancelled",
+      "type": "async"
+    },
+    {
+      "source": "orders-domain:consumer/payment-completed/use-cases:usecase:confirmorderafterpaymentusecase",
+      "target": "orders-domain:domain:domainop:order.markpaymentcompleted",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/payment-completed/use-cases:usecase:confirmorderafterpaymentusecase",
+      "target": "orders-domain:infrastructure:event:orderconfirmed",
+      "type": "async"
+    },
+    {
+      "source": "orders-domain:consumer/inventory-reserved/use-cases:usecase:confirmorderafterinventoryusecase",
+      "target": "orders-domain:domain:domainop:order.markinventoryreserved",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/shipment-dispatched/use-cases:usecase:shiporderusecase",
+      "target": "orders-domain:domain:domainop:order.ship",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:server:api:post-/orders",
+      "target": "orders-domain:api/place-order/use-cases:usecase:placeorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "bff:api/place-order/use-cases:usecase:placeorderbffusecase",
+      "target": "orders-domain:server:api:post-/orders",
+      "type": "sync"
+    },
+    {
+      "source": "bff:api/place-order/use-cases:usecase:placeorderbffusecase",
+      "target": "inventory-domain:server:api:get-/inventory/:sku",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:consumer/order-confirmed:eventhandler:handleorderconfirmed",
+      "target": "shipping-domain:consumer/order-confirmed/use-cases:usecase:createshipmentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/shipment-delivered:eventhandler:handleshipmentdelivered",
+      "target": "notifications-domain:consumer/shipment-delivered/use-cases:usecase:notifyshipmentdeliveredusecase",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "target": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/payment-completed:eventhandler:handlepaymentcompleted",
+      "target": "notifications-domain:consumer/payment-completed/use-cases:usecase:notifypaymentcompletedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "target": "notifications-domain:consumer/order-placed/use-cases:usecase:notifyorderplacedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:consumer/order-placed:eventhandler:handleorderplaced",
+      "target": "inventory-domain:consumer/order-placed/use-cases:usecase:reserveinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications-domain:consumer/shipment-dispatched:eventhandler:handleshipmentdispatched",
+      "target": "notifications-domain:consumer/shipment-dispatched/use-cases:usecase:notifyshipmentdispatchedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:consumer/shipment-created:eventhandler:handleshipmentcreated",
+      "target": "inventory-domain:consumer/shipment-created/use-cases:usecase:allocateinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/shipment-delivered:eventhandler:handleshipmentdelivered",
+      "target": "orders-domain:consumer/shipment-delivered/use-cases:usecase:completeorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/payment-failed:eventhandler:handlepaymentfailed",
+      "target": "orders-domain:consumer/payment-failed/use-cases:usecase:cancelorderafterpaymentfailureusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory-domain:consumer/order-cancelled:eventhandler:handleordercancelled",
+      "target": "inventory-domain:consumer/order-cancelled/use-cases:usecase:releaseinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/payment-completed:eventhandler:handlepaymentcompleted",
+      "target": "orders-domain:consumer/payment-completed/use-cases:usecase:confirmorderafterpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/inventory-reserved:eventhandler:handleinventoryreserved",
+      "target": "orders-domain:consumer/inventory-reserved/use-cases:usecase:confirmorderafterinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders-domain:consumer/shipment-dispatched:eventhandler:handleshipmentdispatched",
+      "target": "orders-domain:consumer/shipment-dispatched/use-cases:usecase:shiporderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-cancelled:eventhandler:handleordercancelled",
+      "target": "payment-domain:consumer/order-cancelled/use-cases:usecase:refundpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:jobs/update-tracking:custom:update-tracking",
+      "target": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "type": "sync"
+    }
+  ],
+  "externalLinks": [
+    {
+      "source": "shipping-domain:jobs/update-tracking/use-cases:usecase:updatetrackingusecase",
+      "target": {
+        "name": "CourierAPI",
+        "domain": "external"
+      },
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:consumer/order-confirmed/use-cases:usecase:createshipmentusecase",
+      "target": {
+        "name": "CourierAPI",
+        "domain": "external"
+      },
+      "type": "sync"
+    },
+    {
+      "source": "shipping-domain:api/dispatch-shipment/use-cases:usecase:dispatchshipmentusecase",
+      "target": {
+        "name": "CourierAPI",
+        "domain": "external"
+      },
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-placed/use-cases:usecase:processpaymentusecase",
+      "target": {
+        "name": "PaymentGateway",
+        "domain": "external"
+      },
+      "type": "sync"
+    },
+    {
+      "source": "payment-domain:consumer/order-cancelled/use-cases:usecase:refundpaymentusecase",
+      "target": {
+        "name": "PaymentGateway",
+        "domain": "external"
+      },
+      "type": "sync"
+    }
+  ]
+}
