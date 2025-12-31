@@ -16,22 +16,27 @@ export class InventoryItem {
   ) {}
 
   reserve(quantity: number): void {
-    if (this.availableQuantity >= quantity) {
-      this.availableQuantity -= quantity
-      this.reservedQuantity += quantity
-      this.state = InventoryState.Reserved
+    if (this.availableQuantity < quantity) {
+      throw new Error('Insufficient available quantity to reserve')
     }
+    this.availableQuantity -= quantity
+    this.reservedQuantity += quantity
+    this.state = InventoryState.Reserved
   }
 
   allocate(quantity: number): void {
-    if (this.reservedQuantity >= quantity) {
-      this.reservedQuantity -= quantity
-      this.allocatedQuantity += quantity
-      this.state = InventoryState.Allocated
+    if (this.reservedQuantity < quantity) {
+      throw new Error('Insufficient reserved quantity to allocate')
     }
+    this.reservedQuantity -= quantity
+    this.allocatedQuantity += quantity
+    this.state = InventoryState.Allocated
   }
 
   release(quantity: number): void {
+    if (this.reservedQuantity < quantity) {
+      throw new Error('Cannot release more than reserved quantity')
+    }
     this.reservedQuantity -= quantity
     this.availableQuantity += quantity
 
@@ -41,14 +46,18 @@ export class InventoryItem {
   }
 
   replenish(quantity: number): void {
+    if (quantity <= 0) {
+      throw new Error('Replenish quantity must be positive')
+    }
     this.availableQuantity += quantity
     this.state = InventoryState.Available
   }
 
   markDepleted(): void {
-    if (this.availableQuantity === 0) {
-      this.state = InventoryState.Depleted
+    if (this.availableQuantity !== 0) {
+      throw new Error('Cannot mark as depleted when available quantity is not zero')
     }
+    this.state = InventoryState.Depleted
   }
 
   getState(): InventoryState {

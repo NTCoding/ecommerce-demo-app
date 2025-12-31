@@ -18,51 +18,71 @@ export type TrackingStatus = {
 }
 
 export class CourierApiClient {
+  private readonly fedexShippingApiUrl = 'https://apis.fedex.com/ship/v1/shipments'
+  private readonly fedexTrackingApiUrl = 'https://apis.fedex.com/track/v1/trackingnumbers'
+
   async createShipment(
     request: CourierShipmentRequest
   ): Promise<CourierShipmentResponse> {
-    console.log(
-      `[CourierApiClient] Creating shipment for order ${request.orderId}`
-    )
+    const response = await fetch(this.fedexShippingApiUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        shipToAddress: request.address,
+        orderId: request.orderId,
+        packages: request.items
+      })
+    })
 
-    const trackingNumber = `TRK${Date.now()}`
-    const estimatedDelivery = new Date(
-      Date.now() + 3 * 24 * 60 * 60 * 1000
-    ).toISOString()
+    const data = await response.json()
 
     return {
-      shipmentId: `ship_${Date.now()}`,
-      trackingNumber,
-      estimatedDelivery
+      shipmentId: data.output.transactionShipments[0].shipmentId,
+      trackingNumber: data.output.transactionShipments[0].masterTrackingNumber,
+      estimatedDelivery: data.output.transactionShipments[0].estimatedDeliveryDate
     }
   }
 
   async dispatchShipment(trackingNumber: string): Promise<void> {
-    console.log(`[CourierApiClient] Dispatching shipment: ${trackingNumber}`)
+    await fetch(`${this.fedexShippingApiUrl}/${trackingNumber}/dispatch`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    })
   }
 
   async getTrackingStatus(trackingNumber: string): Promise<TrackingStatus> {
-    console.log(
-      `[CourierApiClient] Getting tracking status for: ${trackingNumber}`
-    )
+    const response = await fetch(this.fedexTrackingApiUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        trackingInfo: [{ trackingNumberInfo: { trackingNumber } }]
+      })
+    })
 
-    const statuses: TrackingStatus['status'][] = [
-      'created',
-      'dispatched',
-      'in_transit',
-      'delivered'
-    ]
-    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)]
+    const data = await response.json()
+    const trackResult = data.output.completeTrackResults[0].trackResults[0]
 
-    if (randomStatus === undefined) {
-      throw new Error('Failed to get random status')
+    const statusMap: Record<string, TrackingStatus['status']> = {
+      'PU': 'created',
+      'DP': 'dispatched',
+      'IT': 'in_transit',
+      'DL': 'delivered'
     }
 
     return {
       trackingNumber,
-      status: randomStatus,
-      lastUpdate: new Date().toISOString(),
-      location: 'Distribution Center'
+      status: statusMap[trackResult.latestStatusDetail.code] ?? 'created',
+      lastUpdate: trackResult.latestStatusDetail.scanDateTime,
+      location: trackResult.latestStatusDetail.scanLocation?.city
     }
   }
 }

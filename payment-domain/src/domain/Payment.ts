@@ -17,18 +17,30 @@ export class Payment {
   ) {}
 
   authorize(): void {
+    if (this.state !== PaymentState.Pending) {
+      throw new Error('Payment must be in Pending state to authorize')
+    }
     this.state = PaymentState.Authorized
   }
 
   complete(): void {
+    if (this.state !== PaymentState.Authorized) {
+      throw new Error('Payment must be in Authorized state to complete')
+    }
     this.state = PaymentState.Completed
   }
 
   fail(): void {
+    if (this.state !== PaymentState.Authorized) {
+      throw new Error('Payment must be in Authorized state to fail')
+    }
     this.state = PaymentState.Failed
   }
 
   refund(): void {
+    if (this.state !== PaymentState.Completed) {
+      throw new Error('Payment must be in Completed state to refund')
+    }
     this.state = PaymentState.Refunded
   }
 

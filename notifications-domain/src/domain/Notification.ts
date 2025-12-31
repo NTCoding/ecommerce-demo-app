@@ -22,10 +22,16 @@ export class Notification {
   ) {}
 
   markSent(): void {
+    if (this.status !== NotificationStatus.Pending) {
+      throw new Error('Notification must be in Pending status to mark as sent')
+    }
     this.status = NotificationStatus.Sent
   }
 
   markFailed(): void {
+    if (this.status !== NotificationStatus.Pending) {
+      throw new Error('Notification must be in Pending status to mark as failed')
+    }
     this.status = NotificationStatus.Failed
   }
 
