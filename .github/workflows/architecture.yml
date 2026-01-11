@@ -1,0 +1,26 @@
+name: Architecture Enforcement
+
+on:
+  push:
+    branches: [main, feature/**]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm run install:all
+
+      - name: Run architectural lint (orders-domain)
+        run: npm run lint:arch
+
+      - name: Run architectural tests (shipping, inventory, payments)
+        run: npm run test:arch

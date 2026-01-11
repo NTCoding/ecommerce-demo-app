@@ -1,3 +1,4 @@
+import { StockUseCase } from '../../../decorators'
 import { InventoryItem } from '../../../domain/InventoryItem'
 
 export type StockInfo = {
@@ -8,6 +9,7 @@ export type StockInfo = {
   state: string
 }
 
+@StockUseCase
 export class CheckStockUseCase {
   apply(sku: string, inventoryItems: Map<string, InventoryItem>): StockInfo {
     const item = inventoryItems.get(sku)

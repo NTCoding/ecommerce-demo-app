@@ -12,6 +12,9 @@
     "generate:shipping": "openapi-typescript http://localhost:3002/openapi.json -o src/infrastructure/shipping-client.ts"
   },
   "dependencies": {
+    "@living-architecture/riviere-extract-conventions": "^0.3.16",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
     "express": "^4.18.2"
   },
   "devDependencies": {

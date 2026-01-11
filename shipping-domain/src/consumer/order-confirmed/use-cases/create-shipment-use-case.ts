@@ -2,6 +2,7 @@ import { Shipment } from '../../../domain/Shipment'
 import { CourierApiClient } from '../../../infrastructure/courier-api-client'
 import { publishEvent, type ShipmentCreated } from '../../../infrastructure/events'
 
+/** @riviere UseCase */
 export class CreateShipmentUseCase {
   constructor(private courierApi: CourierApiClient) {}
 

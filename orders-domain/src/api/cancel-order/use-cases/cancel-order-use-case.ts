@@ -1,3 +1,4 @@
+import { UseCase } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../../domain/Order'
 import { publishEvent, type OrderCancelled } from '../../../infrastructure/events'
 
@@ -6,6 +7,7 @@ export type CancelOrderRequest = {
   reason: string
 }
 
+@UseCase
 export class CancelOrderUseCase {
   apply(request: CancelOrderRequest, order: Order): void {
     order.cancel()
