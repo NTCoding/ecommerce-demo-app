@@ -7,7 +7,10 @@
     "build:inventory": "cd inventory-domain && npm run build",
     "build:payments": "cd payment-domain && npm run build",
     "lint:arch": "cd orders-domain && npx eslint src/",
-    "test:arch": "echo 'TODO: Add architectural unit tests for shipping/inventory/payments domains'",
+    "test:arch": "npm run test:arch:shipping && npm run test:arch:inventory && npm run test:arch:payments",
+    "test:arch:shipping": "cd shipping-domain && npm run test:arch",
+    "test:arch:inventory": "cd inventory-domain && npm run test:arch",
+    "test:arch:payments": "cd payment-domain && npm run test:arch",
     "extract": "npx riviere extract --config extraction.config.json",
     "prepare": "husky"
   },
