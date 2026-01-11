@@ -1,6 +1,7 @@
 import type { OrderConfirmed } from '../../infrastructure/events'
 import { CreateShipmentUseCase } from './use-cases/create-shipment-use-case'
 
+/** @riviere EventHandler */
 export function handleOrderConfirmed(
   event: OrderConfirmed,
   useCase: CreateShipmentUseCase

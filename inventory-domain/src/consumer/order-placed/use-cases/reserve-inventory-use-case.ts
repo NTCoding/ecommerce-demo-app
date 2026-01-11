@@ -1,6 +1,8 @@
+import { StockUseCase } from '../../../decorators'
 import { InventoryItem } from '../../../domain/InventoryItem'
 import { publishEvent, type InventoryReserved } from '../../../infrastructure/events'
 
+@StockUseCase
 export class ReserveInventoryUseCase {
   apply(
     orderId: string,

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://living-architecture.dev/schemas/extraction-config.schema.json",
+  "modules": [
+    {
+      "name": "orders",
+      "path": "orders-domain/src/**/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "hasDecorator": {
+            "name": "UseCase",
+            "from": "@living-architecture/riviere-extract-conventions"
+          }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "shipping",
+      "path": "shipping-domain/src/**/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "hasJSDoc": { "tag": "@riviere UseCase" }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "inventory",
+      "path": "inventory-domain/src/**/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "hasDecorator": { "name": "StockUseCase" }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "payments",
+      "path": "payment-domain/src/**/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "nameEndsWith": { "suffix": "UseCase" }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    }
+  ]
+}
