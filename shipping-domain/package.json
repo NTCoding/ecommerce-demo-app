@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "vitest run",
-    "test:arch": "vitest run --testNamePattern 'Architecture'",
+    "test:arch": "vitest run src/__tests__/architecture.test.ts",
     "generate:clients": "openapi-typescript http://localhost:3000/openapi.json -o src/infrastructure/orders-client.ts",
     "cron": "tsx src/jobs/update-tracking/cron.ts"
   },

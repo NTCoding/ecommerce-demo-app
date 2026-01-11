@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { Project } from 'ts-morph'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { globSync } from 'glob'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const srcDir = resolve(__dirname, '..')
@@ -17,63 +18,51 @@ function hasStockUseCaseDecorator(project: Project, filePath: string, className:
   return classDecl.getDecorators().some((d) => d.getName() === 'StockUseCase')
 }
 
-describe('Architecture Enforcement: Use Cases', () => {
-  it('CheckStockUseCase has @StockUseCase decorator', () => {
-    const project = getProject()
-    const filePath = resolve(srcDir, 'api/check-stock/use-cases/check-stock-use-case.ts')
-
-    expect(hasStockUseCaseDecorator(project, filePath, 'CheckStockUseCase')).toBe(true)
-  })
-
-  it('ReserveInventoryUseCase has @StockUseCase decorator', () => {
-    const project = getProject()
-    const filePath = resolve(srcDir, 'consumer/order-placed/use-cases/reserve-inventory-use-case.ts')
-
-    expect(hasStockUseCaseDecorator(project, filePath, 'ReserveInventoryUseCase')).toBe(true)
-  })
-
-  it('ReleaseInventoryUseCase has @StockUseCase decorator', () => {
-    const project = getProject()
-    const filePath = resolve(srcDir, 'consumer/order-cancelled/use-cases/release-inventory-use-case.ts')
-
-    expect(hasStockUseCaseDecorator(project, filePath, 'ReleaseInventoryUseCase')).toBe(true)
-  })
-
-  it('AllocateInventoryUseCase has @StockUseCase decorator', () => {
-    const project = getProject()
-    const filePath = resolve(srcDir, 'consumer/shipment-created/use-cases/allocate-inventory-use-case.ts')
-
-    expect(hasStockUseCaseDecorator(project, filePath, 'AllocateInventoryUseCase')).toBe(true)
-  })
-})
-
-describe('Architecture Enforcement: Completeness', () => {
-  it('no unannotated use case classes exist', () => {
-    const project = getProject()
-    const glob = require('glob')
-
-    const useCaseFiles = glob.globSync('**/use-cases/*-use-case.ts', {
-      cwd: srcDir,
-      absolute: true,
-      ignore: ['**/__tests__/**']
+describe('inventory-domain', () => {
+  describe('Use Cases must have @StockUseCase decorator', () => {
+    // Known components - ensures they exist and are properly annotated
+    it('CheckStockUseCase', () => {
+      expect(hasStockUseCaseDecorator(getProject(), resolve(srcDir, 'api/check-stock/use-cases/check-stock-use-case.ts'), 'CheckStockUseCase')).toBe(true)
     })
 
-    useCaseFiles.forEach((f: string) => project.addSourceFileAtPath(f))
+    it('ReserveInventoryUseCase', () => {
+      expect(hasStockUseCaseDecorator(getProject(), resolve(srcDir, 'consumer/order-placed/use-cases/reserve-inventory-use-case.ts'), 'ReserveInventoryUseCase')).toBe(true)
+    })
 
-    const violations: string[] = []
+    it('ReleaseInventoryUseCase', () => {
+      expect(hasStockUseCaseDecorator(getProject(), resolve(srcDir, 'consumer/order-cancelled/use-cases/release-inventory-use-case.ts'), 'ReleaseInventoryUseCase')).toBe(true)
+    })
 
-    for (const filePath of useCaseFiles) {
-      const sourceFile = project.getSourceFileOrThrow(filePath)
+    it('AllocateInventoryUseCase', () => {
+      expect(hasStockUseCaseDecorator(getProject(), resolve(srcDir, 'consumer/shipment-created/use-cases/allocate-inventory-use-case.ts'), 'AllocateInventoryUseCase')).toBe(true)
+    })
 
-      for (const classDecl of sourceFile.getClasses()) {
-        const hasDecorator = classDecl.getDecorators().some((d) => d.getName() === 'StockUseCase')
+    // Catch-all - fails if ANY new use case is added without annotation
+    it('no unannotated use cases', () => {
+      const project = getProject()
+      const useCaseFiles = globSync('**/use-cases/**/*.ts', {
+        cwd: srcDir,
+        absolute: true,
+        ignore: ['**/__tests__/**']
+      })
 
-        if (!hasDecorator) {
-          violations.push(`${classDecl.getName()} missing @StockUseCase decorator`)
+      useCaseFiles.forEach((f) => project.addSourceFileAtPath(f))
+
+      const violations: string[] = []
+
+      for (const filePath of useCaseFiles) {
+        const sourceFile = project.getSourceFileOrThrow(filePath)
+
+        for (const classDecl of sourceFile.getClasses()) {
+          const hasDecorator = classDecl.getDecorators().some((d) => d.getName() === 'StockUseCase')
+
+          if (!hasDecorator) {
+            violations.push(`${classDecl.getName()} missing @StockUseCase`)
+          }
         }
       }
-    }
 
-    expect(violations).toEqual([])
+      expect(violations).toEqual([])
+    })
   })
 })
