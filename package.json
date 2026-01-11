@@ -1,6 +1,19 @@
 {
+  "scripts": {
+    "install:all": "npm install && cd orders-domain && npm install && cd ../shipping-domain && npm install && cd ../inventory-domain && npm install && cd ../payment-domain && npm install",
+    "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments",
+    "build:orders": "cd orders-domain && npm run build",
+    "build:shipping": "cd shipping-domain && npm run build",
+    "build:inventory": "cd inventory-domain && npm run build",
+    "build:payments": "cd payment-domain && npm run build",
+    "lint:arch": "cd orders-domain && npx eslint src/",
+    "test:arch": "echo 'TODO: Add architectural unit tests for shipping/inventory/payments domains'",
+    "extract": "npx riviere extract --config extraction.config.json",
+    "prepare": "husky"
+  },
   "devDependencies": {
-    "@living-architecture/riviere-cli": "^0.3.5"
+    "@living-architecture/riviere-cli": "^0.3.5",
+    "husky": "^9.0.0"
   },
   "dependencies": {
     "@living-architecture/riviere-extract-conventions": "^0.3.16"

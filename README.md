@@ -8,6 +8,24 @@ See the [live demo](https://living-architecture.dev/eclair/?demo=true) to explor
 
 ---
 
+## How to Run This Demo App
+
+### Prerequisites
+
+- Node.js 20+
+
+### Install & Verify
+
+```bash
+npm run install:all   # Install all dependencies
+npm run build         # Build all domains
+npm run lint:arch     # Run architectural enforcement
+npm run test:arch     # Run architectural tests
+npm run extract       # Regenerate Rivière output
+```
+
+---
+
 ## Deterministic Extraction Setup Guide
 
 This guide shows how to set up deterministic component extraction with enforcement. Each domain in this app uses a different extraction strategy to demonstrate the flexibility of the system.
@@ -45,6 +63,7 @@ import tsParser from '@typescript-eslint/parser'
 export default [
   {
     files: ['src/**/*.ts'],
+    ignores: ['src/domain/**/*.ts', 'src/infrastructure/**/*.ts'],
     languageOptions: {
       parser: tsParser,
     },
@@ -54,13 +73,15 @@ export default [
 ]
 ```
 
+**Note:** Domain entities and infrastructure code are excluded via `ignores`. Only application-layer classes (use cases, handlers, etc.) require component decorators.
+
 ### Step 3: Run Lint — Watch It FAIL
 
 ```bash
 npx eslint src/
 ```
 
-**Output (8 errors):**
+**Output (7 errors):**
 ```
 src/api/cancel-order/use-cases/cancel-order-use-case.ts
   9:14  error  Class 'CancelOrderUseCase' requires a component decorator. Add one of: @UseCase, @Event, @UI, @DomainOpContainer, @APIContainer, @EventHandlerContainer, @Custom('type'), or @Ignore
@@ -83,13 +104,10 @@ src/consumer/shipment-delivered/use-cases/complete-order-use-case.ts
 src/consumer/shipment-dispatched/use-cases/ship-order-use-case.ts
   3:14  error  Class 'ShipOrderUseCase' requires a component decorator...
 
-src/domain/Order.ts
-  14:14  error  Class 'Order' requires a component decorator...
-
-✖ 8 problems (8 errors, 0 warnings)
+✖ 7 problems (7 errors, 0 warnings)
 ```
 
-The enforcement is working! Every class without a decorator is flagged.
+The enforcement is working! Every use case class without a decorator is flagged.
 
 ### Step 4: Add Decorators to Fix Lint Errors
 
@@ -106,17 +124,6 @@ export class PlaceOrderUseCase {
 }
 ```
 
-For domain entities that aren't architectural components, add `@Ignore`:
-
-```typescript
-import { Ignore } from '@living-architecture/riviere-extract-conventions'
-
-@Ignore
-export class Order {
-  // Domain entity, not an architectural component
-}
-```
-
 ### Step 5: Run Lint Again — Watch It PASS
 
 ```bash
@@ -125,7 +132,7 @@ npx eslint src/
 
 **Output:**
 ```
-(no output - all 8 classes now have decorators)
+(no output - all 7 use cases now have decorators)
 ```
 
 ✅ **Enforcement complete!** The ESLint rule ensures no class can be added without a component decorator.
@@ -349,3 +356,31 @@ This demo shows 4 different extraction strategies working together:
 | payments | `*UseCase` naming | Arch tests | `nameEndsWith` |
 
 The key insight: **enforcement ensures consistency, extraction reads the annotations**. Together they provide deterministic, maintainable architecture documentation.
+
+---
+
+## Running Locally
+
+### Quick Check
+
+```bash
+npm run lint:arch
+```
+
+This runs architectural enforcement across all domains.
+
+### Pre-commit Hook
+
+Architectural violations are blocked at commit time via husky:
+
+```bash
+# Setup (already configured)
+npm install
+npx husky install
+```
+
+The pre-commit hook runs `npm run lint:arch` automatically.
+
+### CI Enforcement
+
+GitHub Actions runs the same checks on every push and PR. See `.github/workflows/architecture.yml`.
