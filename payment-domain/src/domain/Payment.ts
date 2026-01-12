@@ -1,3 +1,5 @@
+import { IPaymentDomainOp } from '../interfaces'
+
 export enum PaymentState {
   Pending = 'Pending',
   Authorized = 'Authorized',
@@ -6,7 +8,7 @@ export enum PaymentState {
   Refunded = 'Refunded'
 }
 
-export class Payment {
+export class Payment implements IPaymentDomainOp {
   private state: PaymentState = PaymentState.Pending
 
   constructor(

@@ -1,16 +1,19 @@
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { ShipmentDelivered } from '../../infrastructure/events'
 import { CompleteOrderUseCase } from './use-cases/complete-order-use-case'
 
-export function handleShipmentDelivered(
-  event: ShipmentDelivered,
-  useCase: CompleteOrderUseCase
-): void {
-  console.log(`[Orders] Handling ShipmentDelivered for order ${event.orderId}`)
+@EventHandlerContainer
+export class ShipmentDeliveredHandler {
+  constructor(private readonly useCase: CompleteOrderUseCase) {}
 
-  const order = new Order(event.orderId, 'customer123', [])
+  handle(event: ShipmentDelivered): void {
+    console.log(`[Orders] Handling ShipmentDelivered for order ${event.orderId}`)
 
-  useCase.apply(event.orderId, order)
+    const order = new Order(event.orderId, 'customer123', [])
 
-  console.log(`[Orders] Order ${event.orderId} marked as delivered`)
+    this.useCase.apply(event.orderId, order)
+
+    console.log(`[Orders] Order ${event.orderId} marked as delivered`)
+  }
 }

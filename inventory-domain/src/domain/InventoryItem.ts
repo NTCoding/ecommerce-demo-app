@@ -1,3 +1,5 @@
+import { StockOp } from '../decorators'
+
 export enum InventoryState {
   Available = 'Available',
   Reserved = 'Reserved',
@@ -5,6 +7,7 @@ export enum InventoryState {
   Depleted = 'Depleted'
 }
 
+@StockOp
 export class InventoryItem {
   private state: InventoryState = InventoryState.Available
 

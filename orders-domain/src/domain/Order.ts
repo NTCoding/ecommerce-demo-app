@@ -1,3 +1,5 @@
+import { DomainOpContainer } from '@living-architecture/riviere-extract-conventions'
+
 export enum OrderState {
   Draft = 'Draft',
   Placed = 'Placed',
@@ -11,6 +13,7 @@ export enum OrderState {
 
 export type OrderItem = { sku: string; quantity: number; price: number }
 
+@DomainOpContainer
 export class Order {
   private state: OrderState = OrderState.Draft
   private inventoryReserved: boolean = false

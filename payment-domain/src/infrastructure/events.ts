@@ -1,27 +1,34 @@
 import { EventEmitter } from 'events'
+import { IPaymentEvent } from '../interfaces'
 
-export type PaymentCompleted = {
-  type: 'PaymentCompleted'
-  orderId: string
-  paymentId: string
-  amount: number
-  timestamp: string
+export class PaymentCompleted implements IPaymentEvent {
+  readonly type = 'PaymentCompleted' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly paymentId: string,
+    public readonly amount: number,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
-export type PaymentFailed = {
-  type: 'PaymentFailed'
-  orderId: string
-  paymentId: string
-  reason: string
-  timestamp: string
+export class PaymentFailed implements IPaymentEvent {
+  readonly type = 'PaymentFailed' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly paymentId: string,
+    public readonly reason: string,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
-export type PaymentRefunded = {
-  type: 'PaymentRefunded'
-  orderId: string
-  paymentId: string
-  amount: number
-  timestamp: string
+export class PaymentRefunded implements IPaymentEvent {
+  readonly type = 'PaymentRefunded' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly paymentId: string,
+    public readonly amount: number,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
 export type PaymentEvent = PaymentCompleted | PaymentFailed | PaymentRefunded

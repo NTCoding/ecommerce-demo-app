@@ -1,26 +1,35 @@
 import { EventEmitter } from 'events'
 
-export type ShipmentCreated = {
-  type: 'ShipmentCreated'
-  orderId: string
-  shipmentId: string
-  trackingNumber: string
-  timestamp: string
+/** @event */
+export class ShipmentCreated {
+  readonly type = 'ShipmentCreated' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly shipmentId: string,
+    public readonly trackingNumber: string,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
-export type ShipmentDispatched = {
-  type: 'ShipmentDispatched'
-  shipmentId: string
-  orderId: string
-  courierName: string
-  timestamp: string
+/** @event */
+export class ShipmentDispatched {
+  readonly type = 'ShipmentDispatched' as const
+  constructor(
+    public readonly shipmentId: string,
+    public readonly orderId: string,
+    public readonly courierName: string,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
-export type ShipmentDelivered = {
-  type: 'ShipmentDelivered'
-  orderId: string
-  shipmentId: string
-  timestamp: string
+/** @event */
+export class ShipmentDelivered {
+  readonly type = 'ShipmentDelivered' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly shipmentId: string,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
 export type ShipmentEvent =
@@ -28,6 +37,7 @@ export type ShipmentEvent =
   | ShipmentDispatched
   | ShipmentDelivered
 
+// External events (from other domains) - types only
 export type OrderConfirmed = {
   type: 'OrderConfirmed'
   orderId: string

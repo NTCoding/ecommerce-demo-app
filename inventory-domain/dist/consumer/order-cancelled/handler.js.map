@@ -1,1 +1,0 @@
-{"version":3,"file":"handler.js","sourceRoot":"","sources":["../../../src/consumer/order-cancelled/handler.ts"],"names":[],"mappings":"AAIA,MAAM,UAAU,oBAAoB,CAClC,KAAqB,EACrB,OAAgC,EAChC,cAA0C;IAE1C,OAAO,CAAC,GAAG,CAAC,iDAAiD,KAAK,CAAC,OAAO,EAAE,CAAC,CAAA;IAE7E,OAAO,CAAC,KAAK,CAAC,KAAK,CAAC,OAAO,EAAE,EAAE,EAAE,cAAc,CAAC,CAAA;AAClD,CAAC"}

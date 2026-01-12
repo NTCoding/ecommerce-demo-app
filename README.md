@@ -32,12 +32,15 @@ npm run verify:extract # Verify extraction produces expected components
 
 This guide shows how to set up deterministic component extraction with enforcement. Each domain in this app uses a different extraction strategy to demonstrate the flexibility of the system.
 
-| Domain | Extraction Strategy | Enforcement Method |
-|--------|---------------------|-------------------|
-| orders | Decorators from `@living-architecture/riviere-extract-conventions` | ESLint rule (built-in) |
-| shipping | JSDoc tags (`@riviere UseCase`) | Architectural unit tests |
-| inventory | Custom decorators (`@StockUseCase`) | Architectural unit tests |
-| payments | Naming convention (`*UseCase`) | Architectural unit tests |
+| Domain | Convention | Enforcement |
+|--------|------------|-------------|
+| orders | Riviere default: `@UseCase`, `@EventHandler`, `@DomainOp`, `@Api`, `@Event` | ESLint rule (built-in) |
+| shipping | JSDoc: `@riviere useCase`, `@riviere eventHandler`, etc. | Architectural unit tests |
+| inventory | Custom decorators: `@StockUseCase`, `@StockHandler`, `@StockOp` | Architectural unit tests |
+| payments | Interface-based: `implements IUseCase`, `implements IEventHandler` | Architectural unit tests |
+| notifications | Base class: `extends BaseNotificationUseCase`, `extends BaseHandler` | Architectural unit tests |
+| bff | Crazy mix: different strategy per component type | Architectural unit tests |
+| ui | Name-based: `*Page` suffix | Architectural unit tests |
 
 **Key insight:** The `@living-architecture/riviere-extract-conventions` package includes an ESLint rule that enforces decorator usage. For other strategies (JSDoc, custom decorators, naming conventions), you need alternative enforcement like architectural unit tests or custom lint rules.
 

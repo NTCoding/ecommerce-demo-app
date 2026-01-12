@@ -1,11 +1,15 @@
+import { APIContainer } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { PlaceOrderUseCase } from './use-cases/place-order-use-case'
 
-export function placeOrderEndpoint(useCase: PlaceOrderUseCase) {
-  return (req: Request, res: Response): void => {
+@APIContainer
+export class PlaceOrderEndpoint {
+  constructor(private readonly useCase: PlaceOrderUseCase) {}
+
+  handle(req: Request, res: Response): void {
     const { customerId, items, totalAmount } = req.body
 
-    const order = useCase.apply({
+    const order = this.useCase.apply({
       customerId,
       items,
       totalAmount

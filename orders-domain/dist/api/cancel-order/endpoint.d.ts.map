@@ -1,1 +1,0 @@
-{"version":3,"file":"endpoint.d.ts","sourceRoot":"","sources":["../../../src/api/cancel-order/endpoint.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAEhD,OAAO,EAAE,kBAAkB,EAAE,MAAM,mCAAmC,CAAA;AAEtE,wBAAgB,mBAAmB,CAAC,OAAO,EAAE,kBAAkB,IACrD,KAAK,OAAO,EAAE,KAAK,QAAQ,KAAG,IAAI,CAmB3C"}

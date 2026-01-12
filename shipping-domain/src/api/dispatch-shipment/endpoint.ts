@@ -2,7 +2,7 @@ import type { Request, Response } from 'express'
 import { Shipment } from '../../domain/Shipment'
 import { DispatchShipmentUseCase } from './use-cases/dispatch-shipment-use-case'
 
-/** @riviere API */
+/** @api */
 export function dispatchShipmentEndpoint(useCase: DispatchShipmentUseCase) {
   return (req: Request, res: Response): void => {
     const shipmentId = req.params['shipmentId']

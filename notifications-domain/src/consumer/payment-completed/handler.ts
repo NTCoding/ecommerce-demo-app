@@ -1,13 +1,14 @@
+import { BaseNotificationHandler } from '../../base-classes'
 import type { PaymentCompleted } from '../../infrastructure/events'
 import { NotifyPaymentCompletedUseCase } from './use-cases/notify-payment-completed-use-case'
 
-export function handlePaymentCompleted(
-  event: PaymentCompleted,
-  useCase: NotifyPaymentCompletedUseCase
-): void {
-  console.log(
-    `[Notifications] Handling PaymentCompleted for order ${event.orderId}`
-  )
+export class PaymentCompletedHandler extends BaseNotificationHandler<PaymentCompleted> {
+  constructor(private readonly useCase: NotifyPaymentCompletedUseCase) {
+    super()
+  }
 
-  useCase.apply(event.orderId, event.paymentId, event.amount)
+  handle(event: PaymentCompleted): void {
+    console.log(`[Notifications] Handling PaymentCompleted for order ${event.orderId}`)
+    this.useCase.apply(event.orderId, event.paymentId, event.amount)
+  }
 }

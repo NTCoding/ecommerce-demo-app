@@ -1,16 +1,19 @@
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { PaymentCompleted } from '../../infrastructure/events'
 import { ConfirmOrderAfterPaymentUseCase } from './use-cases/confirm-order-after-payment-use-case'
 
-export function handlePaymentCompleted(
-  event: PaymentCompleted,
-  useCase: ConfirmOrderAfterPaymentUseCase
-): void {
-  console.log(`[Orders] Handling PaymentCompleted for order ${event.orderId}`)
+@EventHandlerContainer
+export class PaymentCompletedHandler {
+  constructor(private readonly useCase: ConfirmOrderAfterPaymentUseCase) {}
 
-  const order = new Order(event.orderId, 'customer123', [])
+  handle(event: PaymentCompleted): void {
+    console.log(`[Orders] Handling PaymentCompleted for order ${event.orderId}`)
 
-  useCase.apply(event.orderId, order)
+    const order = new Order(event.orderId, 'customer123', [])
 
-  console.log(`[Orders] Order ${event.orderId} payment marked as completed`)
+    this.useCase.apply(event.orderId, order)
+
+    console.log(`[Orders] Order ${event.orderId} payment marked as completed`)
+  }
 }

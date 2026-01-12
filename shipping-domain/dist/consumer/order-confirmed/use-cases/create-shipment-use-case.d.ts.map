@@ -1,1 +1,0 @@
-{"version":3,"file":"create-shipment-use-case.d.ts","sourceRoot":"","sources":["../../../../src/consumer/order-confirmed/use-cases/create-shipment-use-case.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,gBAAgB,EAAE,MAAM,4CAA4C,CAAA;AAG7E,qBAAa,qBAAqB;IACpB,OAAO,CAAC,UAAU;gBAAV,UAAU,EAAE,gBAAgB;IAE1C,KAAK,CAAC,OAAO,EAAE,MAAM,EAAE,OAAO,EAAE,MAAM,GAAG,OAAO,CAAC,IAAI,CAAC;CA4B7D"}
