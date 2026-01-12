@@ -17,13 +17,14 @@ See the [live demo](https://living-architecture.dev/eclair/?demo=true) to explor
 ### Install & Verify
 
 ```bash
-npm run install:all   # Install all dependencies
-npm run build         # Build all domains
-npm run lint:arch     # Run architectural enforcement (orders-domain ESLint)
-npm run test:arch     # Run architectural tests (shipping, inventory, payments)
+npm run install:all    # Install all dependencies
+npm run build          # Build all domains
+npm run lint:arch      # Run architectural enforcement (orders-domain ESLint)
+npm run test:arch      # Run architectural tests (shipping, inventory, payments)
+npm run verify:extract # Verify extraction produces expected components
 ```
 
-> **Note:** `npm run extract` is currently disabled pending a CLI fix ([#133](https://github.com/NTCoding/living-architecture/issues/133)).
+> **Note:** `npm run extract` (CLI command) is currently disabled pending a CLI fix ([#133](https://github.com/NTCoding/living-architecture/issues/133)). Use `npm run verify:extract` instead, which uses riviere-extract-ts directly.
 
 ---
 

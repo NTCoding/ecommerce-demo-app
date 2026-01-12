@@ -24,3 +24,6 @@ jobs:
 
       - name: Run architectural tests (shipping, inventory, payments)
         run: npm run test:arch
+
+      - name: Verify extraction output
+        run: npm run verify:extract

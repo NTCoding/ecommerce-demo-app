@@ -1,0 +1,20 @@
+{
+  "components": [
+    { "type": "useCase", "name": "PlaceOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CancelOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ConfirmOrderAfterInventoryUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ConfirmOrderAfterPaymentUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CancelOrderAfterPaymentFailureUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CompleteOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ShipOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "DispatchShipmentUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "CreateShipmentUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "UpdateTrackingUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "CheckStockUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ReserveInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ReleaseInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "AllocateInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ProcessPaymentUseCase", "domain": "payments" },
+    { "type": "useCase", "name": "RefundPaymentUseCase", "domain": "payments" }
+  ]
+}
