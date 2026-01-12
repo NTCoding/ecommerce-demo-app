@@ -24,7 +24,7 @@ npm run test:arch      # Run architectural tests (shipping, inventory, payments)
 npm run verify:extract # Verify extraction produces expected components
 ```
 
-> **Note:** `npm run extract` (CLI command) is currently disabled pending a CLI fix ([#133](https://github.com/NTCoding/living-architecture/issues/133)). Use `npm run verify:extract` instead, which uses riviere-extract-ts directly.
+> **⚠️ CI is currently failing:** The `riviere` CLI has an ESM bundling bug ([#133](https://github.com/NTCoding/living-architecture/issues/133)). The `verify:extract` step uses the CLI and will fail until the bug is fixed. This is intentional - it ensures we catch CLI regressions.
 
 ---
 

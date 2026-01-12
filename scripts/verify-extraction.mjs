@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 /**
  * Verify extraction output matches expected components.
- * Uses riviere-extract-ts directly (bypasses CLI).
+ * Uses riviere CLI (the real workflow).
  */
 
-import { extractComponents, resolveConfig } from '@living-architecture/riviere-extract-ts'
-import { isValidExtractionConfig } from '@living-architecture/riviere-extract-config'
-import { Project } from 'ts-morph'
-import { globSync } from 'glob'
+import { execSync } from 'child_process'
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -15,65 +12,44 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const rootDir = resolve(__dirname, '..')
 
-// Simple config loader (our config doesn't use extends)
-const noopConfigLoader = () => {
-  throw new Error('Config extends not supported in verification script')
-}
-
-async function main() {
-  // Load config
-  const configPath = resolve(rootDir, 'extraction.config.json')
-  const config = JSON.parse(readFileSync(configPath, 'utf-8'))
-
-  // Validate config
-  if (!isValidExtractionConfig(config)) {
-    console.error('Invalid extraction config')
-    process.exit(1)
-  }
-
+function main() {
   // Load expected output
   const expectedPath = resolve(rootDir, 'expected-extraction-output.json')
   const expected = JSON.parse(readFileSync(expectedPath, 'utf-8'))
 
-  console.log('Running extraction...')
+  console.log('Running extraction via CLI...')
 
-  // Resolve config (handles extends)
-  const resolvedConfig = resolveConfig(config, noopConfigLoader)
-
-  // Save original patterns for globbing
-  const originalPatterns = resolvedConfig.modules.map((m) => m.path)
-
-  // Find source files using original patterns
-  const sourceFilePaths = originalPatterns.flatMap((pattern) => globSync(pattern, { cwd: rootDir }))
-
-  // Absolute paths for ts-morph project
-  const absolutePaths = sourceFilePaths.map((filePath) => resolve(rootDir, filePath))
-
-  // Update module paths to match absolute paths (prepend **/)
-  resolvedConfig.modules.forEach((m) => {
-    m.path = '**/' + m.path
-  })
-
-  if (absolutePaths.length === 0) {
-    console.error('No source files found!')
+  // Run CLI and capture output
+  let cliOutput
+  try {
+    cliOutput = execSync('npx riviere extract --config extraction.config.json', {
+      cwd: rootDir,
+      encoding: 'utf-8',
+      timeout: 60000,
+    })
+  } catch (error) {
+    console.error('❌ CLI extraction failed!')
+    console.error('')
+    console.error('Command: npx riviere extract --config extraction.config.json')
+    console.error('')
+    if (error.stdout) console.error('stdout:', error.stdout)
+    if (error.stderr) console.error('stderr:', error.stderr)
+    if (error.message) console.error('error:', error.message)
     process.exit(1)
   }
 
-  console.log(`Found ${absolutePaths.length} source files`)
-
-  // Create ts-morph project and add files
-  const project = new Project({
-    compilerOptions: {
-      rootDir: rootDir,
-    },
-  })
-
-  for (const absPath of absolutePaths) {
-    project.addSourceFileAtPath(absPath)
+  // Parse CLI output as JSON
+  let components
+  try {
+    const result = JSON.parse(cliOutput)
+    components = result.components || result
+  } catch (error) {
+    console.error('❌ Failed to parse CLI output as JSON!')
+    console.error('')
+    console.error('Raw output:')
+    console.error(cliOutput)
+    process.exit(1)
   }
-
-  // Run extraction using absolute paths
-  const components = extractComponents(project, absolutePaths, resolvedConfig)
 
   console.log(`Extracted ${components.length} components`)
 
@@ -121,8 +97,4 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('Extraction failed:', err.message)
-  console.error(err.stack)
-  process.exit(1)
-})
+main()
