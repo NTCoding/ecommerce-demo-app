@@ -17,6 +17,30 @@ export type TrackingStatus = {
   location?: string
 }
 
+type FedexShipmentResponse = {
+  output: {
+    transactionShipments: Array<{
+      shipmentId: string
+      masterTrackingNumber: string
+      estimatedDeliveryDate: string
+    }>
+  }
+}
+
+type FedexTrackingResponse = {
+  output: {
+    completeTrackResults: Array<{
+      trackResults: Array<{
+        latestStatusDetail: {
+          code: string
+          scanDateTime: string
+          scanLocation?: { city: string }
+        }
+      }>
+    }>
+  }
+}
+
 export class CourierApiClient {
   private readonly fedexShippingApiUrl = 'https://apis.fedex.com/ship/v1/shipments'
   private readonly fedexTrackingApiUrl = 'https://apis.fedex.com/track/v1/trackingnumbers'
@@ -27,7 +51,7 @@ export class CourierApiClient {
     const response = await fetch(this.fedexShippingApiUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Authorization': `Bearer ${process.env['FEDEX_API_KEY']}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -37,12 +61,16 @@ export class CourierApiClient {
       })
     })
 
-    const data = await response.json()
+    const data = await response.json() as FedexShipmentResponse
+    const shipment = data.output.transactionShipments[0]
+    if (!shipment) {
+      throw new Error('No shipment returned from FedEx API')
+    }
 
     return {
-      shipmentId: data.output.transactionShipments[0].shipmentId,
-      trackingNumber: data.output.transactionShipments[0].masterTrackingNumber,
-      estimatedDelivery: data.output.transactionShipments[0].estimatedDeliveryDate
+      shipmentId: shipment.shipmentId,
+      trackingNumber: shipment.masterTrackingNumber,
+      estimatedDelivery: shipment.estimatedDeliveryDate
     }
   }
 
@@ -50,7 +78,7 @@ export class CourierApiClient {
     await fetch(`${this.fedexShippingApiUrl}/${trackingNumber}/dispatch`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Authorization': `Bearer ${process.env['FEDEX_API_KEY']}`,
         'Content-Type': 'application/json'
       }
     })
@@ -60,7 +88,7 @@ export class CourierApiClient {
     const response = await fetch(this.fedexTrackingApiUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.FEDEX_API_KEY}`,
+        'Authorization': `Bearer ${process.env['FEDEX_API_KEY']}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -68,8 +96,11 @@ export class CourierApiClient {
       })
     })
 
-    const data = await response.json()
-    const trackResult = data.output.completeTrackResults[0].trackResults[0]
+    const data = await response.json() as FedexTrackingResponse
+    const trackResult = data.output.completeTrackResults[0]?.trackResults[0]
+    if (!trackResult) {
+      throw new Error('No tracking result returned from FedEx API')
+    }
 
     const statusMap: Record<string, TrackingStatus['status']> = {
       'PU': 'created',
@@ -82,7 +113,9 @@ export class CourierApiClient {
       trackingNumber,
       status: statusMap[trackResult.latestStatusDetail.code] ?? 'created',
       lastUpdate: trackResult.latestStatusDetail.scanDateTime,
-      location: trackResult.latestStatusDetail.scanLocation?.city
+      ...(trackResult.latestStatusDetail.scanLocation?.city && {
+        location: trackResult.latestStatusDetail.scanLocation.city
+      })
     }
   }
 }

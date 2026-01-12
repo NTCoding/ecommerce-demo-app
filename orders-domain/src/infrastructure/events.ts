@@ -4,7 +4,7 @@ export type OrderPlaced = {
   type: 'OrderPlaced'
   orderId: string
   customerId: string
-  items: Array<{ sku: string; quantity: number }>
+  items: Array<{ sku: string; quantity: number; price: number }>
   totalAmount: number
   timestamp: string
 }
@@ -27,7 +27,7 @@ export type OrderEvent = OrderPlaced | OrderConfirmed | OrderCancelled
 export type InventoryReserved = {
   type: 'InventoryReserved'
   orderId: string
-  items: Array<{ sku: string; quantity: number }>
+  items: Array<{ sku: string; quantity: number; price: number }>
   timestamp: string
 }
 

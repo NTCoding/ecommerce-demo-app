@@ -4,7 +4,7 @@ import { publishEvent, type OrderPlaced } from '../../../infrastructure/events'
 
 export type PlaceOrderRequest = {
   customerId: string
-  items: Array<{ sku: string; quantity: number }>
+  items: Array<{ sku: string; quantity: number; price: number }>
   totalAmount: number
 }
 
