@@ -17,10 +17,10 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@living-architecture/riviere-cli": "^0.7.15",
+    "@living-architecture/riviere-cli": "latest",
     "husky": "^9.0.0"
   },
   "dependencies": {
-    "@living-architecture/riviere-extract-conventions": "^0.3.16"
+    "@living-architecture/riviere-extract-conventions": "latest"
   }
 }
