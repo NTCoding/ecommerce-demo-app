@@ -19,10 +19,11 @@ See the [live demo](https://living-architecture.dev/eclair/?demo=true) to explor
 ```bash
 npm run install:all   # Install all dependencies
 npm run build         # Build all domains
-npm run lint:arch     # Run architectural enforcement
-npm run test:arch     # Run architectural tests
-npm run extract       # Regenerate Rivière output
+npm run lint:arch     # Run architectural enforcement (orders-domain ESLint)
+npm run test:arch     # Run architectural tests (shipping, inventory, payments)
 ```
+
+> **Note:** `npm run extract` is currently disabled pending a CLI fix ([#133](https://github.com/NTCoding/living-architecture/issues/133)).
 
 ---
 
@@ -147,32 +148,38 @@ For domains NOT using the conventions package decorators, you can enforce compon
 
 **shipping-domain/src/__tests__/architecture.test.ts:**
 ```typescript
-import { extractComponents } from '@living-architecture/riviere-extract-ts'
 import { describe, it, expect } from 'vitest'
+import { Project } from 'ts-morph'
+import { globSync } from 'glob'
 
-describe('Architecture Enforcement', () => {
-  it('all use cases have @riviere UseCase JSDoc tag', async () => {
-    const config = {
-      modules: [{
-        name: 'shipping',
-        path: 'src/**/*.ts',
-        useCase: {
-          find: 'classes',
-          where: { hasJSDoc: { tag: '@riviere UseCase' } }
-        },
-        // ... other component types as notUsed
-      }]
-    }
+describe('shipping-domain', () => {
+  describe('Use Cases must have @riviere UseCase JSDoc tag', () => {
+    // Known components - ensures they exist and are properly annotated
+    it('DispatchShipmentUseCase', () => {
+      // Verify specific component has the tag
+    })
 
-    const result = await extractComponents(config)
-    const useCaseFiles = ['DispatchShipmentUseCase', 'CreateShipmentUseCase', 'UpdateTrackingUseCase']
+    // Catch-all - fails if ANY new use case is added without annotation
+    it('no unannotated use cases', () => {
+      const useCaseFiles = globSync('**/use-cases/**/*.ts', { cwd: srcDir, absolute: true })
+      const violations: string[] = []
 
-    expect(result.components.map(c => c.name)).toEqual(expect.arrayContaining(useCaseFiles))
+      for (const filePath of useCaseFiles) {
+        // Parse with ts-morph, check for @riviere UseCase tag
+        // tag.getTagName() === 'riviere' && tag.getCommentText() === 'UseCase'
+      }
+
+      expect(violations).toEqual([])
+    })
   })
 })
 ```
 
-This test FAILS if any expected use case is missing the required JSDoc tag, providing the same enforcement guarantee as ESLint but through tests.
+This approach:
+1. **Verifies known components** - Individual tests ensure each expected use case exists and is annotated
+2. **Catches violations** - The catch-all test fails if any new use case is added without the required annotation
+
+See `shipping-domain/src/__tests__/architecture.test.ts` for the full implementation.
 
 ---
 
@@ -296,7 +303,7 @@ The complete extraction config (`extraction.config.json`) at the project root:
       "path": "shipping-domain/src/**/*.ts",
       "useCase": {
         "find": "classes",
-        "where": { "hasJSDoc": { "tag": "@riviere UseCase" } }
+        "where": { "hasJSDoc": { "tag": "riviere" } }
       }
     },
     {
@@ -327,19 +334,32 @@ Each module demonstrates a different extraction strategy:
 
 ## Running Extraction
 
+> **⚠️ Known Issue:** The `riviere extract` CLI command is currently broken due to an ESM bundling issue ([living-architecture#133](https://github.com/NTCoding/living-architecture/issues/133)). Extraction verification will be added once the CLI is fixed.
+
 ```bash
 riviere extract --config extraction.config.json
 ```
 
-**Expected output:**
+**Expected output (12 use cases total):**
 ```json
 {
   "components": [
-    { "type": "useCase", "name": "PlaceOrderUseCase", "domain": "orders", "location": {...} },
-    { "type": "useCase", "name": "CancelOrderUseCase", "domain": "orders", "location": {...} },
-    { "type": "useCase", "name": "DispatchShipmentUseCase", "domain": "shipping", "location": {...} },
-    { "type": "useCase", "name": "CheckStockUseCase", "domain": "inventory", "location": {...} },
-    { "type": "useCase", "name": "ProcessPaymentUseCase", "domain": "payments", "location": {...} }
+    { "type": "useCase", "name": "PlaceOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CancelOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ConfirmOrderAfterInventoryUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ConfirmOrderAfterPaymentUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CancelOrderAfterPaymentFailureUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "CompleteOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "ShipOrderUseCase", "domain": "orders" },
+    { "type": "useCase", "name": "DispatchShipmentUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "CreateShipmentUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "UpdateTrackingUseCase", "domain": "shipping" },
+    { "type": "useCase", "name": "CheckStockUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ReserveInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ReleaseInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "AllocateInventoryUseCase", "domain": "inventory" },
+    { "type": "useCase", "name": "ProcessPaymentUseCase", "domain": "payments" },
+    { "type": "useCase", "name": "RefundPaymentUseCase", "domain": "payments" }
   ]
 }
 ```

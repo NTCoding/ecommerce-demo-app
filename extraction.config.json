@@ -26,7 +26,7 @@
       "useCase": {
         "find": "classes",
         "where": {
-          "hasJSDoc": { "tag": "@riviere UseCase" }
+          "hasJSDoc": { "tag": "riviere" }
         }
       },
       "domainOp": { "notUsed": true },
