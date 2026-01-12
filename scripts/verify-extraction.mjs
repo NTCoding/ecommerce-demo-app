@@ -42,7 +42,7 @@ function main() {
   let components
   try {
     const result = JSON.parse(cliOutput)
-    components = result.components || result
+    components = result.data || result.components || result
   } catch (error) {
     console.error('❌ Failed to parse CLI output as JSON!')
     console.error('')

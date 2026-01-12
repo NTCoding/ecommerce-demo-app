@@ -3,7 +3,7 @@
   "modules": [
     {
       "name": "orders",
-      "path": "orders-domain/src/**/*.ts",
+      "path": "orders-domain/src/**/use-cases/*.ts",
       "api": { "notUsed": true },
       "useCase": {
         "find": "classes",
@@ -20,8 +20,71 @@
       "ui": { "notUsed": true }
     },
     {
+      "name": "orders",
+      "path": "orders-domain/src/consumer/**/handler.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": {
+        "find": "functions",
+        "where": {
+          "nameMatches": { "pattern": "^handle" }
+        }
+      },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "orders",
+      "path": "orders-domain/src/domain/*.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": {
+        "find": "methods",
+        "where": {
+          "and": [
+            { "inClassWith": { "nameMatches": { "pattern": "^Order$" } } },
+            { "nameMatches": { "pattern": "^(begin|markInventoryReserved|markPaymentCompleted|confirm|ship|deliver|cancel)$" } }
+          ]
+        }
+      },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "orders",
+      "path": "orders-domain/src/infrastructure/events.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": {
+        "find": "classes",
+        "where": {
+          "nameMatches": { "pattern": "(OrderPlaced|OrderConfirmed|OrderCancelled)$" }
+        }
+      },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "orders",
+      "path": "orders-domain/src/api/**/endpoint.ts",
+      "api": {
+        "find": "functions",
+        "where": {
+          "nameEndsWith": { "suffix": "Endpoint" }
+        }
+      },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
       "name": "shipping",
-      "path": "shipping-domain/src/**/*.ts",
+      "path": "shipping-domain/src/**/use-cases/*.ts",
       "api": { "notUsed": true },
       "useCase": {
         "find": "classes",
@@ -35,8 +98,71 @@
       "ui": { "notUsed": true }
     },
     {
+      "name": "shipping",
+      "path": "shipping-domain/src/consumer/**/handler.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": {
+        "find": "functions",
+        "where": {
+          "nameMatches": { "pattern": "^handle" }
+        }
+      },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "shipping",
+      "path": "shipping-domain/src/domain/*.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": {
+        "find": "methods",
+        "where": {
+          "and": [
+            { "inClassWith": { "nameMatches": { "pattern": "^Shipment$" } } },
+            { "nameMatches": { "pattern": "^(create|dispatch|markInTransit|deliver|cancel)$" } }
+          ]
+        }
+      },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "shipping",
+      "path": "shipping-domain/src/infrastructure/events.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": {
+        "find": "classes",
+        "where": {
+          "nameMatches": { "pattern": "(ShipmentCreated|ShipmentDispatched|ShipmentDelivered)$" }
+        }
+      },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "shipping",
+      "path": "shipping-domain/src/api/**/endpoint.ts",
+      "api": {
+        "find": "functions",
+        "where": {
+          "nameEndsWith": { "suffix": "Endpoint" }
+        }
+      },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
       "name": "inventory",
-      "path": "inventory-domain/src/**/*.ts",
+      "path": "inventory-domain/src/**/use-cases/*.ts",
       "api": { "notUsed": true },
       "useCase": {
         "find": "classes",
@@ -50,8 +176,71 @@
       "ui": { "notUsed": true }
     },
     {
+      "name": "inventory",
+      "path": "inventory-domain/src/consumer/**/handler.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": {
+        "find": "functions",
+        "where": {
+          "nameMatches": { "pattern": "^handle" }
+        }
+      },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "inventory",
+      "path": "inventory-domain/src/domain/*.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": {
+        "find": "methods",
+        "where": {
+          "and": [
+            { "inClassWith": { "nameMatches": { "pattern": "^InventoryItem$" } } },
+            { "nameMatches": { "pattern": "^(reserve|allocate|release|replenish|markDepleted)$" } }
+          ]
+        }
+      },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "inventory",
+      "path": "inventory-domain/src/infrastructure/events.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": {
+        "find": "classes",
+        "where": {
+          "nameMatches": { "pattern": "InventoryReserved$" }
+        }
+      },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "inventory",
+      "path": "inventory-domain/src/api/**/endpoint.ts",
+      "api": {
+        "find": "functions",
+        "where": {
+          "nameEndsWith": { "suffix": "Endpoint" }
+        }
+      },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
       "name": "payments",
-      "path": "payment-domain/src/**/*.ts",
+      "path": "payment-domain/src/**/use-cases/*.ts",
       "api": { "notUsed": true },
       "useCase": {
         "find": "classes",
@@ -63,6 +252,147 @@
       "event": { "notUsed": true },
       "eventHandler": { "notUsed": true },
       "ui": { "notUsed": true }
+    },
+    {
+      "name": "payments",
+      "path": "payment-domain/src/consumer/**/handler.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": {
+        "find": "functions",
+        "where": {
+          "nameMatches": { "pattern": "^handle" }
+        }
+      },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "payments",
+      "path": "payment-domain/src/domain/*.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": {
+        "find": "methods",
+        "where": {
+          "and": [
+            { "inClassWith": { "nameMatches": { "pattern": "^Payment$" } } },
+            { "nameMatches": { "pattern": "^(authorize|complete|fail|refund)$" } }
+          ]
+        }
+      },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "payments",
+      "path": "payment-domain/src/infrastructure/events.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": {
+        "find": "classes",
+        "where": {
+          "nameMatches": { "pattern": "(PaymentCompleted|PaymentFailed|PaymentRefunded)$" }
+        }
+      },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "notifications",
+      "path": "notifications-domain/src/**/use-cases/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "nameEndsWith": { "suffix": "UseCase" }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "notifications",
+      "path": "notifications-domain/src/consumer/**/handler.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": {
+        "find": "functions",
+        "where": {
+          "nameMatches": { "pattern": "^handle" }
+        }
+      },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "notifications",
+      "path": "notifications-domain/src/domain/*.ts",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": {
+        "find": "methods",
+        "where": {
+          "and": [
+            { "inClassWith": { "nameMatches": { "pattern": "^Notification$" } } },
+            { "nameMatches": { "pattern": "^(markSent|markFailed)$" } }
+          ]
+        }
+      },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "bff",
+      "path": "bff/src/**/use-cases/*.ts",
+      "api": { "notUsed": true },
+      "useCase": {
+        "find": "classes",
+        "where": {
+          "nameEndsWith": { "suffix": "UseCase" }
+        }
+      },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "bff",
+      "path": "bff/src/api/**/endpoint.ts",
+      "api": {
+        "find": "functions",
+        "where": {
+          "nameEndsWith": { "suffix": "Endpoint" }
+        }
+      },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": { "notUsed": true }
+    },
+    {
+      "name": "ui",
+      "path": "ui/src/**/*.tsx",
+      "api": { "notUsed": true },
+      "useCase": { "notUsed": true },
+      "domainOp": { "notUsed": true },
+      "event": { "notUsed": true },
+      "eventHandler": { "notUsed": true },
+      "ui": {
+        "find": "functions",
+        "where": {
+          "nameEndsWith": { "suffix": "Page" }
+        }
+      }
     }
   ]
 }

@@ -13,10 +13,11 @@
     "test:arch:payments": "cd payment-domain && npm run test:arch",
     "extract": "npx riviere extract --config extraction.config.json",
     "verify:extract": "node scripts/verify-extraction.mjs",
+    "test:extract": "node scripts/verify-extraction.test.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
-    "@living-architecture/riviere-cli": "^0.7.13",
+    "@living-architecture/riviere-cli": "^0.7.15",
     "husky": "^9.0.0"
   },
   "dependencies": {

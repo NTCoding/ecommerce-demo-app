@@ -2,6 +2,7 @@ import { Order } from '../../domain/Order'
 import type { InventoryReserved } from '../../infrastructure/events'
 import { ConfirmOrderAfterInventoryUseCase } from './use-cases/confirm-order-after-inventory-use-case'
 
+/** @riviere EventHandler */
 export function handleInventoryReserved(
   event: InventoryReserved,
   useCase: ConfirmOrderAfterInventoryUseCase
