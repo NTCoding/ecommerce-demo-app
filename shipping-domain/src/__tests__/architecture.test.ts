@@ -18,13 +18,13 @@ function hasRiviereUseCaseTag(project: Project, filePath: string, className: str
 
   return jsDocs.some((doc) =>
     doc.getTags().some((tag) =>
-      tag.getTagName() === 'riviere' && tag.getCommentText() === 'UseCase'
+      tag.getTagName() === 'useCase'
     )
   )
 }
 
 describe('shipping-domain', () => {
-  describe('Use Cases must have @riviere UseCase JSDoc tag', () => {
+  describe('Use Cases must have @useCase JSDoc tag', () => {
     // Known components - ensures they exist and are properly annotated
     it('DispatchShipmentUseCase', () => {
       expect(hasRiviereUseCaseTag(getProject(), resolve(srcDir, 'api/dispatch-shipment/use-cases/dispatch-shipment-use-case.ts'), 'DispatchShipmentUseCase')).toBe(true)
@@ -58,12 +58,12 @@ describe('shipping-domain', () => {
           const jsDocs = classDecl.getJsDocs()
           const hasTag = jsDocs.some((doc) =>
             doc.getTags().some((tag) =>
-              tag.getTagName() === 'riviere' && tag.getCommentText() === 'UseCase'
+              tag.getTagName() === 'useCase'
             )
           )
 
           if (!hasTag) {
-            violations.push(`${classDecl.getName()} missing @riviere UseCase`)
+            violations.push(`${classDecl.getName()} missing @useCase`)
           }
         }
       }

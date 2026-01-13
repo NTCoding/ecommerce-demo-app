@@ -17,3 +17,8 @@ export class InventoryReservedHandler {
     console.log(`[Orders] Order ${event.orderId} inventory marked as reserved`)
   }
 }
+
+export function handleInventoryReserved(event: InventoryReserved, useCase: ConfirmOrderAfterInventoryUseCase): void {
+  const handler = new InventoryReservedHandler(useCase)
+  handler.handle(event)
+}

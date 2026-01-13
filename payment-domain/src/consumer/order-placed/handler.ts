@@ -11,3 +11,8 @@ export class OrderPlacedHandler implements IPaymentEventHandler {
     console.log(`[Payment] Processing payment for order ${event.orderId}`)
   }
 }
+
+export function handleOrderPlaced(event: OrderPlaced, useCase: ProcessPaymentUseCase): void {
+  const handler = new OrderPlacedHandler(useCase)
+  handler.handle(event)
+}

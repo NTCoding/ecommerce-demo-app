@@ -17,3 +17,8 @@ export class PaymentCompletedHandler {
     console.log(`[Orders] Order ${event.orderId} payment marked as completed`)
   }
 }
+
+export function handlePaymentCompleted(event: PaymentCompleted, useCase: ConfirmOrderAfterPaymentUseCase): void {
+  const handler = new PaymentCompletedHandler(useCase)
+  handler.handle(event)
+}

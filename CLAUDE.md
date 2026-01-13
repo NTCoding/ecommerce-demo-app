@@ -20,6 +20,7 @@ This project depends on these npm packages (not local versions):
 ## Commands
 
 ```bash
+pnpm install:all    # Install all dependencies (root + all domains)
 pnpm build          # Build all domains
 pnpm lint:arch      # Lint (orders domain - ESLint architectural rules)
 pnpm test:arch      # Test architectural enforcement

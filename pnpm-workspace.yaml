@@ -1,0 +1,8 @@
+packages:
+  - orders-domain
+  - shipping-domain
+  - inventory-domain
+  - payment-domain
+  - notifications-domain
+  - bff
+  - ui

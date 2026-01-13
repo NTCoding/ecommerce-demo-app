@@ -28,3 +28,8 @@ export class CheckStockEndpoint {
     }
   }
 }
+
+export function checkStockEndpoint(useCase: CheckStockUseCase, inventoryItems: Map<string, InventoryItem>) {
+  const endpoint = new CheckStockEndpoint(useCase, inventoryItems)
+  return (req: Request, res: Response) => endpoint.handle(req, res)
+}

@@ -17,3 +17,8 @@ export class ShipmentDeliveredHandler {
     console.log(`[Orders] Order ${event.orderId} marked as delivered`)
   }
 }
+
+export function handleShipmentDelivered(event: ShipmentDelivered, useCase: CompleteOrderUseCase): void {
+  const handler = new ShipmentDeliveredHandler(useCase)
+  handler.handle(event)
+}

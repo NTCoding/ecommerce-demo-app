@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "install:all": "npm install && cd orders-domain && npm install && cd ../shipping-domain && npm install && cd ../inventory-domain && npm install && cd ../payment-domain && npm install",
+    "install:all": "pnpm install -r",
     "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments",
     "build:orders": "cd orders-domain && npm run build",
     "build:shipping": "cd shipping-domain && npm run build",

@@ -15,3 +15,8 @@ export class OrderCancelledHandler {
     this.useCase.apply(event.orderId, [], this.inventoryItems)
   }
 }
+
+export function handleOrderCancelled(event: OrderCancelled, useCase: ReleaseInventoryUseCase, inventoryItems: Map<string, InventoryItem>): void {
+  const handler = new OrderCancelledHandler(useCase, inventoryItems)
+  handler.handle(event)
+}

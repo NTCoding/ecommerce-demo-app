@@ -23,3 +23,8 @@ export class PlaceOrderEndpoint {
     })
   }
 }
+
+export function placeOrderEndpoint(useCase: PlaceOrderUseCase) {
+  const endpoint = new PlaceOrderEndpoint(useCase)
+  return (req: Request, res: Response) => endpoint.handle(req, res)
+}

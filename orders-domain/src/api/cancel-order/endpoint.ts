@@ -27,3 +27,8 @@ export class CancelOrderEndpoint {
     })
   }
 }
+
+export function cancelOrderEndpoint(useCase: CancelOrderUseCase) {
+  const endpoint = new CancelOrderEndpoint(useCase)
+  return (req: Request, res: Response) => endpoint.handle(req, res)
+}

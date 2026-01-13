@@ -16,3 +16,8 @@ export class OrderPlacedHandler {
     console.log(`[Inventory] Reserved inventory for order ${event.orderId}`)
   }
 }
+
+export function handleOrderPlaced(event: OrderPlaced, useCase: ReserveInventoryUseCase, inventoryItems: Map<string, InventoryItem>): void {
+  const handler = new OrderPlacedHandler(useCase, inventoryItems)
+  handler.handle(event)
+}
