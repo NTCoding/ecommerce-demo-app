@@ -253,6 +253,15 @@
       "domain": "orders"
     },
     {
+      "type": "backgroundJob",
+      "name": "runTrackingUpdate",
+      "location": {
+        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/cron.ts",
+        "line": 11
+      },
+      "domain": "shipping"
+    },
+    {
       "type": "useCase",
       "name": "UpdateTrackingUseCase",
       "location": {

@@ -29,7 +29,13 @@
         "find": "classes",
         "where": { "hasJSDoc": { "tag": "event" } }
       },
-      "ui": { "notUsed": true }
+      "ui": { "notUsed": true },
+      "customTypes": {
+        "backgroundJob": {
+          "find": "functions",
+          "where": { "hasJSDoc": { "tag": "backgroundJob" } }
+        }
+      }
     },
     {
       "name": "inventory",
