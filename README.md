@@ -338,8 +338,6 @@ Each module demonstrates a different extraction strategy:
 
 ## Running Extraction
 
-> **⚠️ Known Issue:** The `riviere extract` CLI command is currently broken due to an ESM bundling issue ([living-architecture#133](https://github.com/NTCoding/living-architecture/issues/133)). Extraction verification will be added once the CLI is fixed.
-
 ```bash
 riviere extract --config extraction.config.json
 ```
