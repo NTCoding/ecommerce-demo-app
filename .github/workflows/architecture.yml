@@ -12,18 +12,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm run install:all
+        run: pnpm install:all
 
       - name: Run architectural lint (orders-domain)
-        run: npm run lint:arch
+        run: pnpm lint:arch
 
       - name: Run architectural tests (shipping, inventory, payments)
-        run: npm run test:arch
+        run: pnpm test:arch
 
       - name: Verify extraction output
-        run: npm run verify:extract
+        run: pnpm verify:extract
