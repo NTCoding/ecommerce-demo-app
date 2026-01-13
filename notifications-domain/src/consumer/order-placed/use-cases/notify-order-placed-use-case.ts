@@ -1,3 +1,4 @@
+import { BaseNotificationUseCase } from '../../../base-classes'
 import { Notification, NotificationType } from '../../../domain/Notification'
 
 async function sendEmailViaSendGrid(
@@ -20,7 +21,7 @@ async function sendEmailViaSendGrid(
   })
 }
 
-export class NotifyOrderPlacedUseCase {
+export class NotifyOrderPlacedUseCase extends BaseNotificationUseCase {
   async apply(orderId: string, customerId: string): Promise<void> {
     const notificationId = `notif_${Date.now()}`
 

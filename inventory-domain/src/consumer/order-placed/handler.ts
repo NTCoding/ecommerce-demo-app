@@ -1,15 +1,23 @@
+import { StockHandler } from '../../decorators'
 import { InventoryItem } from '../../domain/InventoryItem'
 import type { OrderPlaced } from '../../infrastructure/events'
 import { ReserveInventoryUseCase } from './use-cases/reserve-inventory-use-case'
 
-export function handleOrderPlaced(
-  event: OrderPlaced,
-  useCase: ReserveInventoryUseCase,
-  inventoryItems: Map<string, InventoryItem>
-): void {
-  console.log(`[Inventory] Handling OrderPlaced for order ${event.orderId}`)
+@StockHandler
+export class OrderPlacedHandler {
+  constructor(
+    private readonly useCase: ReserveInventoryUseCase,
+    private readonly inventoryItems: Map<string, InventoryItem>
+  ) {}
 
-  useCase.apply(event.orderId, event.items, inventoryItems)
+  handle(event: OrderPlaced): void {
+    console.log(`[Inventory] Handling OrderPlaced for order ${event.orderId}`)
+    this.useCase.apply(event.orderId, event.items, this.inventoryItems)
+    console.log(`[Inventory] Reserved inventory for order ${event.orderId}`)
+  }
+}
 
-  console.log(`[Inventory] Reserved inventory for order ${event.orderId}`)
+export function handleOrderPlaced(event: OrderPlaced, useCase: ReserveInventoryUseCase, inventoryItems: Map<string, InventoryItem>): void {
+  const handler = new OrderPlacedHandler(useCase, inventoryItems)
+  handler.handle(event)
 }

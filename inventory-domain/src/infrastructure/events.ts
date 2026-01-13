@@ -1,10 +1,14 @@
 import { EventEmitter } from 'events'
+import { StockEvent } from '../decorators'
 
-export type InventoryReserved = {
-  type: 'InventoryReserved'
-  orderId: string
-  items: Array<{ sku: string; quantity: number }>
-  timestamp: string
+@StockEvent
+export class InventoryReserved {
+  readonly type = 'InventoryReserved' as const
+  constructor(
+    public readonly orderId: string,
+    public readonly items: Array<{ sku: string; quantity: number }>,
+    public readonly timestamp: string = new Date().toISOString()
+  ) {}
 }
 
 export type InventoryEvent = InventoryReserved

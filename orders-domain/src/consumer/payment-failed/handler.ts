@@ -1,16 +1,19 @@
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { PaymentFailed } from '../../infrastructure/events'
 import { CancelOrderAfterPaymentFailureUseCase } from './use-cases/cancel-order-after-payment-failure-use-case'
 
-export function handlePaymentFailed(
-  event: PaymentFailed,
-  useCase: CancelOrderAfterPaymentFailureUseCase
-): void {
-  console.log(`[Orders] Handling PaymentFailed for order ${event.orderId}`)
+@EventHandlerContainer
+export class PaymentFailedHandler {
+  constructor(private readonly useCase: CancelOrderAfterPaymentFailureUseCase) {}
 
-  const order = new Order(event.orderId, 'customer123', [])
+  handle(event: PaymentFailed): void {
+    console.log(`[Orders] Handling PaymentFailed for order ${event.orderId}`)
 
-  useCase.apply(event.orderId, event.reason, order)
+    const order = new Order(event.orderId, 'customer123', [])
 
-  console.log(`[Orders] Order ${event.orderId} cancelled due to payment failure`)
+    this.useCase.apply(event.orderId, event.reason, order)
+
+    console.log(`[Orders] Order ${event.orderId} cancelled due to payment failure`)
+  }
 }

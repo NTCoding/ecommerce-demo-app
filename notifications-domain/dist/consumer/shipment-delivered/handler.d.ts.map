@@ -1,1 +1,0 @@
-{"version":3,"file":"handler.d.ts","sourceRoot":"","sources":["../../../src/consumer/shipment-delivered/handler.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,6BAA6B,CAAA;AACpE,OAAO,EAAE,8BAA8B,EAAE,MAAM,gDAAgD,CAAA;AAE/F,wBAAgB,uBAAuB,CACrC,KAAK,EAAE,iBAAiB,EACxB,OAAO,EAAE,8BAA8B,GACtC,IAAI,CAMN"}

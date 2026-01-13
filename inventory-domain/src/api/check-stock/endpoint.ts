@@ -1,12 +1,16 @@
 import type { Request, Response } from 'express'
+import { StockAPI } from '../../decorators'
 import { InventoryItem } from '../../domain/InventoryItem'
 import { CheckStockUseCase } from './use-cases/check-stock-use-case'
 
-export function checkStockEndpoint(
-  useCase: CheckStockUseCase,
-  inventoryItems: Map<string, InventoryItem>
-) {
-  return (req: Request, res: Response): void => {
+@StockAPI
+export class CheckStockEndpoint {
+  constructor(
+    private readonly useCase: CheckStockUseCase,
+    private readonly inventoryItems: Map<string, InventoryItem>
+  ) {}
+
+  handle(req: Request, res: Response): void {
     const sku = req.params['sku']
 
     if (!sku) {
@@ -15,7 +19,7 @@ export function checkStockEndpoint(
     }
 
     try {
-      const stockInfo = useCase.apply(sku, inventoryItems)
+      const stockInfo = this.useCase.apply(sku, this.inventoryItems)
       res.status(200).json(stockInfo)
     } catch (error) {
       res.status(404).json({
@@ -23,4 +27,9 @@ export function checkStockEndpoint(
       })
     }
   }
+}
+
+export function checkStockEndpoint(useCase: CheckStockUseCase, inventoryItems: Map<string, InventoryItem>) {
+  const endpoint = new CheckStockEndpoint(useCase, inventoryItems)
+  return (req: Request, res: Response) => endpoint.handle(req, res)
 }

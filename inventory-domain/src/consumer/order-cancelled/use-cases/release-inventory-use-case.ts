@@ -1,5 +1,7 @@
+import { StockUseCase } from '../../../decorators'
 import { InventoryItem } from '../../../domain/InventoryItem'
 
+@StockUseCase
 export class ReleaseInventoryUseCase {
   apply(
     orderId: string,

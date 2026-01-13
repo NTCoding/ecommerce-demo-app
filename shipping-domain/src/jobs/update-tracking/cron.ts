@@ -7,6 +7,7 @@ const updateTrackingUseCase = new UpdateTrackingUseCase(courierApi)
 
 const shipments = new Map<string, Shipment>()
 
+/** @backgroundJob */
 async function runTrackingUpdate(): Promise<void> {
   console.log('[Shipping Cron] Running tracking update job...')
 

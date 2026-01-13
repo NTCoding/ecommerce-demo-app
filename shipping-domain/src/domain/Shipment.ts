@@ -7,6 +7,7 @@ export enum ShipmentState {
   Cancelled = 'Cancelled'
 }
 
+/** @domainOp */
 export class Shipment {
   private state: ShipmentState = ShipmentState.Pending
 

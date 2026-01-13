@@ -1,3 +1,5 @@
+import { BaseNotificationDomainOp } from '../base-classes'
+
 export enum NotificationType {
   Email = 'Email',
   SMS = 'SMS',
@@ -10,7 +12,7 @@ export enum NotificationStatus {
   Failed = 'Failed'
 }
 
-export class Notification {
+export class Notification extends BaseNotificationDomainOp {
   private status: NotificationStatus = NotificationStatus.Pending
 
   constructor(
@@ -19,7 +21,9 @@ export class Notification {
     public readonly type: NotificationType,
     public readonly subject: string,
     public readonly message: string
-  ) {}
+  ) {
+    super()
+  }
 
   markSent(): void {
     if (this.status !== NotificationStatus.Pending) {

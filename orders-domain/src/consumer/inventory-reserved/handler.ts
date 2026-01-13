@@ -1,16 +1,24 @@
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { InventoryReserved } from '../../infrastructure/events'
 import { ConfirmOrderAfterInventoryUseCase } from './use-cases/confirm-order-after-inventory-use-case'
 
-export function handleInventoryReserved(
-  event: InventoryReserved,
-  useCase: ConfirmOrderAfterInventoryUseCase
-): void {
-  console.log(`[Orders] Handling InventoryReserved for order ${event.orderId}`)
+@EventHandlerContainer
+export class InventoryReservedHandler {
+  constructor(private readonly useCase: ConfirmOrderAfterInventoryUseCase) {}
 
-  const order = new Order(event.orderId, 'customer123', event.items)
+  handle(event: InventoryReserved): void {
+    console.log(`[Orders] Handling InventoryReserved for order ${event.orderId}`)
 
-  useCase.apply(event.orderId, order)
+    const order = new Order(event.orderId, 'customer123', event.items)
 
-  console.log(`[Orders] Order ${event.orderId} inventory marked as reserved`)
+    this.useCase.apply(event.orderId, order)
+
+    console.log(`[Orders] Order ${event.orderId} inventory marked as reserved`)
+  }
+}
+
+export function handleInventoryReserved(event: InventoryReserved, useCase: ConfirmOrderAfterInventoryUseCase): void {
+  const handler = new InventoryReservedHandler(useCase)
+  handler.handle(event)
 }

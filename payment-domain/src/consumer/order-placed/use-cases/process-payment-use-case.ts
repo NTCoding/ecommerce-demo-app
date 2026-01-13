@@ -1,12 +1,13 @@
 import { Payment } from '../../../domain/Payment'
+import { IPaymentUseCase } from '../../../interfaces'
 import { PaymentGatewayClient } from '../../../infrastructure/payment-gateway-client'
 import {
   publishEvent,
-  type PaymentCompleted,
-  type PaymentFailed
+  PaymentCompleted,
+  PaymentFailed
 } from '../../../infrastructure/events'
 
-export class ProcessPaymentUseCase {
+export class ProcessPaymentUseCase implements IPaymentUseCase {
   constructor(private paymentGateway: PaymentGatewayClient) {}
 
   async apply(orderId: string, amount: number): Promise<void> {
@@ -21,16 +22,7 @@ export class ProcessPaymentUseCase {
 
     if (authResult.status !== 'authorized') {
       payment.fail()
-
-      const failedEvent: PaymentFailed = {
-        type: 'PaymentFailed',
-        orderId,
-        paymentId,
-        reason: 'Authorization declined',
-        timestamp: new Date().toISOString()
-      }
-
-      publishEvent(failedEvent)
+      publishEvent(new PaymentFailed(orderId, paymentId, 'Authorization declined'))
       return
     }
 
@@ -41,29 +33,11 @@ export class ProcessPaymentUseCase {
 
     if (completeResult.status !== 'completed') {
       payment.fail()
-
-      const failedEvent: PaymentFailed = {
-        type: 'PaymentFailed',
-        orderId,
-        paymentId,
-        reason: 'Capture failed after authorization',
-        timestamp: new Date().toISOString()
-      }
-
-      publishEvent(failedEvent)
+      publishEvent(new PaymentFailed(orderId, paymentId, 'Capture failed after authorization'))
       return
     }
 
     payment.complete()
-
-    const completedEvent: PaymentCompleted = {
-      type: 'PaymentCompleted',
-      orderId,
-      paymentId,
-      amount,
-      timestamp: new Date().toISOString()
-    }
-
-    publishEvent(completedEvent)
+    publishEvent(new PaymentCompleted(orderId, paymentId, amount))
   }
 }

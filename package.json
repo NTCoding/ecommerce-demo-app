@@ -1,5 +1,26 @@
 {
+  "scripts": {
+    "install:all": "pnpm install -r",
+    "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments",
+    "build:orders": "cd orders-domain && npm run build",
+    "build:shipping": "cd shipping-domain && npm run build",
+    "build:inventory": "cd inventory-domain && npm run build",
+    "build:payments": "cd payment-domain && npm run build",
+    "lint:arch": "cd orders-domain && npx eslint src/",
+    "test:arch": "npm run test:arch:shipping && npm run test:arch:inventory && npm run test:arch:payments",
+    "test:arch:shipping": "cd shipping-domain && npm run test:arch",
+    "test:arch:inventory": "cd inventory-domain && npm run test:arch",
+    "test:arch:payments": "cd payment-domain && npm run test:arch",
+    "extract": "npx riviere extract --config extraction.config.json",
+    "verify:extract": "node scripts/verify-extraction.mjs",
+    "test:extract": "node scripts/verify-extraction.test.mjs",
+    "prepare": "husky"
+  },
   "devDependencies": {
-    "@living-architecture/riviere-cli": "^0.3.5"
+    "@living-architecture/riviere-cli": "latest",
+    "husky": "^9.0.0"
+  },
+  "dependencies": {
+    "@living-architecture/riviere-extract-conventions": "latest"
   }
 }

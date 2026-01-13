@@ -1,6 +1,7 @@
+import { BaseNotificationUseCase } from '../../../base-classes'
 import { Notification, NotificationType } from '../../../domain/Notification'
 
-export class NotifyShipmentDispatchedUseCase {
+export class NotifyShipmentDispatchedUseCase extends BaseNotificationUseCase {
   apply(orderId: string, shipmentId: string, courierName: string): void {
     const notificationId = `notif_${Date.now()}`
 

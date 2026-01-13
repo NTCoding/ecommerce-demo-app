@@ -1,8 +1,9 @@
 import { Payment } from '../../../domain/Payment'
+import { IPaymentUseCase } from '../../../interfaces'
 import { PaymentGatewayClient } from '../../../infrastructure/payment-gateway-client'
-import { publishEvent, type PaymentRefunded } from '../../../infrastructure/events'
+import { publishEvent, PaymentRefunded } from '../../../infrastructure/events'
 
-export class RefundPaymentUseCase {
+export class RefundPaymentUseCase implements IPaymentUseCase {
   constructor(private paymentGateway: PaymentGatewayClient) {}
 
   async apply(orderId: string, payment: Payment): Promise<void> {
@@ -13,16 +14,7 @@ export class RefundPaymentUseCase {
 
     if (refundResult.status === 'refunded') {
       payment.refund()
-
-      const event: PaymentRefunded = {
-        type: 'PaymentRefunded',
-        orderId,
-        paymentId: payment.id,
-        amount: payment.amount,
-        timestamp: new Date().toISOString()
-      }
-
-      publishEvent(event)
+      publishEvent(new PaymentRefunded(orderId, payment.id, payment.amount))
     }
   }
 }
