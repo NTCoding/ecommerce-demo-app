@@ -1,0 +1,13 @@
+{
+  "name": "ui",
+  "path": "ui/src/**/*.tsx",
+  "useCase": { "notUsed": true },
+  "eventHandler": { "notUsed": true },
+  "domainOp": { "notUsed": true },
+  "api": { "notUsed": true },
+  "event": { "notUsed": true },
+  "ui": {
+    "find": "functions",
+    "where": { "nameEndsWith": { "suffix": "Page" } }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "notifications",
+  "path": "notifications-domain/src/**/*.ts",
+  "useCase": {
+    "find": "classes",
+    "where": { "extendsClass": { "name": "BaseNotificationUseCase" } }
+  },
+  "eventHandler": {
+    "find": "classes",
+    "where": { "nameMatches": { "pattern": "^(?!Base).+Handler$" } }
+  },
+  "domainOp": {
+    "find": "classes",
+    "where": { "extendsClass": { "name": "BaseNotificationDomainOp" } }
+  },
+  "api": { "notUsed": true },
+  "event": { "notUsed": true },
+  "ui": { "notUsed": true }
+}

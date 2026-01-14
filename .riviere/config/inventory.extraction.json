@@ -1,0 +1,25 @@
+{
+  "name": "inventory",
+  "path": "inventory-domain/src/**/*.ts",
+  "useCase": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockUseCase" } }
+  },
+  "eventHandler": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockHandler" } }
+  },
+  "domainOp": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockOp" } }
+  },
+  "api": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockAPI" } }
+  },
+  "event": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockEvent" } }
+  },
+  "ui": { "notUsed": true }
+}
