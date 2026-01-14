@@ -1,0 +1,16 @@
+{
+  "name": "bff",
+  "path": "bff/src/**/*.ts",
+  "useCase": {
+    "find": "classes",
+    "where": { "nameEndsWith": { "suffix": "UseCase" } }
+  },
+  "eventHandler": { "notUsed": true },
+  "domainOp": { "notUsed": true },
+  "api": {
+    "find": "functions",
+    "where": { "hasJSDoc": { "tag": "bffApi" } }
+  },
+  "event": { "notUsed": true },
+  "ui": { "notUsed": true }
+}

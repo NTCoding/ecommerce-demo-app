@@ -10,11 +10,11 @@ importers:
     dependencies:
       '@living-architecture/riviere-extract-conventions':
         specifier: latest
-        version: 0.3.21
+        version: 0.3.23
     devDependencies:
       '@living-architecture/riviere-cli':
         specifier: latest
-        version: 0.7.20
+        version: 0.7.22
       husky:
         specifier: ^9.0.0
         version: 9.1.7
@@ -95,7 +95,7 @@ importers:
     dependencies:
       '@living-architecture/riviere-extract-conventions':
         specifier: latest
-        version: 0.3.21
+        version: 0.3.23
       '@typescript-eslint/parser':
         specifier: ^8.52.0
         version: 8.53.0(eslint@9.39.2)(typescript@5.9.3)
@@ -677,19 +677,19 @@ packages:
   '@living-architecture/riviere-builder@0.5.21':
     resolution: {integrity: sha512-LRVJLndYnf+Khb7x0NZytUeaOD0biISauvUL0nLj62C2XYHxWJgC1tLuGItznTGKjoeMNHhWscSqUMoAzuQcdA==}
 
-  '@living-architecture/riviere-cli@0.7.20':
-    resolution: {integrity: sha512-xMbqY8YUkf+5DKPA/Iqpnmox/sADYMq4Yry0i2P7RDjLWw/lOoDdvRI8bRu/PUHsttkJMEuied+jxf0Voj5Z2g==}
+  '@living-architecture/riviere-cli@0.7.22':
+    resolution: {integrity: sha512-UkU//QLjcA96F/zmmUsRUNqFJMZNgp+g0u1cur6GSIFod055e9/Mffud4m1ddH6s1YY9pmJAxir2AYdG4OoxKg==}
     engines: {node: '>=20'}
     hasBin: true
 
-  '@living-architecture/riviere-extract-config@0.3.0':
-    resolution: {integrity: sha512-Jelael8dhhAUzL6UiWrjit4LCJmKLIRP3D2zH46bHzX6rxR0cIXVIAsZOBI+10b5IHLlkwBeEnfBHHTxs+xoXw==}
+  '@living-architecture/riviere-extract-config@0.3.2':
+    resolution: {integrity: sha512-TSPtAAAhDFzjEJ+tAj+tPoajz2hF6qda4H6JkutJwzaQeQ+y8p1jWW4FB3BI6/b5pQOCB4qsldVrERxLYI8xYA==}
 
-  '@living-architecture/riviere-extract-conventions@0.3.21':
-    resolution: {integrity: sha512-ofOp+abtTsuXmpY+fH+PZpQ1R31hquY1PDFdXF0tPGfnS5JZNQuwdi0/D5UgFpx5xhTzzHlKcL0LDQ6dw8ACkg==}
+  '@living-architecture/riviere-extract-conventions@0.3.23':
+    resolution: {integrity: sha512-Yne4GA8cBHztcJGFmntyWYX0xgmJD3vv+0cjMlK91+e22nZZfapUgBNQ27xF8rItgsfkrWeUAJoNzxazq9lsqw==}
 
-  '@living-architecture/riviere-extract-ts@0.1.23':
-    resolution: {integrity: sha512-nin3cahbVqsYsnPHKbzoIhE1GPeJrdVG7sUhbdFtXExd/37VG1For6mEsGmtiWypsWJQ5vKEDWxJ6Ahaitk3Ag==}
+  '@living-architecture/riviere-extract-ts@0.1.25':
+    resolution: {integrity: sha512-ZGa1+FrDKyURpNywnO1F5R2ZR6wzk7QEj4MuWuSbDul8+x4tnQ/qbaVtwa78088Qx37+seHGxECQUyUUVmwuvQ==}
 
   '@living-architecture/riviere-query@0.4.21':
     resolution: {integrity: sha512-4/YW+qIf8Bp4zIIkUpOjLZejZcIgthJuzR4MxJZy863czHPzoRz/ftHZLCA0XLxOHJEilsjjNKRi2OBrZuUy7g==}
@@ -2396,11 +2396,11 @@ snapshots:
       '@living-architecture/riviere-query': 0.4.21
       '@living-architecture/riviere-schema': 0.4.21
 
-  '@living-architecture/riviere-cli@0.7.20':
+  '@living-architecture/riviere-cli@0.7.22':
     dependencies:
       '@living-architecture/riviere-builder': 0.5.21
-      '@living-architecture/riviere-extract-config': 0.3.0
-      '@living-architecture/riviere-extract-ts': 0.1.23
+      '@living-architecture/riviere-extract-config': 0.3.2
+      '@living-architecture/riviere-extract-ts': 0.1.25
       '@living-architecture/riviere-query': 0.4.21
       '@living-architecture/riviere-schema': 0.4.21
       commander: 14.0.2
@@ -2408,18 +2408,18 @@ snapshots:
       ts-morph: 24.0.0
       yaml: 2.8.2
 
-  '@living-architecture/riviere-extract-config@0.3.0':
+  '@living-architecture/riviere-extract-config@0.3.2':
     dependencies:
       ajv: 8.17.1
       ajv-formats: 3.0.1(ajv@8.17.1)
 
-  '@living-architecture/riviere-extract-conventions@0.3.21':
+  '@living-architecture/riviere-extract-conventions@0.3.23':
     dependencies:
-      '@living-architecture/riviere-extract-config': 0.3.0
+      '@living-architecture/riviere-extract-config': 0.3.2
 
-  '@living-architecture/riviere-extract-ts@0.1.23':
+  '@living-architecture/riviere-extract-ts@0.1.25':
     dependencies:
-      '@living-architecture/riviere-extract-config': 0.3.0
+      '@living-architecture/riviere-extract-config': 0.3.2
       minimatch: 10.1.1
       ts-morph: 24.0.0
 

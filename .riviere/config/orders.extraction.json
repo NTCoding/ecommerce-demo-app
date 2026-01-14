@@ -1,0 +1,5 @@
+{
+  "name": "orders",
+  "path": "orders-domain/src/**/*.ts",
+  "extends": "@living-architecture/riviere-extract-conventions"
+}
