@@ -4,6 +4,8 @@ import { PlaceOrderUseCase } from './use-cases/place-order-use-case'
 
 @APIContainer
 export class PlaceOrderEndpoint {
+  readonly route = '/orders'
+  readonly method = 'POST'
   constructor(private readonly useCase: PlaceOrderUseCase) {}
 
   handle(req: Request, res: Response): void {

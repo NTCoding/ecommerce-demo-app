@@ -6,7 +6,7 @@
     "build:shipping": "cd shipping-domain && npm run build",
     "build:inventory": "cd inventory-domain && npm run build",
     "build:payments": "cd payment-domain && npm run build",
-    "lint:arch": "cd orders-domain && npx eslint src/",
+    "lint:arch": "npx eslint --config eslint.config.mjs .",
     "test:arch": "npm run test:arch:shipping && npm run test:arch:inventory && npm run test:arch:payments",
     "test:arch:shipping": "cd shipping-domain && npm run test:arch",
     "test:arch:inventory": "cd inventory-domain && npm run test:arch",
@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@living-architecture/riviere-cli": "latest",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
     "husky": "^9.0.0"
   },
   "dependencies": {

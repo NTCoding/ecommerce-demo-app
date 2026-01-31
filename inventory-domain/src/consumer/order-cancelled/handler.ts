@@ -1,10 +1,12 @@
+import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { StockHandler } from '../../decorators'
 import { InventoryItem } from '../../domain/InventoryItem'
 import type { OrderCancelled } from '../../infrastructure/events'
 import { ReleaseInventoryUseCase } from './use-cases/release-inventory-use-case'
 
 @StockHandler
-export class OrderCancelledHandler {
+export class OrderCancelledHandler implements EventHandlerDef {
+  readonly subscribedEvents = ['OrderCancelled']
   constructor(
     private readonly useCase: ReleaseInventoryUseCase,
     private readonly inventoryItems: Map<string, InventoryItem>

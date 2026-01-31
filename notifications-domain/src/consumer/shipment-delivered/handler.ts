@@ -1,8 +1,10 @@
+import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { BaseNotificationHandler } from '../../base-classes'
 import type { ShipmentDelivered } from '../../infrastructure/events'
 import { NotifyShipmentDeliveredUseCase } from './use-cases/notify-shipment-delivered-use-case'
 
-export class ShipmentDeliveredHandler extends BaseNotificationHandler<ShipmentDelivered> {
+export class ShipmentDeliveredHandler extends BaseNotificationHandler<ShipmentDelivered> implements EventHandlerDef {
+  readonly subscribedEvents = ['ShipmentDelivered']
   constructor(private readonly useCase: NotifyShipmentDeliveredUseCase) {
     super()
   }

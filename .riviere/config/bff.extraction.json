@@ -8,7 +8,7 @@
   "eventHandler": { "notUsed": true },
   "domainOp": { "notUsed": true },
   "api": {
-    "find": "functions",
+    "find": "classes",
     "where": { "hasJSDoc": { "tag": "bffApi" } }
   },
   "event": { "notUsed": true },

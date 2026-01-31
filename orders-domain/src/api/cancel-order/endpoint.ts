@@ -5,6 +5,8 @@ import { CancelOrderUseCase } from './use-cases/cancel-order-use-case'
 
 @APIContainer
 export class CancelOrderEndpoint {
+  readonly route = '/orders/:orderId/cancel'
+  readonly method = 'POST'
   constructor(private readonly useCase: CancelOrderUseCase) {}
 
   handle(req: Request, res: Response): void {

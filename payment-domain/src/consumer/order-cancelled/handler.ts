@@ -1,9 +1,11 @@
+import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { IPaymentEventHandler } from '../../interfaces'
 import { Payment } from '../../domain/Payment'
 import type { OrderCancelled } from '../../infrastructure/events'
 import { RefundPaymentUseCase } from './use-cases/refund-payment-use-case'
 
-export class OrderCancelledHandler implements IPaymentEventHandler {
+export class OrderCancelledHandler implements IPaymentEventHandler, EventHandlerDef {
+  readonly subscribedEvents = ['OrderCancelled']
   constructor(private readonly useCase: RefundPaymentUseCase) {}
 
   async handle(event: OrderCancelled): Promise<void> {

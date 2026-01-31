@@ -7,7 +7,7 @@
   "api": { "notUsed": true },
   "event": { "notUsed": true },
   "ui": {
-    "find": "functions",
+    "find": "classes",
     "where": { "nameEndsWith": { "suffix": "Page" } }
   }
 }

@@ -6,7 +6,7 @@
     "where": { "hasJSDoc": { "tag": "useCase" } }
   },
   "eventHandler": {
-    "find": "functions",
+    "find": "classes",
     "where": { "hasJSDoc": { "tag": "eventHandler" } }
   },
   "domainOp": {
@@ -14,7 +14,7 @@
     "where": { "hasJSDoc": { "tag": "domainOp" } }
   },
   "api": {
-    "find": "functions",
+    "find": "classes",
     "where": { "hasJSDoc": { "tag": "api" } }
   },
   "event": {

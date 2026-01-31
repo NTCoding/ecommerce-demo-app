@@ -4,8 +4,8 @@
       "type": "event",
       "name": "OrderPlaced",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
-        "line": 4
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
+        "line": 5
       },
       "domain": "orders"
     },
@@ -13,8 +13,8 @@
       "type": "event",
       "name": "OrderConfirmed",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
-        "line": 16
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
+        "line": 17
       },
       "domain": "orders"
     },
@@ -22,8 +22,8 @@
       "type": "event",
       "name": "OrderCancelled",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
-        "line": 25
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/events.ts",
+        "line": 26
       },
       "domain": "orders"
     },
@@ -31,7 +31,7 @@
       "type": "domainOp",
       "name": "begin",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 30
       },
       "domain": "orders"
@@ -40,7 +40,7 @@
       "type": "domainOp",
       "name": "markInventoryReserved",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 46
       },
       "domain": "orders"
@@ -49,7 +49,7 @@
       "type": "domainOp",
       "name": "markPaymentCompleted",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 55
       },
       "domain": "orders"
@@ -58,7 +58,7 @@
       "type": "domainOp",
       "name": "checkCanConfirm",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 64
       },
       "domain": "orders"
@@ -67,7 +67,7 @@
       "type": "domainOp",
       "name": "confirm",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 70
       },
       "domain": "orders"
@@ -76,7 +76,7 @@
       "type": "domainOp",
       "name": "ship",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 77
       },
       "domain": "orders"
@@ -85,7 +85,7 @@
       "type": "domainOp",
       "name": "deliver",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 84
       },
       "domain": "orders"
@@ -94,7 +94,7 @@
       "type": "domainOp",
       "name": "cancel",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 91
       },
       "domain": "orders"
@@ -103,7 +103,7 @@
       "type": "domainOp",
       "name": "getState",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 101
       },
       "domain": "orders"
@@ -112,7 +112,7 @@
       "type": "domainOp",
       "name": "getTotal",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 105
       },
       "domain": "orders"
@@ -121,7 +121,7 @@
       "type": "domainOp",
       "name": "getPlacedAt",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
         "line": 109
       },
       "domain": "orders"
@@ -130,8 +130,8 @@
       "type": "eventHandler",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-dispatched/handler.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-dispatched/handler.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -139,7 +139,7 @@
       "type": "useCase",
       "name": "ShipOrderUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-dispatched/use-cases/ship-order-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-dispatched/use-cases/ship-order-use-case.ts",
         "line": 4
       },
       "domain": "orders"
@@ -148,8 +148,8 @@
       "type": "eventHandler",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-delivered/handler.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-delivered/handler.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -157,7 +157,7 @@
       "type": "useCase",
       "name": "CompleteOrderUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-delivered/use-cases/complete-order-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/shipment-delivered/use-cases/complete-order-use-case.ts",
         "line": 4
       },
       "domain": "orders"
@@ -166,8 +166,8 @@
       "type": "eventHandler",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/payment-failed/handler.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-failed/handler.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -175,7 +175,7 @@
       "type": "useCase",
       "name": "CancelOrderAfterPaymentFailureUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/payment-failed/use-cases/cancel-order-after-payment-failure-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-failed/use-cases/cancel-order-after-payment-failure-use-case.ts",
         "line": 5
       },
       "domain": "orders"
@@ -184,8 +184,8 @@
       "type": "eventHandler",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/payment-completed/handler.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-completed/handler.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -193,7 +193,7 @@
       "type": "useCase",
       "name": "ConfirmOrderAfterPaymentUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/payment-completed/use-cases/confirm-order-after-payment-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-completed/use-cases/confirm-order-after-payment-use-case.ts",
         "line": 5
       },
       "domain": "orders"
@@ -202,8 +202,8 @@
       "type": "eventHandler",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/inventory-reserved/handler.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/inventory-reserved/handler.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -211,7 +211,7 @@
       "type": "useCase",
       "name": "ConfirmOrderAfterInventoryUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/consumer/inventory-reserved/use-cases/confirm-order-after-inventory-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/inventory-reserved/use-cases/confirm-order-after-inventory-use-case.ts",
         "line": 4
       },
       "domain": "orders"
@@ -220,8 +220,8 @@
       "type": "api",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/api/place-order/endpoint.ts",
-        "line": 9
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/place-order/endpoint.ts",
+        "line": 11
       },
       "domain": "orders"
     },
@@ -229,7 +229,7 @@
       "type": "useCase",
       "name": "PlaceOrderUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/api/place-order/use-cases/place-order-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/place-order/use-cases/place-order-use-case.ts",
         "line": 11
       },
       "domain": "orders"
@@ -238,8 +238,8 @@
       "type": "api",
       "name": "handle",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/api/cancel-order/endpoint.ts",
-        "line": 10
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/cancel-order/endpoint.ts",
+        "line": 12
       },
       "domain": "orders"
     },
@@ -247,7 +247,7 @@
       "type": "useCase",
       "name": "CancelOrderUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/orders-domain/src/api/cancel-order/use-cases/cancel-order-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/cancel-order/use-cases/cancel-order-use-case.ts",
         "line": 10
       },
       "domain": "orders"
@@ -256,7 +256,7 @@
       "type": "backgroundJob",
       "name": "runTrackingUpdate",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/cron.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/cron.ts",
         "line": 11
       },
       "domain": "shipping"
@@ -265,7 +265,7 @@
       "type": "useCase",
       "name": "UpdateTrackingUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/use-cases/update-tracking-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/use-cases/update-tracking-use-case.ts",
         "line": 6
       },
       "domain": "shipping"
@@ -274,8 +274,8 @@
       "type": "event",
       "name": "ShipmentCreated",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
-        "line": 4
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
+        "line": 5
       },
       "domain": "shipping"
     },
@@ -283,8 +283,8 @@
       "type": "event",
       "name": "ShipmentDispatched",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
-        "line": 15
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
+        "line": 16
       },
       "domain": "shipping"
     },
@@ -292,8 +292,8 @@
       "type": "event",
       "name": "ShipmentDelivered",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
-        "line": 26
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/events.ts",
+        "line": 27
       },
       "domain": "shipping"
     },
@@ -301,17 +301,17 @@
       "type": "domainOp",
       "name": "Shipment",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/domain/Shipment.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/domain/Shipment.ts",
         "line": 11
       },
       "domain": "shipping"
     },
     {
       "type": "eventHandler",
-      "name": "handleOrderConfirmed",
+      "name": "OrderConfirmedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/consumer/order-confirmed/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/consumer/order-confirmed/handler.ts",
+        "line": 6
       },
       "domain": "shipping"
     },
@@ -319,16 +319,16 @@
       "type": "useCase",
       "name": "CreateShipmentUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/consumer/order-confirmed/use-cases/create-shipment-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/consumer/order-confirmed/use-cases/create-shipment-use-case.ts",
         "line": 6
       },
       "domain": "shipping"
     },
     {
       "type": "api",
-      "name": "dispatchShipmentEndpoint",
+      "name": "DispatchShipmentEndpoint",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/api/dispatch-shipment/endpoint.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/api/dispatch-shipment/endpoint.ts",
         "line": 6
       },
       "domain": "shipping"
@@ -337,7 +337,7 @@
       "type": "useCase",
       "name": "DispatchShipmentUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/shipping-domain/src/api/dispatch-shipment/use-cases/dispatch-shipment-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/api/dispatch-shipment/use-cases/dispatch-shipment-use-case.ts",
         "line": 6
       },
       "domain": "shipping"
@@ -346,8 +346,8 @@
       "type": "event",
       "name": "InventoryReserved",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/infrastructure/events.ts",
-        "line": 4
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/infrastructure/events.ts",
+        "line": 5
       },
       "domain": "inventory"
     },
@@ -355,7 +355,7 @@
       "type": "domainOp",
       "name": "InventoryItem",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/domain/InventoryItem.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/domain/InventoryItem.ts",
         "line": 10
       },
       "domain": "inventory"
@@ -364,8 +364,8 @@
       "type": "eventHandler",
       "name": "ShipmentCreatedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/shipment-created/handler.ts",
-        "line": 6
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/shipment-created/handler.ts",
+        "line": 7
       },
       "domain": "inventory"
     },
@@ -373,7 +373,7 @@
       "type": "useCase",
       "name": "AllocateInventoryUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/shipment-created/use-cases/allocate-inventory-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/shipment-created/use-cases/allocate-inventory-use-case.ts",
         "line": 4
       },
       "domain": "inventory"
@@ -382,8 +382,8 @@
       "type": "eventHandler",
       "name": "OrderPlacedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/order-placed/handler.ts",
-        "line": 6
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/order-placed/handler.ts",
+        "line": 7
       },
       "domain": "inventory"
     },
@@ -391,7 +391,7 @@
       "type": "useCase",
       "name": "ReserveInventoryUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/order-placed/use-cases/reserve-inventory-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/order-placed/use-cases/reserve-inventory-use-case.ts",
         "line": 5
       },
       "domain": "inventory"
@@ -400,8 +400,8 @@
       "type": "eventHandler",
       "name": "OrderCancelledHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/order-cancelled/handler.ts",
-        "line": 6
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/order-cancelled/handler.ts",
+        "line": 7
       },
       "domain": "inventory"
     },
@@ -409,7 +409,7 @@
       "type": "useCase",
       "name": "ReleaseInventoryUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/consumer/order-cancelled/use-cases/release-inventory-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/order-cancelled/use-cases/release-inventory-use-case.ts",
         "line": 4
       },
       "domain": "inventory"
@@ -418,7 +418,7 @@
       "type": "api",
       "name": "CheckStockEndpoint",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/api/check-stock/endpoint.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/api/check-stock/endpoint.ts",
         "line": 6
       },
       "domain": "inventory"
@@ -427,7 +427,7 @@
       "type": "useCase",
       "name": "CheckStockUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/inventory-domain/src/api/check-stock/use-cases/check-stock-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/api/check-stock/use-cases/check-stock-use-case.ts",
         "line": 12
       },
       "domain": "inventory"
@@ -436,8 +436,8 @@
       "type": "event",
       "name": "PaymentCompleted",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
-        "line": 4
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
+        "line": 5
       },
       "domain": "payment"
     },
@@ -445,8 +445,8 @@
       "type": "event",
       "name": "PaymentFailed",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
-        "line": 14
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
+        "line": 15
       },
       "domain": "payment"
     },
@@ -454,8 +454,8 @@
       "type": "event",
       "name": "PaymentRefunded",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
-        "line": 24
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/events.ts",
+        "line": 25
       },
       "domain": "payment"
     },
@@ -463,7 +463,7 @@
       "type": "domainOp",
       "name": "Payment",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/domain/Payment.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/domain/Payment.ts",
         "line": 11
       },
       "domain": "payment"
@@ -472,8 +472,8 @@
       "type": "eventHandler",
       "name": "OrderPlacedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/consumer/order-placed/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-placed/handler.ts",
+        "line": 6
       },
       "domain": "payment"
     },
@@ -481,7 +481,7 @@
       "type": "useCase",
       "name": "ProcessPaymentUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/consumer/order-placed/use-cases/process-payment-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-placed/use-cases/process-payment-use-case.ts",
         "line": 10
       },
       "domain": "payment"
@@ -490,8 +490,8 @@
       "type": "eventHandler",
       "name": "OrderCancelledHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/consumer/order-cancelled/handler.ts",
-        "line": 6
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-cancelled/handler.ts",
+        "line": 7
       },
       "domain": "payment"
     },
@@ -499,7 +499,7 @@
       "type": "useCase",
       "name": "RefundPaymentUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/payment-domain/src/consumer/order-cancelled/use-cases/refund-payment-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-cancelled/use-cases/refund-payment-use-case.ts",
         "line": 6
       },
       "domain": "payment"
@@ -508,7 +508,7 @@
       "type": "domainOp",
       "name": "Notification",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/domain/Notification.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/domain/Notification.ts",
         "line": 15
       },
       "domain": "notifications"
@@ -517,8 +517,8 @@
       "type": "eventHandler",
       "name": "ShipmentDispatchedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-dispatched/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-dispatched/handler.ts",
+        "line": 6
       },
       "domain": "notifications"
     },
@@ -526,7 +526,7 @@
       "type": "useCase",
       "name": "NotifyShipmentDispatchedUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-dispatched/use-cases/notify-shipment-dispatched-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-dispatched/use-cases/notify-shipment-dispatched-use-case.ts",
         "line": 4
       },
       "domain": "notifications"
@@ -535,8 +535,8 @@
       "type": "eventHandler",
       "name": "ShipmentDeliveredHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-delivered/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-delivered/handler.ts",
+        "line": 6
       },
       "domain": "notifications"
     },
@@ -544,7 +544,7 @@
       "type": "useCase",
       "name": "NotifyShipmentDeliveredUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-delivered/use-cases/notify-shipment-delivered-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/shipment-delivered/use-cases/notify-shipment-delivered-use-case.ts",
         "line": 4
       },
       "domain": "notifications"
@@ -553,8 +553,8 @@
       "type": "eventHandler",
       "name": "PaymentCompletedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/payment-completed/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/payment-completed/handler.ts",
+        "line": 6
       },
       "domain": "notifications"
     },
@@ -562,7 +562,7 @@
       "type": "useCase",
       "name": "NotifyPaymentCompletedUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/payment-completed/use-cases/notify-payment-completed-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/payment-completed/use-cases/notify-payment-completed-use-case.ts",
         "line": 4
       },
       "domain": "notifications"
@@ -571,8 +571,8 @@
       "type": "eventHandler",
       "name": "OrderPlacedHandler",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/order-placed/handler.ts",
-        "line": 5
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/order-placed/handler.ts",
+        "line": 6
       },
       "domain": "notifications"
     },
@@ -580,16 +580,16 @@
       "type": "useCase",
       "name": "NotifyOrderPlacedUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/notifications-domain/src/consumer/order-placed/use-cases/notify-order-placed-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/notifications-domain/src/consumer/order-placed/use-cases/notify-order-placed-use-case.ts",
         "line": 24
       },
       "domain": "notifications"
     },
     {
       "type": "api",
-      "name": "placeOrderBFFEndpoint",
+      "name": "PlaceOrderBFFEndpoint",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/bff/src/api/place-order/endpoint.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/api/place-order/endpoint.ts",
         "line": 5
       },
       "domain": "bff"
@@ -598,7 +598,7 @@
       "type": "useCase",
       "name": "PlaceOrderBFFUseCase",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/bff/src/api/place-order/use-cases/place-order-bff-use-case.ts",
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/api/place-order/use-cases/place-order-bff-use-case.ts",
         "line": 29
       },
       "domain": "bff"
@@ -607,8 +607,8 @@
       "type": "ui",
       "name": "OrderPage",
       "location": {
-        "file": "/Users/nicktune/code/ecommerce-demo-app/ui/src/pages/OrderPage.tsx",
-        "line": 3
+        "file": "/Users/nicko/code/ecommerce-demo-app/ui/src/pages/OrderPage.tsx",
+        "line": 9
       },
       "domain": "ui"
     }

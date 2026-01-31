@@ -2,11 +2,15 @@ import type { Request, Response } from 'express'
 import { PlaceOrderBFFUseCase } from './usecase'
 
 /** @bffApi */
-export function placeOrderBFFEndpoint(useCase: PlaceOrderBFFUseCase) {
-  return async (req: Request, res: Response): Promise<void> => {
+export class PlaceOrderBFFEndpoint {
+  readonly route = '/bff/orders'
+  readonly method = 'POST'
+  constructor(private readonly useCase: PlaceOrderBFFUseCase) {}
+
+  async handle(req: Request, res: Response): Promise<void> {
     const { customerId, items, totalAmount } = req.body
 
-    const result = await useCase.apply({
+    const result = await this.useCase.apply({
       customerId,
       items,
       totalAmount
@@ -14,4 +18,9 @@ export function placeOrderBFFEndpoint(useCase: PlaceOrderBFFUseCase) {
 
     res.status(201).json(result)
   }
+}
+
+export function placeOrderBFFEndpoint(useCase: PlaceOrderBFFUseCase) {
+  const endpoint = new PlaceOrderBFFEndpoint(useCase)
+  return async (req: Request, res: Response) => endpoint.handle(req, res)
 }
