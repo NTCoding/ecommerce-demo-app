@@ -8,7 +8,7 @@ interface OrderPageState {
 export class OrderPage extends Component<Record<string, never>, OrderPageState> {
   readonly route = '/order'
 
-  state: OrderPageState = {
+  override state: OrderPageState = {
     customerId: 'customer123',
     orderId: ''
   }
@@ -31,7 +31,7 @@ export class OrderPage extends Component<Record<string, never>, OrderPageState> 
     this.setState({ orderId: data.orderId })
   }
 
-  render() {
+  override render() {
     return (
       <div style={{ padding: '20px' }}>
         <h1>Place Order</h1>

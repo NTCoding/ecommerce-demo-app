@@ -17,13 +17,13 @@ async function checkFraudDetection(customerId: string, totalAmount: number): Pro
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ customerId, totalAmount })
   })
-  const data = await response.json()
+  const data = (await response.json()) as { approved: boolean }
   return data.approved
 }
 
 async function fetchCustomerProfile(customerId: string): Promise<{ paymentMethodId: string }> {
   const response = await fetch(`http://customer-service.internal/api/customers/${customerId}/profile`)
-  return response.json()
+  return (await response.json()) as { paymentMethodId: string }
 }
 
 export class PlaceOrderBFFUseCase {
@@ -44,7 +44,7 @@ export class PlaceOrderBFFUseCase {
       })
     })
 
-    const orderData = await orderResponse.json()
+    const orderData = (await orderResponse.json()) as { orderId: string; state: string }
 
     const inventoryChecks = await Promise.all(
       request.items.map((item) =>

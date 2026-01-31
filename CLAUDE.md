@@ -106,3 +106,7 @@ Each domain has:
   - `packages/riviere-extract-conventions` - Default decorators
 
 **If you find bugs in the npm packages, fix them there. Do not modify this repo to work around them. See the mandatory protocol at the top of this file.**
+
+## Pre-Push Compliance Check
+
+**Before pushing any changes, run `/check-compliance` to verify all domains still follow their documented extraction strategies.** This catches accidental strategy drift (e.g. adding custom config rules to orders-domain, importing conventions package in non-orders domains, mixing detection strategies, etc.). Do not push if there are violations — fix them first.

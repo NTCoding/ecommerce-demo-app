@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express'
-import { PlaceOrderBFFUseCase } from './usecase'
+import { PlaceOrderBFFUseCase } from './use-cases/place-order-bff-use-case'
 
 /** @bffApi */
 export class PlaceOrderBFFEndpoint {
