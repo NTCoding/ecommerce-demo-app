@@ -25,13 +25,13 @@ npm run test:arch      # Run architectural tests (all domains)
 npm run verify:extract # Verify extraction produces expected components
 ```
 
-### Extract Architecture
+### Validate Architecture Graph
 
 ```bash
-npm run extract:save   # Extract architecture graph → .riviere/architecture.json
+npm run graph:validate # Validate .riviere/graph.json is a valid Rivière graph
 ```
 
-This runs the Rivière extractor across all 7 domains and writes the full architecture graph to `.riviere/architecture.json`. The output contains all 68 detected components with their metadata, ready for viewing in [Eclair](https://living-architecture.dev/eclair/?demo=true).
+The `.riviere/graph.json` is the full Rivière architecture graph committed to the repo. This command validates it against the Rivière schema. It runs automatically on every commit via the pre-commit hook.
 
 ---
 

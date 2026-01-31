@@ -1,2 +1,3 @@
 npm run lint:arch
 npm run lint:deps
+npm run graph:validate
