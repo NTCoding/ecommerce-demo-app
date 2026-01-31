@@ -1,9 +1,8 @@
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import type { OrderConfirmed } from '../../infrastructure/events'
 import { CreateShipmentUseCase } from './use-cases/create-shipment-use-case'
 
 /** @eventHandler */
-export class OrderConfirmedHandler implements EventHandlerDef {
+export class OrderConfirmedHandler {
   readonly subscribedEvents = ['OrderConfirmed']
   constructor(private readonly useCase: CreateShipmentUseCase) {}
 

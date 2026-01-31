@@ -1,9 +1,8 @@
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { IPaymentEventHandler } from '../../interfaces'
 import type { OrderPlaced } from '../../infrastructure/events'
 import { ProcessPaymentUseCase } from './use-cases/process-payment-use-case'
 
-export class OrderPlacedHandler implements IPaymentEventHandler, EventHandlerDef {
+export class OrderPlacedHandler implements IPaymentEventHandler {
   readonly subscribedEvents = ['OrderPlaced']
   constructor(private readonly useCase: ProcessPaymentUseCase) {}
 

@@ -47,15 +47,27 @@ pnpm verify:extract # Verify extraction output
 
 ## Domains & Extraction Strategies
 
-| Domain | Strategy | Config |
-|--------|----------|--------|
-| orders | Riviere default decorators | `extends` convention package |
-| shipping | JSDoc tags | `@useCase`, `@eventHandler`, `@domainOp`, `@api`, `@event` |
-| inventory | Custom decorators | `@StockUseCase`, `@StockHandler`, `@StockOp`, `@StockAPI`, `@StockEvent` |
-| payment | Interface-based | `implements IPaymentUseCase`, etc. |
-| notifications | Base class | `extends BaseNotificationUseCase`, etc. |
-| bff | Crazy mix | nameEndsWith + JSDoc |
-| ui | Name-based | `*Page` suffix |
+**Source of truth:** See the "Deterministic Extraction Setup Guide" table in `README.md`.
+
+### Convention boundary rule
+
+**ONLY `orders-domain` may import from `@living-architecture/riviere-extract-conventions`.** This is enforced by dependency-cruiser. No other domain may depend on the conventions package — each domain uses its own independent detection strategy.
+
+### ESLint convention rules (orders-domain only)
+
+The ESLint convention rules (`api-controller-requires-route-and-method`, `event-requires-type-property`, `event-handler-requires-subscribed-events`) ONLY work on classes with `implements <ConventionInterface>`. Since only `orders-domain` uses convention interfaces from `@living-architecture/riviere-extract-conventions`, these rules are scoped exclusively to `orders-domain/src/**` in `eslint.config.mjs`. They have no effect on other domains and MUST NOT be applied to other domains.
+
+### Per-domain summary
+
+| Domain | Detection Strategy | Enforcement | FORBIDDEN |
+|--------|-------------------|-------------|-----------|
+| orders | Riviere default decorators (`@UseCase`, `@EventHandler`, etc.) + `extends` convention | ESLint convention rules (built-in) | N/A — this is the reference implementation |
+| shipping | JSDoc tags (`@riviere useCase`, `@riviere eventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| inventory | Custom decorators (`@StockUseCase`, `@StockHandler`, `@StockOp`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| payments | Domain interfaces (`implements IPaymentUseCase`, `implements IEventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| notifications | Base classes (`extends BaseNotificationUseCase`, `extends BaseHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| bff | Mixed (nameEndsWith + JSDoc) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| ui | Name-based (`*Page` suffix) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
 
 ## Verifying Extraction
 

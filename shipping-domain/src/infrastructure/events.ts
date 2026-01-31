@@ -1,8 +1,7 @@
-import type { EventDef } from '@living-architecture/riviere-extract-conventions'
 import { EventEmitter } from 'events'
 
 /** @event */
-export class ShipmentCreated implements EventDef {
+export class ShipmentCreated {
   readonly type = 'ShipmentCreated'
   constructor(
     public readonly orderId: string,
@@ -13,7 +12,7 @@ export class ShipmentCreated implements EventDef {
 }
 
 /** @event */
-export class ShipmentDispatched implements EventDef {
+export class ShipmentDispatched {
   readonly type = 'ShipmentDispatched'
   constructor(
     public readonly shipmentId: string,
@@ -24,7 +23,7 @@ export class ShipmentDispatched implements EventDef {
 }
 
 /** @event */
-export class ShipmentDelivered implements EventDef {
+export class ShipmentDelivered {
   readonly type = 'ShipmentDelivered'
   constructor(
     public readonly orderId: string,

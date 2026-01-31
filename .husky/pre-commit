@@ -1,1 +1,2 @@
 npm run lint:arch
+npm run lint:deps

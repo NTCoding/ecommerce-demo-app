@@ -1,11 +1,10 @@
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { StockHandler } from '../../decorators'
 import { InventoryItem } from '../../domain/InventoryItem'
 import type { OrderPlaced } from '../../infrastructure/events'
 import { ReserveInventoryUseCase } from './use-cases/reserve-inventory-use-case'
 
 @StockHandler
-export class OrderPlacedHandler implements EventHandlerDef {
+export class OrderPlacedHandler {
   readonly subscribedEvents = ['OrderPlaced']
   constructor(
     private readonly useCase: ReserveInventoryUseCase,

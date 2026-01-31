@@ -1,12 +1,11 @@
 import { Component } from 'react'
-import type { UIPageDef } from '@living-architecture/riviere-extract-conventions'
 
 interface OrderPageState {
   customerId: string
   orderId: string
 }
 
-export class OrderPage extends Component<Record<string, never>, OrderPageState> implements UIPageDef {
+export class OrderPage extends Component<Record<string, never>, OrderPageState> {
   readonly route = '/order'
 
   state: OrderPageState = {

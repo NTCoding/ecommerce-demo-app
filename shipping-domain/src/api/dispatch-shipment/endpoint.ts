@@ -1,10 +1,9 @@
-import type { APIControllerDef } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { Shipment } from '../../domain/Shipment'
 import { DispatchShipmentUseCase } from './use-cases/dispatch-shipment-use-case'
 
 /** @api */
-export class DispatchShipmentEndpoint implements APIControllerDef {
+export class DispatchShipmentEndpoint {
   readonly route = '/shipments/:shipmentId/dispatch'
   readonly method = 'POST'
   constructor(private readonly useCase: DispatchShipmentUseCase) {}

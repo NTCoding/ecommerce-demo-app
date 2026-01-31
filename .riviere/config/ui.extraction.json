@@ -8,6 +8,9 @@
   "event": { "notUsed": true },
   "ui": {
     "find": "classes",
-    "where": { "nameEndsWith": { "suffix": "Page" } }
+    "where": { "nameEndsWith": { "suffix": "Page" } },
+    "extract": {
+      "route": { "fromProperty": { "name": "route", "kind": "instance" } }
+    }
   }
 }

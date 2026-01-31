@@ -1,9 +1,8 @@
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { BaseNotificationHandler } from '../../base-classes'
 import type { OrderPlaced } from '../../infrastructure/events'
 import { NotifyOrderPlacedUseCase } from './use-cases/notify-order-placed-use-case'
 
-export class OrderPlacedHandler extends BaseNotificationHandler<OrderPlaced> implements EventHandlerDef {
+export class OrderPlacedHandler extends BaseNotificationHandler<OrderPlaced> {
   readonly subscribedEvents = ['OrderPlaced']
   constructor(private readonly useCase: NotifyOrderPlacedUseCase) {
     super()

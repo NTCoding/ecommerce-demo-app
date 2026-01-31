@@ -1,33 +1,5 @@
 {
   "name": "orders",
   "path": "orders-domain/src/**/*.ts",
-  "extends": "@living-architecture/riviere-extract-conventions",
-  "domainOp": {
-    "find": "methods",
-    "where": {
-      "inClassWith": {
-        "hasDecorator": {
-          "name": "DomainOpContainer",
-          "from": "@living-architecture/riviere-extract-conventions"
-        }
-      }
-    },
-    "extract": {
-      "operationName": { "fromMethodName": true }
-    }
-  },
-  "eventHandler": {
-    "find": "methods",
-    "where": {
-      "inClassWith": {
-        "hasDecorator": {
-          "name": "EventHandlerContainer",
-          "from": "@living-architecture/riviere-extract-conventions"
-        }
-      }
-    },
-    "extract": {
-      "subscribedEvents": { "fromGenericArg": { "interface": "IEventHandler", "position": 0 } }
-    }
-  }
+  "extends": "@living-architecture/riviere-extract-conventions"
 }

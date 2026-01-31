@@ -1,9 +1,8 @@
-import type { EventDef } from '@living-architecture/riviere-extract-conventions'
 import { EventEmitter } from 'events'
 import { StockEvent } from '../decorators'
 
 @StockEvent
-export class InventoryReserved implements EventDef {
+export class InventoryReserved {
   readonly type = 'InventoryReserved'
   constructor(
     public readonly orderId: string,

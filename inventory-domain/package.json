@@ -12,7 +12,6 @@
     "generate:clients": "openapi-typescript http://localhost:3000/openapi.json -o src/infrastructure/orders-client.ts"
   },
   "dependencies": {
-    "@living-architecture/riviere-extract-conventions": "latest",
     "express": "^4.18.2"
   },
   "devDependencies": {

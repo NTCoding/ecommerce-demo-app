@@ -1,9 +1,8 @@
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
 import { BaseNotificationHandler } from '../../base-classes'
 import type { PaymentCompleted } from '../../infrastructure/events'
 import { NotifyPaymentCompletedUseCase } from './use-cases/notify-payment-completed-use-case'
 
-export class PaymentCompletedHandler extends BaseNotificationHandler<PaymentCompleted> implements EventHandlerDef {
+export class PaymentCompletedHandler extends BaseNotificationHandler<PaymentCompleted> {
   readonly subscribedEvents = ['PaymentCompleted']
   constructor(private readonly useCase: NotifyPaymentCompletedUseCase) {
     super()
