@@ -3,7 +3,7 @@ import { StockEvent } from '../decorators'
 
 @StockEvent
 export class InventoryReserved {
-  readonly type = 'InventoryReserved' as const
+  readonly type = 'InventoryReserved'
   constructor(
     public readonly orderId: string,
     public readonly items: Array<{ sku: string; quantity: number }>,

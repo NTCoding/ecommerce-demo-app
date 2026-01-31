@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { Component } from 'react'
 
-export function OrderPage() {
-  const [customerId, setCustomerId] = useState('customer123')
-  const [orderId, setOrderId] = useState('')
+interface OrderPageState {
+  customerId: string
+  orderId: string
+}
 
-  const handlePlaceOrder = async () => {
+export class OrderPage extends Component<Record<string, never>, OrderPageState> {
+  readonly route = '/order'
+
+  override state: OrderPageState = {
+    customerId: 'customer123',
+    orderId: ''
+  }
+
+  handlePlaceOrder = async () => {
     const response = await fetch('http://localhost:3100/bff/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        customerId,
+        customerId: this.state.customerId,
         items: [
           { sku: 'SKU001', quantity: 2 },
           { sku: 'SKU002', quantity: 1 }
@@ -19,21 +28,23 @@ export function OrderPage() {
     })
 
     const data = await response.json()
-    setOrderId(data.orderId)
+    this.setState({ orderId: data.orderId })
   }
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>Place Order</h1>
-      <div>
-        <label>Customer ID:</label>
-        <input
-          value={customerId}
-          onChange={(e) => setCustomerId(e.target.value)}
-        />
+  override render() {
+    return (
+      <div style={{ padding: '20px' }}>
+        <h1>Place Order</h1>
+        <div>
+          <label>Customer ID:</label>
+          <input
+            value={this.state.customerId}
+            onChange={(e) => this.setState({ customerId: e.target.value })}
+          />
+        </div>
+        <button onClick={this.handlePlaceOrder}>Place Order</button>
+        {this.state.orderId && <p>Order placed: {this.state.orderId}</p>}
       </div>
-      <button onClick={handlePlaceOrder}>Place Order</button>
-      {orderId && <p>Order placed: {orderId}</p>}
-    </div>
-  )
+    )
+  }
 }

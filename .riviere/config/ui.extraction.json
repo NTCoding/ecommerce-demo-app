@@ -7,7 +7,10 @@
   "api": { "notUsed": true },
   "event": { "notUsed": true },
   "ui": {
-    "find": "functions",
-    "where": { "nameEndsWith": { "suffix": "Page" } }
+    "find": "classes",
+    "where": { "nameEndsWith": { "suffix": "Page" } },
+    "extract": {
+      "route": { "fromProperty": { "name": "route", "kind": "instance" } }
+    }
   }
 }

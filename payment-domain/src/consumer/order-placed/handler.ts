@@ -3,6 +3,7 @@ import type { OrderPlaced } from '../../infrastructure/events'
 import { ProcessPaymentUseCase } from './use-cases/process-payment-use-case'
 
 export class OrderPlacedHandler implements IPaymentEventHandler {
+  readonly subscribedEvents = ['OrderPlaced']
   constructor(private readonly useCase: ProcessPaymentUseCase) {}
 
   handle(event: OrderPlaced): void {

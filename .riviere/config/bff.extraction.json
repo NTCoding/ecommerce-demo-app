@@ -3,13 +3,21 @@
   "path": "bff/src/**/*.ts",
   "useCase": {
     "find": "classes",
-    "where": { "nameEndsWith": { "suffix": "UseCase" } }
+    "where": { "nameEndsWith": { "suffix": "UseCase" } },
+    "extract": {
+      "useCaseName": { "fromClassName": true }
+    }
   },
   "eventHandler": { "notUsed": true },
   "domainOp": { "notUsed": true },
   "api": {
-    "find": "functions",
-    "where": { "hasJSDoc": { "tag": "bffApi" } }
+    "find": "classes",
+    "where": { "hasJSDoc": { "tag": "bffApi" } },
+    "extract": {
+      "apiType": { "literal": "REST" },
+      "route": { "fromProperty": { "name": "route", "kind": "instance" } },
+      "method": { "fromProperty": { "name": "method", "kind": "instance" } }
+    }
   },
   "event": { "notUsed": true },
   "ui": { "notUsed": true }

@@ -5,6 +5,8 @@ import { CheckStockUseCase } from './use-cases/check-stock-use-case'
 
 @StockAPI
 export class CheckStockEndpoint {
+  readonly route = '/inventory/:sku'
+  readonly method = 'GET'
   constructor(
     private readonly useCase: CheckStockUseCase,
     private readonly inventoryItems: Map<string, InventoryItem>

@@ -3,6 +3,7 @@ import type { PaymentCompleted } from '../../infrastructure/events'
 import { NotifyPaymentCompletedUseCase } from './use-cases/notify-payment-completed-use-case'
 
 export class PaymentCompletedHandler extends BaseNotificationHandler<PaymentCompleted> {
+  readonly subscribedEvents = ['PaymentCompleted']
   constructor(private readonly useCase: NotifyPaymentCompletedUseCase) {
     super()
   }

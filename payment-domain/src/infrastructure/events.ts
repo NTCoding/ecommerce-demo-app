@@ -2,7 +2,7 @@ import { EventEmitter } from 'events'
 import { IPaymentEvent } from '../interfaces'
 
 export class PaymentCompleted implements IPaymentEvent {
-  readonly type = 'PaymentCompleted' as const
+  readonly type = 'PaymentCompleted'
   constructor(
     public readonly orderId: string,
     public readonly paymentId: string,
@@ -12,7 +12,7 @@ export class PaymentCompleted implements IPaymentEvent {
 }
 
 export class PaymentFailed implements IPaymentEvent {
-  readonly type = 'PaymentFailed' as const
+  readonly type = 'PaymentFailed'
   constructor(
     public readonly orderId: string,
     public readonly paymentId: string,
@@ -22,7 +22,7 @@ export class PaymentFailed implements IPaymentEvent {
 }
 
 export class PaymentRefunded implements IPaymentEvent {
-  readonly type = 'PaymentRefunded' as const
+  readonly type = 'PaymentRefunded'
   constructor(
     public readonly orderId: string,
     public readonly paymentId: string,

@@ -5,6 +5,7 @@ import { ReleaseInventoryUseCase } from './use-cases/release-inventory-use-case'
 
 @StockHandler
 export class OrderCancelledHandler {
+  readonly subscribedEvents = ['OrderCancelled']
   constructor(
     private readonly useCase: ReleaseInventoryUseCase,
     private readonly inventoryItems: Map<string, InventoryItem>

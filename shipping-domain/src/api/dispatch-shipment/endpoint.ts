@@ -3,8 +3,12 @@ import { Shipment } from '../../domain/Shipment'
 import { DispatchShipmentUseCase } from './use-cases/dispatch-shipment-use-case'
 
 /** @api */
-export function dispatchShipmentEndpoint(useCase: DispatchShipmentUseCase) {
-  return (req: Request, res: Response): void => {
+export class DispatchShipmentEndpoint {
+  readonly route = '/shipments/:shipmentId/dispatch'
+  readonly method = 'POST'
+  constructor(private readonly useCase: DispatchShipmentUseCase) {}
+
+  handle(req: Request, res: Response): void {
     const shipmentId = req.params['shipmentId']
 
     if (!shipmentId) {
@@ -19,7 +23,7 @@ export function dispatchShipmentEndpoint(useCase: DispatchShipmentUseCase) {
       'TRK123'
     )
 
-    useCase.apply(shipmentId, shipment)
+    this.useCase.apply(shipmentId, shipment)
 
     res.status(200).json({
       shipmentId,
@@ -27,4 +31,9 @@ export function dispatchShipmentEndpoint(useCase: DispatchShipmentUseCase) {
       message: 'Shipment dispatched successfully'
     })
   }
+}
+
+export function dispatchShipmentEndpoint(useCase: DispatchShipmentUseCase) {
+  const endpoint = new DispatchShipmentEndpoint(useCase)
+  return (req: Request, res: Response) => endpoint.handle(req, res)
 }

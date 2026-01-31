@@ -3,15 +3,24 @@
   "path": "notifications-domain/src/**/*.ts",
   "useCase": {
     "find": "classes",
-    "where": { "extendsClass": { "name": "BaseNotificationUseCase" } }
+    "where": { "extendsClass": { "name": "BaseNotificationUseCase" } },
+    "extract": {
+      "useCaseName": { "fromClassName": true }
+    }
   },
   "eventHandler": {
     "find": "classes",
-    "where": { "nameMatches": { "pattern": "^(?!Base).+Handler$" } }
+    "where": { "nameMatches": { "pattern": "^(?!Base).+Handler$" } },
+    "extract": {
+      "handlerName": { "fromClassName": true }
+    }
   },
   "domainOp": {
     "find": "classes",
-    "where": { "extendsClass": { "name": "BaseNotificationDomainOp" } }
+    "where": { "extendsClass": { "name": "BaseNotificationDomainOp" } },
+    "extract": {
+      "operationName": { "fromClassName": true }
+    }
   },
   "api": { "notUsed": true },
   "event": { "notUsed": true },

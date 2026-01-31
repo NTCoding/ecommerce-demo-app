@@ -3,20 +3,32 @@
   "path": "payment-domain/src/**/*.ts",
   "useCase": {
     "find": "classes",
-    "where": { "implementsInterface": { "name": "IPaymentUseCase" } }
+    "where": { "implementsInterface": { "name": "IPaymentUseCase" } },
+    "extract": {
+      "useCaseName": { "fromClassName": true }
+    }
   },
   "eventHandler": {
     "find": "classes",
-    "where": { "implementsInterface": { "name": "IPaymentEventHandler" } }
+    "where": { "implementsInterface": { "name": "IPaymentEventHandler" } },
+    "extract": {
+      "handlerName": { "fromClassName": true }
+    }
   },
   "domainOp": {
     "find": "classes",
-    "where": { "implementsInterface": { "name": "IPaymentDomainOp" } }
+    "where": { "implementsInterface": { "name": "IPaymentDomainOp" } },
+    "extract": {
+      "operationName": { "fromClassName": true }
+    }
   },
   "api": { "notUsed": true },
   "event": {
     "find": "classes",
-    "where": { "implementsInterface": { "name": "IPaymentEvent" } }
+    "where": { "implementsInterface": { "name": "IPaymentEvent" } },
+    "extract": {
+      "eventName": { "fromClassName": true }
+    }
   },
   "ui": { "notUsed": true }
 }

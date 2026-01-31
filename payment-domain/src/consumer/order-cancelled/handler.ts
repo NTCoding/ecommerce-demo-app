@@ -4,6 +4,7 @@ import type { OrderCancelled } from '../../infrastructure/events'
 import { RefundPaymentUseCase } from './use-cases/refund-payment-use-case'
 
 export class OrderCancelledHandler implements IPaymentEventHandler {
+  readonly subscribedEvents = ['OrderCancelled']
   constructor(private readonly useCase: RefundPaymentUseCase) {}
 
   async handle(event: OrderCancelled): Promise<void> {

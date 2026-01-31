@@ -3,6 +3,7 @@ import type { OrderPlaced } from '../../infrastructure/events'
 import { NotifyOrderPlacedUseCase } from './use-cases/notify-order-placed-use-case'
 
 export class OrderPlacedHandler extends BaseNotificationHandler<OrderPlaced> {
+  readonly subscribedEvents = ['OrderPlaced']
   constructor(private readonly useCase: NotifyOrderPlacedUseCase) {
     super()
   }

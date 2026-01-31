@@ -5,6 +5,7 @@ import { AllocateInventoryUseCase } from './use-cases/allocate-inventory-use-cas
 
 @StockHandler
 export class ShipmentCreatedHandler {
+  readonly subscribedEvents = ['ShipmentCreated']
   constructor(
     private readonly useCase: AllocateInventoryUseCase,
     private readonly inventoryItems: Map<string, InventoryItem>

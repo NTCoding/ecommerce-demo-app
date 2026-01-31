@@ -1,10 +1,13 @@
 import { APIContainer } from '@living-architecture/riviere-extract-conventions'
+import type { APIControllerDef } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { Order } from '../../domain/Order'
 import { CancelOrderUseCase } from './use-cases/cancel-order-use-case'
 
 @APIContainer
-export class CancelOrderEndpoint {
+export class CancelOrderEndpoint implements APIControllerDef {
+  readonly route = '/orders/:orderId/cancel'
+  readonly method = 'POST'
   constructor(private readonly useCase: CancelOrderUseCase) {}
 
   handle(req: Request, res: Response): void {

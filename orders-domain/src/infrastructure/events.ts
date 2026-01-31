@@ -1,9 +1,10 @@
 import { Event } from '@living-architecture/riviere-extract-conventions'
+import type { EventDef } from '@living-architecture/riviere-extract-conventions'
 import { EventEmitter } from 'events'
 
 @Event
-export class OrderPlaced {
-  readonly type = 'OrderPlaced' as const
+export class OrderPlaced implements EventDef {
+  readonly type = 'OrderPlaced'
   constructor(
     public readonly orderId: string,
     public readonly customerId: string,
@@ -14,8 +15,8 @@ export class OrderPlaced {
 }
 
 @Event
-export class OrderConfirmed {
-  readonly type = 'OrderConfirmed' as const
+export class OrderConfirmed implements EventDef {
+  readonly type = 'OrderConfirmed'
   constructor(
     public readonly orderId: string,
     public readonly timestamp: string = new Date().toISOString()
@@ -23,8 +24,8 @@ export class OrderConfirmed {
 }
 
 @Event
-export class OrderCancelled {
-  readonly type = 'OrderCancelled' as const
+export class OrderCancelled implements EventDef {
+  readonly type = 'OrderCancelled'
   constructor(
     public readonly orderId: string,
     public readonly reason: string,

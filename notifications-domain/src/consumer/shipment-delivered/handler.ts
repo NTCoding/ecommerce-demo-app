@@ -3,6 +3,7 @@ import type { ShipmentDelivered } from '../../infrastructure/events'
 import { NotifyShipmentDeliveredUseCase } from './use-cases/notify-shipment-delivered-use-case'
 
 export class ShipmentDeliveredHandler extends BaseNotificationHandler<ShipmentDelivered> {
+  readonly subscribedEvents = ['ShipmentDelivered']
   constructor(private readonly useCase: NotifyShipmentDeliveredUseCase) {
     super()
   }

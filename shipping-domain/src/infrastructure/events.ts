@@ -2,7 +2,7 @@ import { EventEmitter } from 'events'
 
 /** @event */
 export class ShipmentCreated {
-  readonly type = 'ShipmentCreated' as const
+  readonly type = 'ShipmentCreated'
   constructor(
     public readonly orderId: string,
     public readonly shipmentId: string,
@@ -13,7 +13,7 @@ export class ShipmentCreated {
 
 /** @event */
 export class ShipmentDispatched {
-  readonly type = 'ShipmentDispatched' as const
+  readonly type = 'ShipmentDispatched'
   constructor(
     public readonly shipmentId: string,
     public readonly orderId: string,
@@ -24,7 +24,7 @@ export class ShipmentDispatched {
 
 /** @event */
 export class ShipmentDelivered {
-  readonly type = 'ShipmentDelivered' as const
+  readonly type = 'ShipmentDelivered'
   constructor(
     public readonly orderId: string,
     public readonly shipmentId: string,

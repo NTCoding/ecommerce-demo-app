@@ -20,11 +20,10 @@ See the [live demo](https://living-architecture.dev/eclair/?demo=true) to explor
 npm run install:all    # Install all dependencies
 npm run build          # Build all domains
 npm run lint:arch      # Run architectural enforcement (orders-domain ESLint)
-npm run test:arch      # Run architectural tests (shipping, inventory, payments)
+npm run lint:deps      # Run dependency boundary enforcement (dependency-cruiser)
+npm run test:arch      # Run architectural tests (all domains)
 npm run verify:extract # Verify extraction produces expected components
 ```
-
-> **⚠️ CI is currently failing:** The `riviere` CLI has an ESM bundling bug ([#133](https://github.com/NTCoding/living-architecture/issues/133)). The `verify:extract` step uses the CLI and will fail until the bug is fixed. This is intentional - it ensures we catch CLI regressions.
 
 ---
 
@@ -401,7 +400,7 @@ npm install
 npx husky install
 ```
 
-The pre-commit hook runs `npm run lint:arch` automatically.
+The pre-commit hook runs `npm run lint:arch` and `npm run lint:deps` automatically.
 
 ### CI Enforcement
 

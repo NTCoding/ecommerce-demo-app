@@ -3,23 +3,40 @@
   "path": "inventory-domain/src/**/*.ts",
   "useCase": {
     "find": "classes",
-    "where": { "hasDecorator": { "name": "StockUseCase" } }
+    "where": { "hasDecorator": { "name": "StockUseCase" } },
+    "extract": {
+      "useCaseName": { "fromClassName": true }
+    }
   },
   "eventHandler": {
     "find": "classes",
-    "where": { "hasDecorator": { "name": "StockHandler" } }
+    "where": { "hasDecorator": { "name": "StockHandler" } },
+    "extract": {
+      "handlerName": { "fromClassName": true }
+    }
   },
   "domainOp": {
     "find": "classes",
-    "where": { "hasDecorator": { "name": "StockOp" } }
+    "where": { "hasDecorator": { "name": "StockOp" } },
+    "extract": {
+      "operationName": { "fromClassName": true }
+    }
   },
   "api": {
     "find": "classes",
-    "where": { "hasDecorator": { "name": "StockAPI" } }
+    "where": { "hasDecorator": { "name": "StockAPI" } },
+    "extract": {
+      "apiType": { "literal": "REST" },
+      "route": { "fromProperty": { "name": "route", "kind": "instance" } },
+      "method": { "fromProperty": { "name": "method", "kind": "instance" } }
+    }
   },
   "event": {
     "find": "classes",
-    "where": { "hasDecorator": { "name": "StockEvent" } }
+    "where": { "hasDecorator": { "name": "StockEvent" } },
+    "extract": {
+      "eventName": { "fromClassName": true }
+    }
   },
   "ui": { "notUsed": true }
 }

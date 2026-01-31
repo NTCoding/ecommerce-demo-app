@@ -3,29 +3,49 @@
   "path": "shipping-domain/src/**/*.ts",
   "useCase": {
     "find": "classes",
-    "where": { "hasJSDoc": { "tag": "useCase" } }
+    "where": { "hasJSDoc": { "tag": "useCase" } },
+    "extract": {
+      "useCaseName": { "fromClassName": true }
+    }
   },
   "eventHandler": {
-    "find": "functions",
-    "where": { "hasJSDoc": { "tag": "eventHandler" } }
+    "find": "classes",
+    "where": { "hasJSDoc": { "tag": "eventHandler" } },
+    "extract": {
+      "handlerName": { "fromClassName": true }
+    }
   },
   "domainOp": {
     "find": "classes",
-    "where": { "hasJSDoc": { "tag": "domainOp" } }
+    "where": { "hasJSDoc": { "tag": "domainOp" } },
+    "extract": {
+      "operationName": { "fromClassName": true }
+    }
   },
   "api": {
-    "find": "functions",
-    "where": { "hasJSDoc": { "tag": "api" } }
+    "find": "classes",
+    "where": { "hasJSDoc": { "tag": "api" } },
+    "extract": {
+      "apiType": { "literal": "REST" },
+      "route": { "fromProperty": { "name": "route", "kind": "instance" } },
+      "method": { "fromProperty": { "name": "method", "kind": "instance" } }
+    }
   },
   "event": {
     "find": "classes",
-    "where": { "hasJSDoc": { "tag": "event" } }
+    "where": { "hasJSDoc": { "tag": "event" } },
+    "extract": {
+      "eventName": { "fromClassName": true }
+    }
   },
   "ui": { "notUsed": true },
   "customTypes": {
     "backgroundJob": {
       "find": "functions",
-      "where": { "hasJSDoc": { "tag": "backgroundJob" } }
+      "where": { "hasJSDoc": { "tag": "backgroundJob" } },
+      "extract": {
+        "jobName": { "fromFilePath": { "pattern": ".*/(.+)\\.ts$", "capture": 1 } }
+      }
     }
   }
 }

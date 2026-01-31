@@ -5,6 +5,7 @@ import { ReserveInventoryUseCase } from './use-cases/reserve-inventory-use-case'
 
 @StockHandler
 export class OrderPlacedHandler {
+  readonly subscribedEvents = ['OrderPlaced']
   constructor(
     private readonly useCase: ReserveInventoryUseCase,
     private readonly inventoryItems: Map<string, InventoryItem>
