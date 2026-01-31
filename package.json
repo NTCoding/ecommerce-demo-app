@@ -1,11 +1,14 @@
 {
   "scripts": {
     "install:all": "pnpm install -r",
-    "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments",
+    "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments && npm run build:notifications && npm run build:bff && npm run build:ui",
     "build:orders": "cd orders-domain && npm run build",
     "build:shipping": "cd shipping-domain && npm run build",
     "build:inventory": "cd inventory-domain && npm run build",
     "build:payments": "cd payment-domain && npm run build",
+    "build:notifications": "cd notifications-domain && npm run build",
+    "build:bff": "cd bff && npm run build",
+    "build:ui": "cd ui && npm run build",
     "lint:arch": "npx eslint --config eslint.config.mjs .",
     "lint:deps": "depcruise --config .dependency-cruiser.cjs orders-domain shipping-domain inventory-domain payment-domain notifications-domain bff ui",
     "test:arch": "npm run test:arch:orders && npm run test:arch:shipping && npm run test:arch:inventory && npm run test:arch:payments",
@@ -14,7 +17,6 @@
     "test:arch:inventory": "cd inventory-domain && npm run test:arch",
     "test:arch:payments": "cd payment-domain && npm run test:arch",
     "extract": "npx riviere extract --config extraction.config.json",
-    "graph:validate": "npx riviere builder validate --json",
     "verify:extract": "node scripts/verify-extraction.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
     "test:deps": "node scripts/test-dependency-boundary.mjs",

@@ -25,14 +25,6 @@ npm run test:arch      # Run architectural tests (all domains)
 npm run verify:extract # Verify extraction produces expected components
 ```
 
-### Validate Architecture Graph
-
-```bash
-npm run graph:validate # Validate .riviere/graph.json is a valid Rivière graph
-```
-
-The `.riviere/graph.json` is the full Rivière architecture graph committed to the repo. This command validates it against the Rivière schema. It runs automatically on every commit via the pre-commit hook.
-
 ---
 
 ## Deterministic Extraction Setup Guide
