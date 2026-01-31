@@ -14,6 +14,7 @@
     "test:arch:inventory": "cd inventory-domain && npm run test:arch",
     "test:arch:payments": "cd payment-domain && npm run test:arch",
     "extract": "npx riviere extract --config extraction.config.json",
+    "extract:save": "npx riviere extract --config extraction.config.json -o .riviere/architecture.json",
     "verify:extract": "node scripts/verify-extraction.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
     "test:deps": "node scripts/test-dependency-boundary.mjs",
