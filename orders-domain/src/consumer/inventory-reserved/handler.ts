@@ -1,11 +1,11 @@
 import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
+import type { EventHandlerDef, IEventHandler } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { InventoryReserved } from '../../infrastructure/events'
 import { ConfirmOrderAfterInventoryUseCase } from './use-cases/confirm-order-after-inventory-use-case'
 
 @EventHandlerContainer
-export class InventoryReservedHandler implements EventHandlerDef {
+export class InventoryReservedHandler implements EventHandlerDef, IEventHandler<InventoryReserved> {
   readonly subscribedEvents = ['InventoryReserved']
   constructor(private readonly useCase: ConfirmOrderAfterInventoryUseCase) {}
 

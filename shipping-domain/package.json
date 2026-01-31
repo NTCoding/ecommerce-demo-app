@@ -13,6 +13,7 @@
     "cron": "tsx src/jobs/update-tracking/cron.ts"
   },
   "dependencies": {
+    "@living-architecture/riviere-extract-conventions": "latest",
     "express": "^4.18.2"
   },
   "devDependencies": {

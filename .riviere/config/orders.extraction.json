@@ -11,6 +11,9 @@
           "from": "@living-architecture/riviere-extract-conventions"
         }
       }
+    },
+    "extract": {
+      "operationName": { "fromMethodName": true }
     }
   },
   "eventHandler": {
@@ -22,6 +25,9 @@
           "from": "@living-architecture/riviere-extract-conventions"
         }
       }
+    },
+    "extract": {
+      "subscribedEvents": { "fromGenericArg": { "interface": "IEventHandler", "position": 0 } }
     }
   }
 }

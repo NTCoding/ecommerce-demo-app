@@ -1,8 +1,9 @@
+import type { APIControllerDef } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { PlaceOrderBFFUseCase } from './usecase'
 
 /** @bffApi */
-export class PlaceOrderBFFEndpoint {
+export class PlaceOrderBFFEndpoint implements APIControllerDef {
   readonly route = '/bff/orders'
   readonly method = 'POST'
   constructor(private readonly useCase: PlaceOrderBFFUseCase) {}

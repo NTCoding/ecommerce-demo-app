@@ -1,11 +1,11 @@
 import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
-import type { EventHandlerDef } from '@living-architecture/riviere-extract-conventions'
+import type { EventHandlerDef, IEventHandler } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../domain/Order'
 import type { ShipmentDelivered } from '../../infrastructure/events'
 import { CompleteOrderUseCase } from './use-cases/complete-order-use-case'
 
 @EventHandlerContainer
-export class ShipmentDeliveredHandler implements EventHandlerDef {
+export class ShipmentDeliveredHandler implements EventHandlerDef, IEventHandler<ShipmentDelivered> {
   readonly subscribedEvents = ['ShipmentDelivered']
   constructor(private readonly useCase: CompleteOrderUseCase) {}
 

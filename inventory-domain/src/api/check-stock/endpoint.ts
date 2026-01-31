@@ -1,10 +1,11 @@
+import type { APIControllerDef } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { StockAPI } from '../../decorators'
 import { InventoryItem } from '../../domain/InventoryItem'
 import { CheckStockUseCase } from './use-cases/check-stock-use-case'
 
 @StockAPI
-export class CheckStockEndpoint {
+export class CheckStockEndpoint implements APIControllerDef {
   readonly route = '/inventory/:sku'
   readonly method = 'GET'
   constructor(
