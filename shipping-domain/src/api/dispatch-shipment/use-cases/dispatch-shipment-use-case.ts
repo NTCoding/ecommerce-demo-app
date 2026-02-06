@@ -1,10 +1,14 @@
 import { Shipment } from '../../../domain/Shipment'
 import { CourierApiClient } from '../../../infrastructure/courier-api-client'
-import { publishEvent, type ShipmentDispatched } from '../../../infrastructure/events'
+import { ShipmentDispatched } from '../../../infrastructure/events'
+import { ShippingEventPublisher } from '../../../infrastructure/shipping-event-publisher'
 
 /** @useCase */
 export class DispatchShipmentUseCase {
-  constructor(private courierApi: CourierApiClient) {}
+  constructor(
+    private courierApi: CourierApiClient,
+    private readonly publisher: ShippingEventPublisher
+  ) {}
 
   async apply(shipmentId: string, shipment: Shipment): Promise<void> {
     if (!shipment.trackingNumber) {
@@ -15,14 +19,8 @@ export class DispatchShipmentUseCase {
 
     shipment.dispatch()
 
-    const event: ShipmentDispatched = {
-      type: 'ShipmentDispatched',
-      shipmentId,
-      orderId: shipment.orderId,
-      courierName: 'FastCourier',
-      timestamp: new Date().toISOString()
-    }
-
-    publishEvent(event)
+    this.publisher.publishShipmentDispatched(
+      new ShipmentDispatched(shipmentId, shipment.orderId, 'FastCourier')
+    )
   }
 }

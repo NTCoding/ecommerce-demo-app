@@ -12,7 +12,8 @@
     "find": "classes",
     "where": { "hasJSDoc": { "tag": "eventHandler" } },
     "extract": {
-      "handlerName": { "fromClassName": true }
+      "handlerName": { "fromClassName": true },
+      "subscribedEvents": { "fromProperty": { "name": "subscribedEvents", "kind": "instance" } }
     }
   },
   "domainOp": {
@@ -39,6 +40,10 @@
     }
   },
   "ui": { "notUsed": true },
+  "eventPublisher": {
+    "find": "classes",
+    "where": { "hasJSDoc": { "tag": "eventPublisher" } }
+  },
   "customTypes": {
     "backgroundJob": {
       "find": "functions",

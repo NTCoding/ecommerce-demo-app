@@ -7,6 +7,7 @@ import { handleOrderPlaced } from './consumer/order-placed/handler'
 import { ReleaseInventoryUseCase } from './consumer/order-cancelled/use-cases/release-inventory-use-case'
 import { handleOrderCancelled } from './consumer/order-cancelled/handler'
 import { subscribeToEvent, type OrderPlaced, type OrderCancelled } from './infrastructure/events'
+import { InventoryEventPublisher } from './infrastructure/inventory-event-publisher'
 
 const app = express()
 const PORT = 3001
@@ -19,8 +20,9 @@ const inventoryItems = new Map<string, InventoryItem>([
   ['SKU003', new InventoryItem('SKU003', 200, 0, 0)]
 ])
 
+const publisher = new InventoryEventPublisher()
 const checkStockUseCase = new CheckStockUseCase()
-const reserveInventoryUseCase = new ReserveInventoryUseCase()
+const reserveInventoryUseCase = new ReserveInventoryUseCase(publisher)
 const releaseInventoryUseCase = new ReleaseInventoryUseCase()
 
 app.get('/inventory/:sku', checkStockEndpoint(checkStockUseCase, inventoryItems))

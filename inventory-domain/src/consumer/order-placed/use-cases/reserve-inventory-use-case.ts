@@ -1,9 +1,12 @@
 import { StockUseCase } from '../../../decorators'
 import { InventoryItem } from '../../../domain/InventoryItem'
-import { publishEvent, type InventoryReserved } from '../../../infrastructure/events'
+import { InventoryReserved } from '../../../infrastructure/events'
+import { InventoryEventPublisher } from '../../../infrastructure/inventory-event-publisher'
 
 @StockUseCase
 export class ReserveInventoryUseCase {
+  constructor(private readonly publisher: InventoryEventPublisher) {}
+
   apply(
     orderId: string,
     items: Array<{ sku: string; quantity: number }>,
@@ -19,13 +22,8 @@ export class ReserveInventoryUseCase {
       inventoryItem.reserve(item.quantity)
     }
 
-    const event: InventoryReserved = {
-      type: 'InventoryReserved',
-      orderId,
-      items,
-      timestamp: new Date().toISOString()
-    }
-
-    publishEvent(event)
+    this.publisher.publishInventoryReserved(
+      new InventoryReserved(orderId, items)
+    )
   }
 }

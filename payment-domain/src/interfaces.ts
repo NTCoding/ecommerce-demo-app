@@ -30,3 +30,8 @@ export interface IPaymentDomainOp {}
 export interface IPaymentEvent {
   readonly type: string
 }
+
+/**
+ * Marker interface for payment event publishers.
+ */
+export interface IPaymentEventPublisher {}

@@ -1,6 +1,7 @@
 import { UseCase } from '@living-architecture/riviere-extract-conventions'
 import { Order } from '../../../domain/Order'
-import { publishEvent, type OrderCancelled } from '../../../infrastructure/events'
+import { OrderCancelled } from '../../../infrastructure/events'
+import { OrderEventPublisher } from '../../../infrastructure/order-event-publisher'
 
 export type CancelOrderRequest = {
   orderId: string
@@ -9,16 +10,13 @@ export type CancelOrderRequest = {
 
 @UseCase
 export class CancelOrderUseCase {
+  constructor(private readonly publisher: OrderEventPublisher) {}
+
   apply(request: CancelOrderRequest, order: Order): void {
     order.cancel()
 
-    const event: OrderCancelled = {
-      type: 'OrderCancelled',
-      orderId: request.orderId,
-      reason: request.reason,
-      timestamp: new Date().toISOString()
-    }
-
-    publishEvent(event)
+    this.publisher.publishOrderCancelled(
+      new OrderCancelled(request.orderId, request.reason)
+    )
   }
 }

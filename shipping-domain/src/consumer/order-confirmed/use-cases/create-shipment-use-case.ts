@@ -1,10 +1,14 @@
 import { Shipment } from '../../../domain/Shipment'
 import { CourierApiClient } from '../../../infrastructure/courier-api-client'
-import { publishEvent, type ShipmentCreated } from '../../../infrastructure/events'
+import { ShipmentCreated } from '../../../infrastructure/events'
+import { ShippingEventPublisher } from '../../../infrastructure/shipping-event-publisher'
 
 /** @useCase */
 export class CreateShipmentUseCase {
-  constructor(private courierApi: CourierApiClient) {}
+  constructor(
+    private courierApi: CourierApiClient,
+    private readonly publisher: ShippingEventPublisher
+  ) {}
 
   async apply(orderId: string, address: string): Promise<void> {
     const shipmentId = `ship_${Date.now()}`
@@ -24,14 +28,8 @@ export class CreateShipmentUseCase {
 
     shipment.create(courierResponse.trackingNumber)
 
-    const event: ShipmentCreated = {
-      type: 'ShipmentCreated',
-      orderId,
-      shipmentId,
-      trackingNumber: courierResponse.trackingNumber,
-      timestamp: new Date().toISOString()
-    }
-
-    publishEvent(event)
+    this.publisher.publishShipmentCreated(
+      new ShipmentCreated(orderId, shipmentId, courierResponse.trackingNumber)
+    )
   }
 }

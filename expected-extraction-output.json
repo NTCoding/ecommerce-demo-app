@@ -1,6 +1,42 @@
 {
   "components": [
     {
+      "type": "eventPublisher",
+      "name": "publishOrderPlaced",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/order-event-publisher.ts",
+        "line": 9
+      },
+      "domain": "orders",
+      "metadata": {
+        "publishedEventType": "OrderPlaced"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishOrderConfirmed",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/order-event-publisher.ts",
+        "line": 14
+      },
+      "domain": "orders",
+      "metadata": {
+        "publishedEventType": "OrderConfirmed"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishOrderCancelled",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/infrastructure/order-event-publisher.ts",
+        "line": 19
+      },
+      "domain": "orders",
+      "metadata": {
+        "publishedEventType": "OrderCancelled"
+      }
+    },
+    {
       "type": "event",
       "name": "OrderPlaced",
       "location": {
@@ -235,7 +271,7 @@
       "name": "CancelOrderAfterPaymentFailureUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-failed/use-cases/cancel-order-after-payment-failure-use-case.ts",
-        "line": 5
+        "line": 6
       },
       "domain": "orders",
       "metadata": {}
@@ -259,7 +295,7 @@
       "name": "ConfirmOrderAfterPaymentUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/consumer/payment-completed/use-cases/confirm-order-after-payment-use-case.ts",
-        "line": 5
+        "line": 6
       },
       "domain": "orders",
       "metadata": {}
@@ -305,7 +341,7 @@
       "name": "PlaceOrderUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/place-order/use-cases/place-order-use-case.ts",
-        "line": 11
+        "line": 12
       },
       "domain": "orders",
       "metadata": {}
@@ -327,7 +363,7 @@
       "name": "CancelOrderUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/api/cancel-order/use-cases/cancel-order-use-case.ts",
-        "line": 10
+        "line": 11
       },
       "domain": "orders",
       "metadata": {}
@@ -337,7 +373,7 @@
       "name": "runTrackingUpdate",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/cron.ts",
-        "line": 11
+        "line": 13
       },
       "domain": "shipping",
       "metadata": {
@@ -349,12 +385,22 @@
       "name": "UpdateTrackingUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/jobs/update-tracking/use-cases/update-tracking-use-case.ts",
-        "line": 6
+        "line": 7
       },
       "domain": "shipping",
       "metadata": {
         "useCaseName": "UpdateTrackingUseCase"
       }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "ShippingEventPublisher",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/shipping-event-publisher.ts",
+        "line": 4
+      },
+      "domain": "shipping",
+      "metadata": {}
     },
     {
       "type": "event",
@@ -413,7 +459,10 @@
       },
       "domain": "shipping",
       "metadata": {
-        "handlerName": "OrderConfirmedHandler"
+        "handlerName": "OrderConfirmedHandler",
+        "subscribedEvents": [
+          "OrderConfirmed"
+        ]
       }
     },
     {
@@ -421,7 +470,7 @@
       "name": "CreateShipmentUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/consumer/order-confirmed/use-cases/create-shipment-use-case.ts",
-        "line": 6
+        "line": 7
       },
       "domain": "shipping",
       "metadata": {
@@ -447,12 +496,22 @@
       "name": "DispatchShipmentUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/api/dispatch-shipment/use-cases/dispatch-shipment-use-case.ts",
-        "line": 6
+        "line": 7
       },
       "domain": "shipping",
       "metadata": {
         "useCaseName": "DispatchShipmentUseCase"
       }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "InventoryEventPublisher",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/infrastructure/inventory-event-publisher.ts",
+        "line": 4
+      },
+      "domain": "inventory",
+      "metadata": {}
     },
     {
       "type": "event",
@@ -487,7 +546,10 @@
       },
       "domain": "inventory",
       "metadata": {
-        "handlerName": "ShipmentCreatedHandler"
+        "handlerName": "ShipmentCreatedHandler",
+        "subscribedEvents": [
+          "ShipmentCreated"
+        ]
       }
     },
     {
@@ -511,7 +573,10 @@
       },
       "domain": "inventory",
       "metadata": {
-        "handlerName": "OrderPlacedHandler"
+        "handlerName": "OrderPlacedHandler",
+        "subscribedEvents": [
+          "OrderPlaced"
+        ]
       }
     },
     {
@@ -519,7 +584,7 @@
       "name": "ReserveInventoryUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/consumer/order-placed/use-cases/reserve-inventory-use-case.ts",
-        "line": 5
+        "line": 6
       },
       "domain": "inventory",
       "metadata": {
@@ -535,7 +600,10 @@
       },
       "domain": "inventory",
       "metadata": {
-        "handlerName": "OrderCancelledHandler"
+        "handlerName": "OrderCancelledHandler",
+        "subscribedEvents": [
+          "OrderCancelled"
+        ]
       }
     },
     {
@@ -575,6 +643,16 @@
       "metadata": {
         "useCaseName": "CheckStockUseCase"
       }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "PaymentEventPublisher",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/payment-event-publisher.ts",
+        "line": 4
+      },
+      "domain": "payment",
+      "metadata": {}
     },
     {
       "type": "event",
@@ -633,7 +711,10 @@
       },
       "domain": "payment",
       "metadata": {
-        "handlerName": "OrderPlacedHandler"
+        "handlerName": "OrderPlacedHandler",
+        "subscribedEvents": [
+          "OrderPlaced"
+        ]
       }
     },
     {
@@ -641,7 +722,7 @@
       "name": "ProcessPaymentUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-placed/use-cases/process-payment-use-case.ts",
-        "line": 10
+        "line": 7
       },
       "domain": "payment",
       "metadata": {
@@ -657,7 +738,10 @@
       },
       "domain": "payment",
       "metadata": {
-        "handlerName": "OrderCancelledHandler"
+        "handlerName": "OrderCancelledHandler",
+        "subscribedEvents": [
+          "OrderCancelled"
+        ]
       }
     },
     {
@@ -665,7 +749,7 @@
       "name": "RefundPaymentUseCase",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/consumer/order-cancelled/use-cases/refund-payment-use-case.ts",
-        "line": 6
+        "line": 7
       },
       "domain": "payment",
       "metadata": {
@@ -693,7 +777,10 @@
       },
       "domain": "notifications",
       "metadata": {
-        "handlerName": "ShipmentDispatchedHandler"
+        "handlerName": "ShipmentDispatchedHandler",
+        "subscribedEvents": [
+          "ShipmentDispatched"
+        ]
       }
     },
     {
@@ -717,7 +804,10 @@
       },
       "domain": "notifications",
       "metadata": {
-        "handlerName": "ShipmentDeliveredHandler"
+        "handlerName": "ShipmentDeliveredHandler",
+        "subscribedEvents": [
+          "ShipmentDelivered"
+        ]
       }
     },
     {
@@ -741,7 +831,10 @@
       },
       "domain": "notifications",
       "metadata": {
-        "handlerName": "PaymentCompletedHandler"
+        "handlerName": "PaymentCompletedHandler",
+        "subscribedEvents": [
+          "PaymentCompleted"
+        ]
       }
     },
     {
@@ -765,7 +858,10 @@
       },
       "domain": "notifications",
       "metadata": {
-        "handlerName": "OrderPlacedHandler"
+        "handlerName": "OrderPlacedHandler",
+        "subscribedEvents": [
+          "OrderPlaced"
+        ]
       }
     },
     {

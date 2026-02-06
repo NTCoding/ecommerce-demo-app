@@ -10,16 +10,18 @@ import { handlePaymentCompleted } from './consumer/payment-completed/handler'
 import { CompleteOrderUseCase } from './consumer/shipment-delivered/use-cases/complete-order-use-case'
 import { handleShipmentDelivered } from './consumer/shipment-delivered/handler'
 import { subscribeToEvent, type InventoryReserved, type PaymentCompleted, type ShipmentDelivered } from './infrastructure/events'
+import { OrderEventPublisher } from './infrastructure/order-event-publisher'
 
 const app = express()
 const PORT = 3000
 
 app.use(express.json())
 
-const placeOrderUseCase = new PlaceOrderUseCase()
-const cancelOrderUseCase = new CancelOrderUseCase()
+const publisher = new OrderEventPublisher()
+const placeOrderUseCase = new PlaceOrderUseCase(publisher)
+const cancelOrderUseCase = new CancelOrderUseCase(publisher)
 const confirmAfterInventoryUseCase = new ConfirmOrderAfterInventoryUseCase()
-const confirmAfterPaymentUseCase = new ConfirmOrderAfterPaymentUseCase()
+const confirmAfterPaymentUseCase = new ConfirmOrderAfterPaymentUseCase(publisher)
 const completeOrderUseCase = new CompleteOrderUseCase()
 
 app.post('/orders', placeOrderEndpoint(placeOrderUseCase))

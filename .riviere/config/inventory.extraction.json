@@ -12,7 +12,8 @@
     "find": "classes",
     "where": { "hasDecorator": { "name": "StockHandler" } },
     "extract": {
-      "handlerName": { "fromClassName": true }
+      "handlerName": { "fromClassName": true },
+      "subscribedEvents": { "fromProperty": { "name": "subscribedEvents", "kind": "instance" } }
     }
   },
   "domainOp": {
@@ -38,5 +39,9 @@
       "eventName": { "fromClassName": true }
     }
   },
-  "ui": { "notUsed": true }
+  "ui": { "notUsed": true },
+  "eventPublisher": {
+    "find": "classes",
+    "where": { "hasDecorator": { "name": "StockEventPublisher" } }
+  }
 }

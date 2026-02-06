@@ -1,10 +1,14 @@
 import { Payment } from '../../../domain/Payment'
 import { IPaymentUseCase } from '../../../interfaces'
 import { PaymentGatewayClient } from '../../../infrastructure/payment-gateway-client'
-import { publishEvent, PaymentRefunded } from '../../../infrastructure/events'
+import { PaymentEventPublisher } from '../../../infrastructure/payment-event-publisher'
+import { PaymentRefunded } from '../../../infrastructure/events'
 
 export class RefundPaymentUseCase implements IPaymentUseCase {
-  constructor(private paymentGateway: PaymentGatewayClient) {}
+  constructor(
+    private paymentGateway: PaymentGatewayClient,
+    private readonly publisher: PaymentEventPublisher
+  ) {}
 
   async apply(orderId: string, payment: Payment): Promise<void> {
     const refundResult = await this.paymentGateway.refundPayment(
@@ -14,7 +18,7 @@ export class RefundPaymentUseCase implements IPaymentUseCase {
 
     if (refundResult.status === 'refunded') {
       payment.refund()
-      publishEvent(new PaymentRefunded(orderId, payment.id, payment.amount))
+      this.publisher.publishPaymentRefunded(new PaymentRefunded(orderId, payment.id, payment.amount))
     }
   }
 }

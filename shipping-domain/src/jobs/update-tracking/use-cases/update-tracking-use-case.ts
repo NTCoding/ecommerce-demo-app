@@ -1,10 +1,14 @@
 import { Shipment } from '../../../domain/Shipment'
 import { CourierApiClient } from '../../../infrastructure/courier-api-client'
-import { publishEvent, type ShipmentDelivered } from '../../../infrastructure/events'
+import { ShipmentDelivered } from '../../../infrastructure/events'
+import { ShippingEventPublisher } from '../../../infrastructure/shipping-event-publisher'
 
 /** @useCase */
 export class UpdateTrackingUseCase {
-  constructor(private courierApi: CourierApiClient) {}
+  constructor(
+    private courierApi: CourierApiClient,
+    private readonly publisher: ShippingEventPublisher
+  ) {}
 
   async apply(shipments: Map<string, Shipment>): Promise<void> {
     for (const [shipmentId, shipment] of shipments.entries()) {
@@ -27,14 +31,9 @@ export class UpdateTrackingUseCase {
       if (trackingStatus.status === 'delivered' && shipment.getState() === 'InTransit') {
         shipment.deliver()
 
-        const event: ShipmentDelivered = {
-          type: 'ShipmentDelivered',
-          orderId: shipment.orderId,
-          shipmentId,
-          timestamp: new Date().toISOString()
-        }
-
-        publishEvent(event)
+        this.publisher.publishShipmentDelivered(
+          new ShipmentDelivered(shipment.orderId, shipmentId)
+        )
       }
     }
   }

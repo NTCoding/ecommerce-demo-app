@@ -44,6 +44,13 @@ export function StockEvent<T extends Constructor>(target: T, _: ClassDecoratorCo
 }
 
 /**
+ * Marks a class as an inventory event publisher.
+ */
+export function StockEventPublisher<T extends Constructor>(target: T, _: ClassDecoratorContext): T {
+  return target
+}
+
+/**
  * Marks a class as ignored from architectural analysis.
  */
 export function StockIgnore<T extends Constructor>(target: T, _: ClassDecoratorContext): T {

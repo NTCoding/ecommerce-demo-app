@@ -1,9 +1,11 @@
 import { Shipment } from '../../domain/Shipment'
 import { CourierApiClient } from '../../infrastructure/courier-api-client'
+import { ShippingEventPublisher } from '../../infrastructure/shipping-event-publisher'
 import { UpdateTrackingUseCase } from './use-cases/update-tracking-use-case'
 
 const courierApi = new CourierApiClient()
-const updateTrackingUseCase = new UpdateTrackingUseCase(courierApi)
+const publisher = new ShippingEventPublisher()
+const updateTrackingUseCase = new UpdateTrackingUseCase(courierApi, publisher)
 
 const shipments = new Map<string, Shipment>()
 

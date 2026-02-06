@@ -1,5 +1,6 @@
 import express from 'express'
 import { PaymentGatewayClient } from './infrastructure/payment-gateway-client'
+import { PaymentEventPublisher } from './infrastructure/payment-event-publisher'
 import { ProcessPaymentUseCase } from './consumer/order-placed/use-cases/process-payment-use-case'
 import { handleOrderPlaced } from './consumer/order-placed/handler'
 import { subscribeToEvent } from './infrastructure/events'
@@ -11,7 +12,8 @@ const PORT = 3003
 app.use(express.json())
 
 const paymentGateway = new PaymentGatewayClient()
-const processPaymentUseCase = new ProcessPaymentUseCase(paymentGateway)
+const publisher = new PaymentEventPublisher()
+const processPaymentUseCase = new ProcessPaymentUseCase(paymentGateway, publisher)
 
 subscribeToEvent<OrderPlaced>('OrderPlaced', (event) =>
   handleOrderPlaced(event, processPaymentUseCase)

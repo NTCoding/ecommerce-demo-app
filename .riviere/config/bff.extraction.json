@@ -20,5 +20,6 @@
     }
   },
   "event": { "notUsed": true },
-  "ui": { "notUsed": true }
+  "ui": { "notUsed": true },
+  "eventPublisher": { "notUsed": true }
 }

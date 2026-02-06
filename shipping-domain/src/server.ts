@@ -1,5 +1,6 @@
 import express from 'express'
 import { CourierApiClient } from './infrastructure/courier-api-client'
+import { ShippingEventPublisher } from './infrastructure/shipping-event-publisher'
 import { CreateShipmentUseCase } from './consumer/order-confirmed/use-cases/create-shipment-use-case'
 import { handleOrderConfirmed } from './consumer/order-confirmed/handler'
 import { DispatchShipmentUseCase } from './api/dispatch-shipment/use-cases/dispatch-shipment-use-case'
@@ -13,8 +14,9 @@ const PORT = 3002
 app.use(express.json())
 
 const courierApi = new CourierApiClient()
-const createShipmentUseCase = new CreateShipmentUseCase(courierApi)
-const dispatchShipmentUseCase = new DispatchShipmentUseCase(courierApi)
+const publisher = new ShippingEventPublisher()
+const createShipmentUseCase = new CreateShipmentUseCase(courierApi, publisher)
+const dispatchShipmentUseCase = new DispatchShipmentUseCase(courierApi, publisher)
 
 app.put('/shipments/:shipmentId/dispatch', dispatchShipmentEndpoint(dispatchShipmentUseCase))
 

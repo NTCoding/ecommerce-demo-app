@@ -12,7 +12,8 @@
     "find": "classes",
     "where": { "nameMatches": { "pattern": "^(?!Base).+Handler$" } },
     "extract": {
-      "handlerName": { "fromClassName": true }
+      "handlerName": { "fromClassName": true },
+      "subscribedEvents": { "fromProperty": { "name": "subscribedEvents", "kind": "instance" } }
     }
   },
   "domainOp": {
@@ -24,5 +25,6 @@
   },
   "api": { "notUsed": true },
   "event": { "notUsed": true },
-  "ui": { "notUsed": true }
+  "ui": { "notUsed": true },
+  "eventPublisher": { "notUsed": true }
 }

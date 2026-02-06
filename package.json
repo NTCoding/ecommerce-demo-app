@@ -18,6 +18,7 @@
     "test:arch:payments": "cd payment-domain && npm run test:arch",
     "extract": "npx riviere extract --config extraction.config.json",
     "verify:extract": "node scripts/verify-extraction.mjs",
+    "verify:connections": "node scripts/verify-connections.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
     "test:deps": "node scripts/test-dependency-boundary.mjs",
     "prepare": "husky"

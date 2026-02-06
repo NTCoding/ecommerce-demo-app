@@ -22,7 +22,7 @@ function main() {
   // Run CLI and capture output
   let cliOutput
   try {
-    cliOutput = execSync('npx riviere extract --config extraction.config.json', {
+    cliOutput = execSync('npx riviere extract --config extraction.config.json --allow-incomplete', {
       cwd: rootDir,
       encoding: 'utf-8',
       timeout: 60000,
@@ -38,11 +38,12 @@ function main() {
     process.exit(1)
   }
 
-  // Parse CLI output as JSON
+  // Parse CLI output as JSON (skip non-JSON timing lines)
   let components
   try {
-    const result = JSON.parse(cliOutput)
-    components = result.data || result.components || result
+    const jsonLine = cliOutput.split('\n').find((line) => line.startsWith('{'))
+    const result = JSON.parse(jsonLine)
+    components = result.data?.components || result.components || result
   } catch (error) {
     console.error('❌ Failed to parse CLI output as JSON!')
     console.error('')
@@ -57,7 +58,7 @@ function main() {
   const normalize = (comps) =>
     comps
       .map((c) => ({ type: c.type, name: c.name, domain: c.domain }))
-      .sort((a, b) => `${a.domain}:${a.name}`.localeCompare(`${b.domain}:${b.name}`))
+      .sort((a, b) => `${a.domain}:${a.type}:${a.name}`.localeCompare(`${b.domain}:${b.type}:${b.name}`))
 
   const actualNormalized = normalize(components)
   const expectedNormalized = normalize(expected.components)
