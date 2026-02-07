@@ -75,9 +75,37 @@ The ESLint convention rules (`api-controller-requires-route-and-method`, `event-
 pnpm extract                    # Run extraction
 cat extraction-output.json      # Check output
 pnpm verify:extract             # Run verification tests
+pnpm verify:connections         # Verify connection detection
 ```
 
 The extraction output should list components from all 7 domains. If a domain shows 0 components, the config or source annotations are wrong.
+
+### Ground Truth Files: Specification, Not Mirror
+
+**Critical principle:** Ground truth files (`expected-extraction-output.json`, `expected-connections.json`) define **what the tool SHOULD extract**, verified through manual code inspection. They are **NOT records of what the tool currently does**.
+
+**Purpose of ground truth:**
+- Define the complete architectural reality (all components and connections that exist in code)
+- Verify the extraction tool correctly detects everything
+- **If verification fails** → tool has bugs/gaps that must be fixed in the living-architecture packages
+- **If ground truth matches tool output exactly** → either:
+  - ✅ Tool is working perfectly, OR
+  - ❌ Ground truth was corrupted to match broken tool output (never do this)
+
+**Why ground truth is essential:**
+- Without ground truth: tool output is unvalidated—you don't know if it's correct
+- With ground truth: tool output is validated—verification failures = product bugs requiring fixes
+
+**Example:**
+- Ground truth lists 77 connections (verified from code)
+- Tool extracts 61 connections
+- Verification FAILS ✓ This is correct! It reveals tool gaps in:
+  - API→UseCase call detection
+  - EventHandler→UseCase call detection
+  - UseCase→DomainOp call detection
+  - These gaps are product bugs in riviere-extract-ts that must be fixed
+
+**Verification failure = valuable product feedback, not a test problem.**
 
 ## File Structure
 

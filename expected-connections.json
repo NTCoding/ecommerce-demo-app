@@ -1,9 +1,5 @@
 {
-  "_comment": "Ground truth connections for ecommerce-demo-app. Generated from extraction output and manually verified.",
-  "_knownExclusions": [
-    "Orders domain sync connections (api->useCase, eventHandler->useCase, useCase->domainOp, useCase->eventPublisher) are not detected because orders uses container decorators (find:'methods') and the call graph only traces class-level components",
-    "shipping:useCase:UpdateTrackingUseCase -> shipping:domainOp:Shipment is not detected because the use case receives an 'any'-typed courier API response, preventing type resolution"
-  ],
+  "_comment": "Ground truth connections for ecommerce-demo-app. Verified by manual code inspection. This is a SPECIFICATION of what the extraction tool SHOULD detect, not a record of what it currently does. Verification failures indicate product gaps in the extraction tool that must be fixed.",
   "links": [
     { "source": "shipping:useCase:UpdateTrackingUseCase", "target": "shipping:eventPublisher:ShippingEventPublisher", "type": "sync" },
     { "source": "shipping:eventHandler:OrderConfirmedHandler", "target": "shipping:useCase:CreateShipmentUseCase", "type": "sync" },
@@ -37,6 +33,28 @@
     { "source": "notifications:eventHandler:OrderPlacedHandler", "target": "notifications:useCase:NotifyOrderPlacedUseCase", "type": "sync" },
     { "source": "notifications:useCase:NotifyOrderPlacedUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
     { "source": "bff:api:PlaceOrderBFFEndpoint", "target": "bff:useCase:PlaceOrderBFFUseCase", "type": "sync" },
+
+    { "source": "orders:api:handle", "target": "orders:useCase:PlaceOrderUseCase", "type": "sync" },
+    { "source": "orders:api:handle", "target": "orders:useCase:CancelOrderUseCase", "type": "sync" },
+    { "source": "orders:useCase:PlaceOrderUseCase", "target": "orders:domainOp:begin", "type": "sync" },
+    { "source": "orders:useCase:PlaceOrderUseCase", "target": "orders:eventPublisher:publishOrderPlaced", "type": "sync" },
+    { "source": "orders:useCase:CancelOrderUseCase", "target": "orders:domainOp:cancel", "type": "sync" },
+    { "source": "orders:useCase:CancelOrderUseCase", "target": "orders:eventPublisher:publishOrderCancelled", "type": "sync" },
+    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ShipOrderUseCase", "type": "sync" },
+    { "source": "orders:useCase:ShipOrderUseCase", "target": "orders:domainOp:ship", "type": "sync" },
+    { "source": "orders:eventHandler:handle", "target": "orders:useCase:CompleteOrderUseCase", "type": "sync" },
+    { "source": "orders:useCase:CompleteOrderUseCase", "target": "orders:domainOp:deliver", "type": "sync" },
+    { "source": "orders:eventHandler:handle", "target": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "type": "sync" },
+    { "source": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "target": "orders:domainOp:cancel", "type": "sync" },
+    { "source": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "target": "orders:eventPublisher:publishOrderCancelled", "type": "sync" },
+    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "type": "sync" },
+    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:domainOp:markPaymentCompleted", "type": "sync" },
+    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:eventPublisher:publishOrderConfirmed", "type": "sync" },
+    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "type": "sync" },
+    { "source": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "target": "orders:domainOp:markInventoryReserved", "type": "sync" },
+
+    { "source": "shipping:backgroundJob:runTrackingUpdate", "target": "shipping:useCase:UpdateTrackingUseCase", "type": "sync" },
+    { "source": "shipping:useCase:UpdateTrackingUseCase", "target": "shipping:domainOp:Shipment", "type": "sync" },
 
     { "source": "orders:eventPublisher:publishOrderPlaced", "target": "orders:event:OrderPlaced", "type": "async" },
     { "source": "orders:eventPublisher:publishOrderConfirmed", "target": "orders:event:OrderConfirmed", "type": "async" },
