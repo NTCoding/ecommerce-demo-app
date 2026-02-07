@@ -27,12 +27,61 @@ This repo exists to **test and demo the living-architecture npm packages**. It i
 
 If you work around a bug here, the bug ships to real users. This repo IS the user. If it doesn't work here, it doesn't work anywhere. Every workaround hides a product defect and wastes time that should have been spent fixing the root cause.
 
+---
+
+## 🚫 ABSOLUTE RULE: ZERO LOCAL DEPENDENCIES
+
+### DO NOT — EVER — USE LOCAL PACKAGE LINKS
+
+**This repo MUST ONLY depend on published npm packages. Period. No exceptions.**
+
+**Forbidden patterns:**
+- ❌ `link:../living-architecture/...` in pnpm-lock.yaml
+- ❌ `file:../some/local/path` in pnpm-lock.yaml
+- ❌ Any workspace protocol pointing outside this repo
+- ❌ Manual edits to package.json `overrides` section
+- ❌ Running `pnpm link` to connect to local packages
+- ❌ Any scheme to "temporarily" use local code
+
+### Why This Rule Is Absolute
+
+1. **CI depends on published packages** — local links break CI
+2. **Real users only have published packages** — local links hide bugs that would break users
+3. **This repo IS the test of whether packages work** — if you can only make it work with local code, the package is broken
+4. **Packages must pass through npm to be validated** — local bypasses defeat quality gates
+
+### What To Do Instead
+
+**If you need unreleased changes:**
+1. ✅ Make the change in living-architecture repo
+2. ✅ Publish a new npm version (0.8.8, 0.9.0, etc.)
+3. ✅ Update dependency: `pnpm update @living-architecture/<package>`
+4. ✅ Verify it works here
+
+**Never:**
+- Don't use local links as a "temporary" measure
+- Don't say "I'll publish later"
+- Don't assume "it'll work when published"
+- Don't try to make CI handle local paths differently
+
+### Validation
+
+A pre-commit hook runs `npm run validate:deps` which will **reject any commit** that contains local package links. This cannot be bypassed. If you see this error:
+
+```
+❌ DEPENDENCY VIOLATION: Local package overrides forbidden
+```
+
+**Fix the root cause, don't work around it.** Remove local links, publish the package, update the dependency.
+
+---
+
 ## Dependencies
 
-This project depends on these npm packages (not local versions):
+This project depends on **published npm packages ONLY**:
 
-- `@living-architecture/riviere-cli` - Extraction CLI
-- `@living-architecture/riviere-extract-conventions` - Default decorators
+- `@living-architecture/riviere-cli` - Extraction CLI (from npm registry)
+- `@living-architecture/riviere-extract-conventions` - Default decorators (from npm registry)
 
 ## Commands
 

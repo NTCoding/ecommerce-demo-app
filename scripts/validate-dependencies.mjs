@@ -52,20 +52,42 @@ lines.forEach((line, idx) => {
 })
 
 if (violations.length > 0) {
-  console.error('\n❌ DEPENDENCY VIOLATION: Local package overrides forbidden\n')
-  console.error('Your CLAUDE.md states: "This project depends on these npm packages (not local versions)"\n')
+  console.error('\n' + '='.repeat(80))
+  console.error('🚫 CRITICAL: LOCAL PACKAGE DEPENDENCIES DETECTED')
+  console.error('='.repeat(80) + '\n')
 
+  console.error('❌ VIOLATION: This repository must ONLY use published npm packages.')
+  console.error('   Local package links are FORBIDDEN and cannot be committed.\n')
+
+  console.error('PRINCIPLE (from CLAUDE.md):')
+  console.error('  "This project depends on these npm packages (not local versions)"')
+  console.error('  "This rule is ABSOLUTE. There are NO EXCEPTIONS."\n')
+
+  console.error('VIOLATIONS FOUND:\n')
   violations.forEach((v, idx) => {
-    console.error(`Violation ${idx + 1}:`)
-    console.error(`  Package: ${v.package}`)
-    console.error(`  Line ${v.line}: ${v.fullLine.trim()}`)
-    console.error(`  Principle: ${v.principle}\n`)
+    console.error(`  ${idx + 1}. Package: ${v.package}`)
+    console.error(`     Line ${v.line}: ${v.fullLine.trim()}`)
+    console.error(`     ⚠️  This breaks CI and hides bugs from real users\n`)
   })
 
-  console.error('SOLUTION:')
-  console.error('  1. Remove the "overrides:" section from pnpm-lock.yaml (if present)')
+  console.error('YOU MUST FIX THIS — DO NOT WORK AROUND IT:\n')
+  console.error('  ❌ DO NOT try to bypass this check')
+  console.error('  ❌ DO NOT commit with --no-verify')
+  console.error('  ❌ DO NOT modify this validation script')
+  console.error('  ❌ DO NOT use "temporary" local links\n')
+
+  console.error('✅ CORRECT APPROACH:\n')
+  console.error('  1. Edit: living-architecture package that needs changes')
+  console.error('  2. Publish: npm publish (new version)')
+  console.error('  3. Update: pnpm update @living-architecture/<package>')
+  console.error('  4. Verify: Tests pass here in ecommerce-demo-app\n')
+
+  console.error('Quick fix for immediate issue:')
+  console.error('  1. Remove the "overrides:" section from pnpm-lock.yaml')
   console.error('  2. Run: pnpm install')
-  console.error('  3. This will regenerate pnpm-lock.yaml using published npm packages only\n')
+  console.error('  3. Commit the regenerated lock file\n')
+
+  console.error('='.repeat(80) + '\n')
   process.exit(1)
 }
 
