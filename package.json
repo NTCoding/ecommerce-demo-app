@@ -21,6 +21,7 @@
     "verify:connections": "node scripts/verify-connections.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
     "test:deps": "node scripts/test-dependency-boundary.mjs",
+    "validate:deps": "node scripts/validate-dependencies.mjs",
     "prepare": "husky"
   },
   "devDependencies": {

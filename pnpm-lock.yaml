@@ -4,16 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@living-architecture/riviere-extract-conventions': link:../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
-
 importers:
 
   .:
     dependencies:
       '@living-architecture/riviere-extract-conventions':
-        specifier: link:../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
-        version: link:../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
+        specifier: latest
+        version: 0.8.7
     devDependencies:
       '@living-architecture/riviere-cli':
         specifier: latest
@@ -106,8 +103,8 @@ importers:
   orders-domain:
     dependencies:
       '@living-architecture/riviere-extract-conventions':
-        specifier: link:../../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
-        version: link:../../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
+        specifier: latest
+        version: 0.8.7
       '@typescript-eslint/parser':
         specifier: ^8.52.0
         version: 8.53.0(eslint@9.39.2)(typescript@5.9.3)

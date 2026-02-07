@@ -35,3 +35,6 @@ jobs:
 
       - name: Verify extraction output
         run: pnpm verify:extract
+
+      - name: Verify connections match ground truth
+        run: pnpm verify:connections

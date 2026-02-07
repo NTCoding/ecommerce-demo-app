@@ -1,3 +1,5 @@
+npm run validate:deps
 npm run build
 npm run lint:arch
 npm run lint:deps
+npm run verify:connections
