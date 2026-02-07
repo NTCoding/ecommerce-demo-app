@@ -6,3 +6,6 @@ packages:
   - notifications-domain
   - bff
   - ui
+
+overrides:
+  '@living-architecture/riviere-extract-conventions': link:../living-architecture-issue-241-m3-d3-1-d3-2-d3-3-validate-con/packages/riviere-extract-conventions
