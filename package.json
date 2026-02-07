@@ -1,7 +1,7 @@
 {
   "scripts": {
     "install:all": "pnpm install -r",
-    "build": "npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments && npm run build:notifications && npm run build:bff && npm run build:ui",
+    "build": "npm run validate:deps && npm run build:orders && npm run build:shipping && npm run build:inventory && npm run build:payments && npm run build:notifications && npm run build:bff && npm run build:ui",
     "build:orders": "cd orders-domain && npm run build",
     "build:shipping": "cd shipping-domain && npm run build",
     "build:inventory": "cd inventory-domain && npm run build",
