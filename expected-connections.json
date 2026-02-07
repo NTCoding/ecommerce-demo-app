@@ -52,6 +52,10 @@
     { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:eventPublisher:publishOrderConfirmed", "type": "sync" },
     { "source": "orders:eventHandler:handle", "target": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "type": "sync" },
     { "source": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "target": "orders:domainOp:markInventoryReserved", "type": "sync" },
+    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:domainOp:getState", "type": "sync" },
+    { "source": "orders:api:handle", "target": "orders:domainOp:getState", "type": "sync" },
+    { "source": "orders:domainOp:markInventoryReserved", "target": "orders:domainOp:confirm", "type": "sync" },
+    { "source": "orders:domainOp:markPaymentCompleted", "target": "orders:domainOp:confirm", "type": "sync" },
 
     { "source": "shipping:backgroundJob:runTrackingUpdate", "target": "shipping:useCase:UpdateTrackingUseCase", "type": "sync" },
     { "source": "shipping:useCase:UpdateTrackingUseCase", "target": "shipping:domainOp:Shipment", "type": "sync" },
