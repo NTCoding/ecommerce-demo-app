@@ -156,6 +156,49 @@ The extraction output should list components from all 7 domains. If a domain sho
 
 **Verification failure = valuable product feedback, not a test problem.**
 
+---
+
+## 🔒 GROUND TRUTH FILES: READ-ONLY FOR CLAUDE
+
+### DO NOT MODIFY THESE FILES
+
+**Claude cannot and will not edit these files:**
+- ❌ `expected-extraction-output.json`
+- ❌ `expected-connections.json`
+
+**Why:**
+- These define ground truth verified by **manual code inspection**
+- Ground truth is the specification for correctness
+- If Claude modifies them, ground truth becomes corrupted
+- Once corrupted, the repo has no validation of the extraction tool
+
+**What happens if verification fails:**
+1. ✅ Tool extracts 61 connections, ground truth specifies 77
+2. ✅ Verification correctly FAILS
+3. ❌ WRONG: Claude edits ground truth to match tool output (57 connections)
+4. ❌ Result: No more validation, bugs ship to users
+
+**Correct response to verification failure:**
+1. Tool extracts 61/77 connections
+2. Verification FAILS (correct!)
+3. Create specification for engineer to fix extraction tool
+4. Engineer fixes living-architecture package
+5. Publish new version
+6. Tool now extracts 77/77 connections
+7. Verification PASSES
+
+**If Claude is tempted to "fix" ground truth:**
+- This is a workaround (forbidden by CLAUDE.md mandatory protocol)
+- Ground truth represents reality, not a number to tweak
+- Modification would hide product bugs
+- Users would receive broken tool
+
+### The Sacred Rule
+
+Ground truth files must remain locked to reality. If tool output doesn't match, the tool is broken—not the ground truth.
+
+---
+
 ## File Structure
 
 ```

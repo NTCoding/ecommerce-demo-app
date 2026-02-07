@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(path: \"expected-extraction-output.json\")",
+      "Edit(path: \"expected-connections.json\")",
+      "Write(path: \"expected-extraction-output.json\")",
+      "Write(path: \"expected-connections.json\")"
+    ]
+  }
+}
