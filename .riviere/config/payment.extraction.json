@@ -34,7 +34,8 @@
   },
   "ui": { "notUsed": true },
   "eventPublisher": {
-    "find": "classes",
-    "where": { "implementsInterface": { "name": "IPaymentEventPublisher" } }
+    "find": "methods",
+    "where": { "inClassWith": { "implementsInterface": { "name": "IPaymentEventPublisher" } } },
+    "extract": { "publishedEventType": { "fromParameterType": { "position": 0 } } }
   }
 }

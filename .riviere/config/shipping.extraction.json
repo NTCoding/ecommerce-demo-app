@@ -42,8 +42,9 @@
   },
   "ui": { "notUsed": true },
   "eventPublisher": {
-    "find": "classes",
-    "where": { "hasJSDoc": { "tag": "eventPublisher" } }
+    "find": "methods",
+    "where": { "inClassWith": { "hasJSDoc": { "tag": "eventPublisher" } } },
+    "extract": { "publishedEventType": { "fromParameterType": { "position": 0 } } }
   },
   "customTypes": {
     "backgroundJob": {

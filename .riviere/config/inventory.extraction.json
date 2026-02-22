@@ -42,7 +42,8 @@
   },
   "ui": { "notUsed": true },
   "eventPublisher": {
-    "find": "classes",
-    "where": { "hasDecorator": { "name": "StockEventPublisher" } }
+    "find": "methods",
+    "where": { "inClassWith": { "hasDecorator": { "name": "StockEventPublisher" } } },
+    "extract": { "publishedEventType": { "fromParameterType": { "position": 0 } } }
   }
 }
