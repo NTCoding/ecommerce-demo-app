@@ -1,6 +1,7 @@
 {
   "name": "ui",
-  "path": "ui/src/**/*.tsx",
+  "path": "../../ui",
+  "glob": "src/**/*.tsx",
   "useCase": { "notUsed": true },
   "eventHandler": { "notUsed": true },
   "domainOp": { "notUsed": true },

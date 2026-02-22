@@ -1,0 +1,12 @@
+{
+  "$schema": "https://living-architecture.dev/schemas/extraction-config.schema.json",
+  "modules": [
+    { "$ref": "./orders.extraction.json" },
+    { "$ref": "./shipping.extraction.json" },
+    { "$ref": "./inventory.extraction.json" },
+    { "$ref": "./payment.extraction.json" },
+    { "$ref": "./notifications.extraction.json" },
+    { "$ref": "./bff.extraction.json" },
+    { "$ref": "./ui.extraction.json" }
+  ]
+}

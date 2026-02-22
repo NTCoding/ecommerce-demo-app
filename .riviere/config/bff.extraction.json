@@ -1,6 +1,7 @@
 {
   "name": "bff",
-  "path": "bff/src/**/*.ts",
+  "path": "../../bff",
+  "glob": "src/**/*.ts",
   "useCase": {
     "find": "classes",
     "where": { "nameEndsWith": { "suffix": "UseCase" } },

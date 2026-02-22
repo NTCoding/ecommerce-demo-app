@@ -1,6 +1,7 @@
 {
   "name": "inventory",
-  "path": "inventory-domain/src/**/*.ts",
+  "path": "../../inventory-domain",
+  "glob": "src/**/*.ts",
   "useCase": {
     "find": "classes",
     "where": { "hasDecorator": { "name": "StockUseCase" } },

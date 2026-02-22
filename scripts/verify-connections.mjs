@@ -20,7 +20,7 @@ function main() {
 
   let cliOutput
   try {
-    cliOutput = execSync('npx riviere extract --config extraction.config.json --allow-incomplete', {
+    cliOutput = execSync('npx riviere extract --config .riviere/config/extraction.config.json --allow-incomplete', {
       cwd: rootDir,
       encoding: 'utf-8',
       timeout: 60000,
@@ -36,10 +36,12 @@ function main() {
   }
 
   let links
+  let externalLinks
   try {
     const jsonLine = cliOutput.split('\n').find((line) => line.startsWith('{'))
     const result = JSON.parse(jsonLine)
     links = result.data?.links || result.links || []
+    externalLinks = result.data?.externalLinks || result.externalLinks || []
   } catch (error) {
     console.error('Failed to parse CLI output as JSON!')
     console.error('')
@@ -52,43 +54,71 @@ function main() {
   const certainLinks = links.filter((l) => l._uncertain === undefined && l.target !== '_unresolved')
 
   console.log(`Extracted ${links.length} total links (${certainLinks.length} certain, ${links.length - certainLinks.length} uncertain)`)
+  console.log(`Extracted ${externalLinks.length} external links`)
 
   // Normalize to comparable tuples
-  const toTuple = (l) => `${l.source}|${l.target}|${l.type}`
+  const toLinkTuple = (l) => `${l.source}|${l.target}|${l.type}`
+  const toExternalTuple = (l) => `${l.source}|${l.target.name}|${l.type}`
 
-  const actualSet = new Set(certainLinks.map(toTuple))
-  const expectedSet = new Set(expected.links.map(toTuple))
+  const actualSet = new Set(certainLinks.map(toLinkTuple))
+  const expectedSet = new Set(expected.links.map(toLinkTuple))
 
-  const missing = [...expectedSet].filter((t) => !actualSet.has(t))
-  const extra = [...actualSet].filter((t) => !expectedSet.has(t))
+  const missingLinks = [...expectedSet].filter((t) => !actualSet.has(t))
+  const extraLinks = [...actualSet].filter((t) => !expectedSet.has(t))
 
-  if (missing.length === 0 && extra.length === 0) {
-    console.log(`Connections verified: ${expectedSet.size} connections match ground truth (zero diff)`)
+  const expectedExternalLinks = expected.externalLinks || []
+  const actualExternalSet = new Set(externalLinks.map(toExternalTuple))
+  const expectedExternalSet = new Set(expectedExternalLinks.map(toExternalTuple))
+
+  const missingExternal = [...expectedExternalSet].filter((t) => !actualExternalSet.has(t))
+  const extraExternal = [...actualExternalSet].filter((t) => !expectedExternalSet.has(t))
+
+  const totalMissing = missingLinks.length + missingExternal.length
+  const totalExtra = extraLinks.length + extraExternal.length
+
+  if (totalMissing === 0 && totalExtra === 0) {
+    console.log(`Connections verified: ${expectedSet.size} links + ${expectedExternalSet.size} external links match ground truth (zero diff)`)
     process.exit(0)
   }
 
   console.error('Connection mismatch!')
   console.error('')
 
-  if (missing.length > 0) {
-    console.error(`Missing connections (${missing.length} false negatives):`)
-    missing.forEach((t) => {
+  if (missingLinks.length > 0) {
+    console.error(`Missing connections (${missingLinks.length} false negatives):`)
+    missingLinks.forEach((t) => {
       const [source, target, type] = t.split('|')
       console.error(`  - [${type}] ${source} -> ${target}`)
     })
   }
 
-  if (extra.length > 0) {
-    console.error(`Extra connections (${extra.length} false positives):`)
-    extra.forEach((t) => {
+  if (missingExternal.length > 0) {
+    console.error(`Missing external links (${missingExternal.length} false negatives):`)
+    missingExternal.forEach((t) => {
+      const [source, targetName, type] = t.split('|')
+      console.error(`  - [${type}] ${source} -> ${targetName} (external)`)
+    })
+  }
+
+  if (extraLinks.length > 0) {
+    console.error(`Extra connections (${extraLinks.length} false positives):`)
+    extraLinks.forEach((t) => {
       const [source, target, type] = t.split('|')
       console.error(`  + [${type}] ${source} -> ${target}`)
     })
   }
 
+  if (extraExternal.length > 0) {
+    console.error(`Extra external links (${extraExternal.length} false positives):`)
+    extraExternal.forEach((t) => {
+      const [source, targetName, type] = t.split('|')
+      console.error(`  + [${type}] ${source} -> ${targetName} (external)`)
+    })
+  }
+
   console.error('')
-  console.error(`Expected: ${expectedSet.size} connections`)
-  console.error(`Actual: ${actualSet.size} certain connections`)
+  console.error(`Expected: ${expectedSet.size} links + ${expectedExternalSet.size} external links`)
+  console.error(`Actual: ${actualSet.size} certain links + ${actualExternalSet.size} external links`)
 
   process.exit(1)
 }

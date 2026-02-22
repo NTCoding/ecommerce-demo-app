@@ -1,6 +1,7 @@
 {
   "name": "shipping",
-  "path": "shipping-domain/src/**/*.ts",
+  "path": "../../shipping-domain",
+  "glob": "src/**/*.ts",
   "useCase": {
     "find": "classes",
     "where": { "hasJSDoc": { "tag": "useCase" } },

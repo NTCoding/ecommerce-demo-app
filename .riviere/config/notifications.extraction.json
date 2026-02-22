@@ -1,6 +1,7 @@
 {
   "name": "notifications",
-  "path": "notifications-domain/src/**/*.ts",
+  "path": "../../notifications-domain",
+  "glob": "src/**/*.ts",
   "useCase": {
     "find": "classes",
     "where": { "extendsClass": { "name": "BaseNotificationUseCase" } },

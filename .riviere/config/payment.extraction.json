@@ -1,6 +1,7 @@
 {
   "name": "payment",
-  "path": "payment-domain/src/**/*.ts",
+  "path": "../../payment-domain",
+  "glob": "src/**/*.ts",
   "useCase": {
     "find": "classes",
     "where": { "implementsInterface": { "name": "IPaymentUseCase" } },

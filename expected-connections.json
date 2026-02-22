@@ -33,6 +33,8 @@
     { "source": "notifications:eventHandler:OrderPlacedHandler", "target": "notifications:useCase:NotifyOrderPlacedUseCase", "type": "sync" },
     { "source": "notifications:useCase:NotifyOrderPlacedUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
     { "source": "bff:api:PlaceOrderBFFEndpoint", "target": "bff:useCase:PlaceOrderBFFUseCase", "type": "sync" },
+    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": "orders:api:handle", "type": "sync" },
+    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": "inventory:api:CheckStockEndpoint", "type": "sync" },
 
     { "source": "orders:api:handle", "target": "orders:useCase:PlaceOrderUseCase", "type": "sync" },
     { "source": "orders:api:handle", "target": "orders:useCase:CancelOrderUseCase", "type": "sync" },
@@ -86,5 +88,9 @@
     { "source": "shipping:event:ShipmentDelivered", "target": "notifications:eventHandler:ShipmentDeliveredHandler", "type": "async" },
     { "source": "payment:event:PaymentCompleted", "target": "notifications:eventHandler:PaymentCompletedHandler", "type": "async" },
     { "source": "orders:event:OrderPlaced", "target": "notifications:eventHandler:OrderPlacedHandler", "type": "async" }
+  ],
+  "externalLinks": [
+    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": { "name": "Fraud Detection Service", "url": "http://fraud-detection-service.internal/api/check" }, "type": "sync" },
+    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": { "name": "Customer Service", "url": "http://customer-service.internal/api/customers" }, "type": "sync" }
   ]
 }

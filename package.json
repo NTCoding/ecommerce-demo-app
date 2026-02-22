@@ -16,7 +16,7 @@
     "test:arch:shipping": "cd shipping-domain && npm run test:arch",
     "test:arch:inventory": "cd inventory-domain && npm run test:arch",
     "test:arch:payments": "cd payment-domain && npm run test:arch",
-    "extract": "npx riviere extract --config extraction.config.json",
+    "extract": "npx riviere extract --config .riviere/config/extraction.config.json",
     "verify:extract": "node scripts/verify-extraction.mjs",
     "verify:connections": "node scripts/verify-connections.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
@@ -26,10 +26,10 @@
   },
   "devDependencies": {
     "@living-architecture/riviere-cli": "latest",
-    "@typescript-eslint/parser": "^8.52.0",
-    "dependency-cruiser": "^17.3.7",
-    "eslint": "^9.39.2",
-    "husky": "^9.0.0"
+    "@typescript-eslint/parser": "^8.56.0",
+    "dependency-cruiser": "^17.3.8",
+    "eslint": "^9.39.3",
+    "husky": "^9.1.7"
   },
   "dependencies": {
     "@living-architecture/riviere-extract-conventions": "latest"

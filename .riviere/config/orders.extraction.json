@@ -1,5 +1,6 @@
 {
   "name": "orders",
-  "path": "orders-domain/src/**/*.ts",
+  "path": "../../orders-domain",
+  "glob": "src/**/*.ts",
   "extends": "@living-architecture/riviere-extract-conventions"
 }
