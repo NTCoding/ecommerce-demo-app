@@ -1,10 +1,9 @@
 import { APIContainer } from '@living-architecture/riviere-extract-conventions'
-import type { APIControllerDef } from '@living-architecture/riviere-extract-conventions'
 import type { Request, Response } from 'express'
 import { PlaceOrderUseCase } from './use-cases/place-order-use-case'
 
 @APIContainer
-export class PlaceOrderEndpoint implements APIControllerDef {
+export class PlaceOrderEndpoint {
   readonly route = '/orders'
   readonly method = 'POST'
   constructor(private readonly useCase: PlaceOrderUseCase) {}
