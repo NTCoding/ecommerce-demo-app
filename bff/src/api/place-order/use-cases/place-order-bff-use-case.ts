@@ -1,3 +1,8 @@
+import { FraudDetectionClient } from '../../../infrastructure/fraud-detection-client'
+import { CustomerServiceClient } from '../../../infrastructure/customer-service-client'
+import { OrdersServiceClient } from '../../../infrastructure/orders-service-client'
+import { InventoryServiceClient } from '../../../infrastructure/inventory-service-client'
+
 export type PlaceOrderBFFRequest = {
   customerId: string
   items: Array<{ sku: string; quantity: number }>
@@ -11,44 +16,28 @@ export type PlaceOrderBFFResponse = {
   paymentStatus: string
 }
 
-async function checkFraudDetection(customerId: string, totalAmount: number): Promise<boolean> {
-  const response = await fetch('http://fraud-detection-service.internal/api/check', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ customerId, totalAmount })
-  })
-  const data = (await response.json()) as { approved: boolean }
-  return data.approved
-}
-
-async function fetchCustomerProfile(customerId: string): Promise<{ paymentMethodId: string }> {
-  const response = await fetch(`http://customer-service.internal/api/customers/${customerId}/profile`)
-  return (await response.json()) as { paymentMethodId: string }
-}
-
 export class PlaceOrderBFFUseCase {
+  private readonly fraudDetection = new FraudDetectionClient()
+  private readonly customerService = new CustomerServiceClient()
+  private readonly ordersService = new OrdersServiceClient()
+  private readonly inventoryService = new InventoryServiceClient()
+
   async apply(request: PlaceOrderBFFRequest): Promise<PlaceOrderBFFResponse> {
-    const fraudCheckPassed = await checkFraudDetection(request.customerId, request.totalAmount)
+    const fraudCheckPassed = await this.fraudDetection.checkFraud(request.customerId, request.totalAmount)
     if (!fraudCheckPassed) {
       throw new Error('Order rejected due to fraud detection')
     }
 
-    const customerProfile = await fetchCustomerProfile(request.customerId)
+    const customerProfile = await this.customerService.getProfile(request.customerId)
 
-    const orderResponse = await fetch('http://localhost:3000/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...request,
-        paymentMethodId: customerProfile.paymentMethodId
-      })
+    const orderData = await this.ordersService.placeOrder({
+      ...request,
+      paymentMethodId: customerProfile.paymentMethodId
     })
 
-    const orderData = (await orderResponse.json()) as { orderId: string; state: string }
-
-    const inventoryChecks = await Promise.all(
+    await Promise.all(
       request.items.map((item) =>
-        fetch(`http://localhost:3001/inventory/${item.sku}`)
+        this.inventoryService.checkStock(item.sku)
       )
     )
 

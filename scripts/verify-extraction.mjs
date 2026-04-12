@@ -22,7 +22,7 @@ function main() {
   // Run CLI and capture output
   let cliOutput
   try {
-    cliOutput = execSync('npx riviere extract --config extraction.config.json --allow-incomplete', {
+    cliOutput = execSync('npx riviere extract --config .riviere/config/extraction.config.json --allow-incomplete', {
       cwd: rootDir,
       encoding: 'utf-8',
       timeout: 60000,
@@ -30,7 +30,7 @@ function main() {
   } catch (error) {
     console.error('❌ CLI extraction failed!')
     console.error('')
-    console.error('Command: npx riviere extract --config extraction.config.json')
+    console.error('Command: npx riviere extract --config .riviere/config/extraction.config.json')
     console.error('')
     if (error.stdout) console.error('stdout:', error.stdout)
     if (error.stderr) console.error('stderr:', error.stderr)

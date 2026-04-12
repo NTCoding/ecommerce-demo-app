@@ -22,5 +22,14 @@
   },
   "event": { "notUsed": true },
   "ui": { "notUsed": true },
-  "eventPublisher": { "notUsed": true }
+  "customTypes": {
+    "httpCall": {
+      "find": "methods",
+      "where": { "inClassWith": { "hasJSDoc": { "tag": "httpClient" } } },
+      "extract": {
+        "serviceName": { "fromProperty": { "name": "serviceName", "kind": "instance" } },
+        "route": { "fromProperty": { "name": "route", "kind": "instance" } }
+      }
+    }
+  }
 }

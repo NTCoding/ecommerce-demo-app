@@ -8,5 +8,13 @@
     { "$ref": "./notifications.extraction.json" },
     { "$ref": "./bff.extraction.json" },
     { "$ref": "./ui.extraction.json" }
-  ]
+  ],
+  "connections": {
+    "eventPublishers": [
+      {
+        "fromType": "eventPublisher",
+        "metadataKey": "publishedEventType"
+      }
+    ]
+  }
 }

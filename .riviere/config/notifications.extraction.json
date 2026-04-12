@@ -26,6 +26,5 @@
   },
   "api": { "notUsed": true },
   "event": { "notUsed": true },
-  "ui": { "notUsed": true },
-  "eventPublisher": { "notUsed": true }
+  "ui": { "notUsed": true }
 }
