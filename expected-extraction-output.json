@@ -110,18 +110,6 @@
     },
     {
       "type": "domainOp",
-      "name": "checkCanConfirm",
-      "location": {
-        "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
-        "line": 64
-      },
-      "domain": "orders",
-      "metadata": {
-        "operationName": "checkCanConfirm"
-      }
-    },
-    {
-      "type": "domainOp",
       "name": "confirm",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/orders-domain/src/domain/Order.ts",
@@ -394,13 +382,39 @@
     },
     {
       "type": "eventPublisher",
-      "name": "ShippingEventPublisher",
+      "name": "publishShipmentCreated",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/shipping-event-publisher.ts",
-        "line": 4
+        "line": 5
       },
       "domain": "shipping",
-      "metadata": {}
+      "metadata": {
+        "publishedEventType": "ShipmentCreated"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishShipmentDispatched",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/shipping-event-publisher.ts",
+        "line": 10
+      },
+      "domain": "shipping",
+      "metadata": {
+        "publishedEventType": "ShipmentDispatched"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishShipmentDelivered",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/shipping-domain/src/infrastructure/shipping-event-publisher.ts",
+        "line": 15
+      },
+      "domain": "shipping",
+      "metadata": {
+        "publishedEventType": "ShipmentDelivered"
+      }
     },
     {
       "type": "event",
@@ -505,13 +519,15 @@
     },
     {
       "type": "eventPublisher",
-      "name": "InventoryEventPublisher",
+      "name": "publishInventoryReserved",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/inventory-domain/src/infrastructure/inventory-event-publisher.ts",
-        "line": 4
+        "line": 6
       },
       "domain": "inventory",
-      "metadata": {}
+      "metadata": {
+        "publishedEventType": "InventoryReserved"
+      }
     },
     {
       "type": "event",
@@ -646,13 +662,39 @@
     },
     {
       "type": "eventPublisher",
-      "name": "PaymentEventPublisher",
+      "name": "publishPaymentCompleted",
       "location": {
         "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/payment-event-publisher.ts",
-        "line": 4
+        "line": 5
       },
       "domain": "payment",
-      "metadata": {}
+      "metadata": {
+        "publishedEventType": "PaymentCompleted"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishPaymentFailed",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/payment-event-publisher.ts",
+        "line": 10
+      },
+      "domain": "payment",
+      "metadata": {
+        "publishedEventType": "PaymentFailed"
+      }
+    },
+    {
+      "type": "eventPublisher",
+      "name": "publishPaymentRefunded",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/payment-domain/src/infrastructure/payment-event-publisher.ts",
+        "line": 15
+      },
+      "domain": "payment",
+      "metadata": {
+        "publishedEventType": "PaymentRefunded"
+      }
     },
     {
       "type": "event",

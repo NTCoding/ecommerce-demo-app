@@ -18,7 +18,7 @@ const expected = JSON.parse(readFileSync(expectedPath, 'utf-8'))
 
 // Run extraction once
 function runExtraction() {
-  const cliOutput = execSync('npx riviere extract --config extraction.config.json', {
+  const cliOutput = execSync('npx riviere extract --config .riviere/config/extraction.config.json', {
     cwd: rootDir,
     encoding: 'utf-8',
     timeout: 60000,

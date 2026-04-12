@@ -13,6 +13,5 @@
     "extract": {
       "route": { "fromProperty": { "name": "route", "kind": "instance" } }
     }
-  },
-  "eventPublisher": { "notUsed": true }
+  }
 }
