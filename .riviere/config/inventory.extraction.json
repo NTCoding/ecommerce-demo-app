@@ -1,5 +1,6 @@
 {
   "name": "inventory",
+  "domain": "inventory",
   "path": "../../inventory-domain",
   "glob": "src/**/*.ts",
   "useCase": {

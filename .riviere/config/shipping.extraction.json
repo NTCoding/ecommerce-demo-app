@@ -1,5 +1,6 @@
 {
   "name": "shipping",
+  "domain": "shipping",
   "path": "../../shipping-domain",
   "glob": "src/**/*.ts",
   "useCase": {

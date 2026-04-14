@@ -1,97 +1,436 @@
 {
   "_comment": "Ground truth connections for ecommerce-demo-app. Verified by manual code inspection. This is a SPECIFICATION of what the extraction tool SHOULD detect, not a record of what it currently does. Verification failures indicate product gaps in the extraction tool that must be fixed.",
   "links": [
-    { "source": "shipping:useCase:UpdateTrackingUseCase", "target": "shipping:eventPublisher:publishShipmentDelivered", "type": "sync" },
-    { "source": "shipping:eventHandler:OrderConfirmedHandler", "target": "shipping:useCase:CreateShipmentUseCase", "type": "sync" },
-    { "source": "shipping:useCase:CreateShipmentUseCase", "target": "shipping:domainOp:Shipment", "type": "sync" },
-    { "source": "shipping:useCase:CreateShipmentUseCase", "target": "shipping:eventPublisher:publishShipmentCreated", "type": "sync" },
-    { "source": "shipping:api:DispatchShipmentEndpoint", "target": "shipping:useCase:DispatchShipmentUseCase", "type": "sync" },
-    { "source": "shipping:api:DispatchShipmentEndpoint", "target": "shipping:domainOp:Shipment", "type": "sync" },
-    { "source": "shipping:useCase:DispatchShipmentUseCase", "target": "shipping:domainOp:Shipment", "type": "sync" },
-    { "source": "shipping:useCase:DispatchShipmentUseCase", "target": "shipping:eventPublisher:publishShipmentDispatched", "type": "sync" },
-    { "source": "inventory:eventHandler:ShipmentCreatedHandler", "target": "inventory:useCase:AllocateInventoryUseCase", "type": "sync" },
-    { "source": "inventory:useCase:AllocateInventoryUseCase", "target": "inventory:domainOp:InventoryItem", "type": "sync" },
-    { "source": "inventory:eventHandler:OrderPlacedHandler", "target": "inventory:useCase:ReserveInventoryUseCase", "type": "sync" },
-    { "source": "inventory:useCase:ReserveInventoryUseCase", "target": "inventory:domainOp:InventoryItem", "type": "sync" },
-    { "source": "inventory:useCase:ReserveInventoryUseCase", "target": "inventory:eventPublisher:publishInventoryReserved", "type": "sync" },
-    { "source": "inventory:eventHandler:OrderCancelledHandler", "target": "inventory:useCase:ReleaseInventoryUseCase", "type": "sync" },
-    { "source": "inventory:useCase:ReleaseInventoryUseCase", "target": "inventory:domainOp:InventoryItem", "type": "sync" },
-    { "source": "inventory:api:CheckStockEndpoint", "target": "inventory:useCase:CheckStockUseCase", "type": "sync" },
-    { "source": "inventory:useCase:CheckStockUseCase", "target": "inventory:domainOp:InventoryItem", "type": "sync" },
-    { "source": "payment:eventHandler:OrderPlacedHandler", "target": "payment:useCase:ProcessPaymentUseCase", "type": "sync" },
-    { "source": "payment:useCase:ProcessPaymentUseCase", "target": "payment:domainOp:Payment", "type": "sync" },
-    { "source": "payment:useCase:ProcessPaymentUseCase", "target": "payment:eventPublisher:publishPaymentFailed", "type": "sync" },
-    { "source": "payment:useCase:ProcessPaymentUseCase", "target": "payment:eventPublisher:publishPaymentCompleted", "type": "sync" },
-    { "source": "payment:eventHandler:OrderCancelledHandler", "target": "payment:useCase:RefundPaymentUseCase", "type": "sync" },
-    { "source": "payment:useCase:RefundPaymentUseCase", "target": "payment:domainOp:Payment", "type": "sync" },
-    { "source": "payment:useCase:RefundPaymentUseCase", "target": "payment:eventPublisher:publishPaymentRefunded", "type": "sync" },
-    { "source": "notifications:eventHandler:ShipmentDispatchedHandler", "target": "notifications:useCase:NotifyShipmentDispatchedUseCase", "type": "sync" },
-    { "source": "notifications:useCase:NotifyShipmentDispatchedUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
-    { "source": "notifications:eventHandler:ShipmentDeliveredHandler", "target": "notifications:useCase:NotifyShipmentDeliveredUseCase", "type": "sync" },
-    { "source": "notifications:useCase:NotifyShipmentDeliveredUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
-    { "source": "notifications:eventHandler:PaymentCompletedHandler", "target": "notifications:useCase:NotifyPaymentCompletedUseCase", "type": "sync" },
-    { "source": "notifications:useCase:NotifyPaymentCompletedUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
-    { "source": "notifications:eventHandler:OrderPlacedHandler", "target": "notifications:useCase:NotifyOrderPlacedUseCase", "type": "sync" },
-    { "source": "notifications:useCase:NotifyOrderPlacedUseCase", "target": "notifications:domainOp:Notification", "type": "sync" },
-    { "source": "bff:api:PlaceOrderBFFEndpoint", "target": "bff:useCase:PlaceOrderBFFUseCase", "type": "sync" },
-    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": "orders:api:handle", "type": "sync" },
-    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": "inventory:api:CheckStockEndpoint", "type": "sync" },
-
-    { "source": "orders:api:handle", "target": "orders:useCase:PlaceOrderUseCase", "type": "sync" },
-    { "source": "orders:api:handle", "target": "orders:useCase:CancelOrderUseCase", "type": "sync" },
-    { "source": "orders:useCase:PlaceOrderUseCase", "target": "orders:domainOp:begin", "type": "sync" },
-    { "source": "orders:useCase:PlaceOrderUseCase", "target": "orders:eventPublisher:publishOrderPlaced", "type": "sync" },
-    { "source": "orders:useCase:CancelOrderUseCase", "target": "orders:domainOp:cancel", "type": "sync" },
-    { "source": "orders:useCase:CancelOrderUseCase", "target": "orders:eventPublisher:publishOrderCancelled", "type": "sync" },
-    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ShipOrderUseCase", "type": "sync" },
-    { "source": "orders:useCase:ShipOrderUseCase", "target": "orders:domainOp:ship", "type": "sync" },
-    { "source": "orders:eventHandler:handle", "target": "orders:useCase:CompleteOrderUseCase", "type": "sync" },
-    { "source": "orders:useCase:CompleteOrderUseCase", "target": "orders:domainOp:deliver", "type": "sync" },
-    { "source": "orders:eventHandler:handle", "target": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "type": "sync" },
-    { "source": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "target": "orders:domainOp:cancel", "type": "sync" },
-    { "source": "orders:useCase:CancelOrderAfterPaymentFailureUseCase", "target": "orders:eventPublisher:publishOrderCancelled", "type": "sync" },
-    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "type": "sync" },
-    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:domainOp:markPaymentCompleted", "type": "sync" },
-    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:eventPublisher:publishOrderConfirmed", "type": "sync" },
-    { "source": "orders:eventHandler:handle", "target": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "type": "sync" },
-    { "source": "orders:useCase:ConfirmOrderAfterInventoryUseCase", "target": "orders:domainOp:markInventoryReserved", "type": "sync" },
-    { "source": "orders:useCase:ConfirmOrderAfterPaymentUseCase", "target": "orders:domainOp:getState", "type": "sync" },
-    { "source": "orders:api:handle", "target": "orders:domainOp:getState", "type": "sync" },
-    { "source": "orders:domainOp:markInventoryReserved", "target": "orders:domainOp:confirm", "type": "sync" },
-    { "source": "orders:domainOp:markPaymentCompleted", "target": "orders:domainOp:confirm", "type": "sync" },
-
-    { "source": "shipping:backgroundJob:runTrackingUpdate", "target": "shipping:useCase:UpdateTrackingUseCase", "type": "sync" },
-    { "source": "shipping:useCase:UpdateTrackingUseCase", "target": "shipping:domainOp:Shipment", "type": "sync" },
-
-    { "source": "orders:eventPublisher:publishOrderPlaced", "target": "orders:event:OrderPlaced", "type": "async" },
-    { "source": "orders:eventPublisher:publishOrderConfirmed", "target": "orders:event:OrderConfirmed", "type": "async" },
-    { "source": "orders:eventPublisher:publishOrderCancelled", "target": "orders:event:OrderCancelled", "type": "async" },
-    { "source": "shipping:eventPublisher:publishShipmentCreated", "target": "shipping:event:ShipmentCreated", "type": "async" },
-    { "source": "shipping:eventPublisher:publishShipmentDispatched", "target": "shipping:event:ShipmentDispatched", "type": "async" },
-    { "source": "shipping:eventPublisher:publishShipmentDelivered", "target": "shipping:event:ShipmentDelivered", "type": "async" },
-    { "source": "inventory:eventPublisher:publishInventoryReserved", "target": "inventory:event:InventoryReserved", "type": "async" },
-    { "source": "payment:eventPublisher:publishPaymentCompleted", "target": "payment:event:PaymentCompleted", "type": "async" },
-    { "source": "payment:eventPublisher:publishPaymentFailed", "target": "payment:event:PaymentFailed", "type": "async" },
-    { "source": "payment:eventPublisher:publishPaymentRefunded", "target": "payment:event:PaymentRefunded", "type": "async" },
-
-    { "source": "shipping:event:ShipmentDispatched", "target": "orders:eventHandler:handle", "type": "async" },
-    { "source": "shipping:event:ShipmentDelivered", "target": "orders:eventHandler:handle", "type": "async" },
-    { "source": "payment:event:PaymentFailed", "target": "orders:eventHandler:handle", "type": "async" },
-    { "source": "payment:event:PaymentCompleted", "target": "orders:eventHandler:handle", "type": "async" },
-    { "source": "inventory:event:InventoryReserved", "target": "orders:eventHandler:handle", "type": "async" },
-    { "source": "orders:event:OrderConfirmed", "target": "shipping:eventHandler:OrderConfirmedHandler", "type": "async" },
-    { "source": "shipping:event:ShipmentCreated", "target": "inventory:eventHandler:ShipmentCreatedHandler", "type": "async" },
-    { "source": "orders:event:OrderPlaced", "target": "inventory:eventHandler:OrderPlacedHandler", "type": "async" },
-    { "source": "orders:event:OrderCancelled", "target": "inventory:eventHandler:OrderCancelledHandler", "type": "async" },
-    { "source": "orders:event:OrderPlaced", "target": "payment:eventHandler:OrderPlacedHandler", "type": "async" },
-    { "source": "orders:event:OrderCancelled", "target": "payment:eventHandler:OrderCancelledHandler", "type": "async" },
-    { "source": "shipping:event:ShipmentDispatched", "target": "notifications:eventHandler:ShipmentDispatchedHandler", "type": "async" },
-    { "source": "shipping:event:ShipmentDelivered", "target": "notifications:eventHandler:ShipmentDeliveredHandler", "type": "async" },
-    { "source": "payment:event:PaymentCompleted", "target": "notifications:eventHandler:PaymentCompletedHandler", "type": "async" },
-    { "source": "orders:event:OrderPlaced", "target": "notifications:eventHandler:OrderPlacedHandler", "type": "async" }
+    {
+      "source": "orders:orders:domainOp:markinventoryreserved",
+      "target": "orders:orders:domainOp:confirm",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:domainOp:markpaymentcompleted",
+      "target": "orders:orders:domainOp:confirm",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventHandler:handle",
+      "target": "orders:orders:useCase:shiporderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:shiporderusecase",
+      "target": "orders:orders:domainOp:ship",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventHandler:handle",
+      "target": "orders:orders:useCase:completeorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:completeorderusecase",
+      "target": "orders:orders:domainOp:deliver",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventHandler:handle",
+      "target": "orders:orders:useCase:cancelorderafterpaymentfailureusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:cancelorderafterpaymentfailureusecase",
+      "target": "orders:orders:domainOp:cancel",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:cancelorderafterpaymentfailureusecase",
+      "target": "orders:orders:eventPublisher:publishordercancelled",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventHandler:handle",
+      "target": "orders:orders:useCase:confirmorderafterpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:confirmorderafterpaymentusecase",
+      "target": "orders:orders:domainOp:markpaymentcompleted",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:confirmorderafterpaymentusecase",
+      "target": "orders:orders:domainOp:getstate",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:confirmorderafterpaymentusecase",
+      "target": "orders:orders:eventPublisher:publishorderconfirmed",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventHandler:handle",
+      "target": "orders:orders:useCase:confirmorderafterinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:confirmorderafterinventoryusecase",
+      "target": "orders:orders:domainOp:markinventoryreserved",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:api:handle",
+      "target": "orders:orders:useCase:placeorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:api:handle",
+      "target": "orders:orders:domainOp:getstate",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:placeorderusecase",
+      "target": "orders:orders:domainOp:begin",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:placeorderusecase",
+      "target": "orders:orders:eventPublisher:publishorderplaced",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:api:handle",
+      "target": "orders:orders:useCase:cancelorderusecase",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:cancelorderusecase",
+      "target": "orders:orders:domainOp:cancel",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:useCase:cancelorderusecase",
+      "target": "orders:orders:eventPublisher:publishordercancelled",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:backgroundJob:runtrackingupdate",
+      "target": "shipping:shipping:useCase:updatetrackingusecase",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:updatetrackingusecase",
+      "target": "shipping:shipping:domainOp:shipment",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:updatetrackingusecase",
+      "target": "shipping:shipping:eventPublisher:publishshipmentdelivered",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:eventHandler:orderconfirmedhandler",
+      "target": "shipping:shipping:useCase:createshipmentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:createshipmentusecase",
+      "target": "shipping:shipping:domainOp:shipment",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:createshipmentusecase",
+      "target": "shipping:shipping:eventPublisher:publishshipmentcreated",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:api:dispatchshipmentendpoint",
+      "target": "shipping:shipping:useCase:dispatchshipmentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:api:dispatchshipmentendpoint",
+      "target": "shipping:shipping:domainOp:shipment",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:dispatchshipmentusecase",
+      "target": "shipping:shipping:domainOp:shipment",
+      "type": "sync"
+    },
+    {
+      "source": "shipping:shipping:useCase:dispatchshipmentusecase",
+      "target": "shipping:shipping:eventPublisher:publishshipmentdispatched",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:eventHandler:shipmentcreatedhandler",
+      "target": "inventory:inventory:useCase:allocateinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:useCase:allocateinventoryusecase",
+      "target": "inventory:inventory:domainOp:inventoryitem",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:eventHandler:orderplacedhandler",
+      "target": "inventory:inventory:useCase:reserveinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:useCase:reserveinventoryusecase",
+      "target": "inventory:inventory:domainOp:inventoryitem",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:useCase:reserveinventoryusecase",
+      "target": "inventory:inventory:eventPublisher:publishinventoryreserved",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:eventHandler:ordercancelledhandler",
+      "target": "inventory:inventory:useCase:releaseinventoryusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:useCase:releaseinventoryusecase",
+      "target": "inventory:inventory:domainOp:inventoryitem",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:api:checkstockendpoint",
+      "target": "inventory:inventory:useCase:checkstockusecase",
+      "type": "sync"
+    },
+    {
+      "source": "inventory:inventory:useCase:checkstockusecase",
+      "target": "inventory:inventory:domainOp:inventoryitem",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:eventHandler:orderplacedhandler",
+      "target": "payment:payment:useCase:processpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:useCase:processpaymentusecase",
+      "target": "payment:payment:domainOp:payment",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:useCase:processpaymentusecase",
+      "target": "payment:payment:eventPublisher:publishpaymentfailed",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:useCase:processpaymentusecase",
+      "target": "payment:payment:eventPublisher:publishpaymentcompleted",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:eventHandler:ordercancelledhandler",
+      "target": "payment:payment:useCase:refundpaymentusecase",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:useCase:refundpaymentusecase",
+      "target": "payment:payment:domainOp:payment",
+      "type": "sync"
+    },
+    {
+      "source": "payment:payment:useCase:refundpaymentusecase",
+      "target": "payment:payment:eventPublisher:publishpaymentrefunded",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:eventHandler:shipmentdispatchedhandler",
+      "target": "notifications:notifications:useCase:notifyshipmentdispatchedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:useCase:notifyshipmentdispatchedusecase",
+      "target": "notifications:notifications:domainOp:notification",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:eventHandler:shipmentdeliveredhandler",
+      "target": "notifications:notifications:useCase:notifyshipmentdeliveredusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:useCase:notifyshipmentdeliveredusecase",
+      "target": "notifications:notifications:domainOp:notification",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:eventHandler:paymentcompletedhandler",
+      "target": "notifications:notifications:useCase:notifypaymentcompletedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:useCase:notifypaymentcompletedusecase",
+      "target": "notifications:notifications:domainOp:notification",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:eventHandler:orderplacedhandler",
+      "target": "notifications:notifications:useCase:notifyorderplacedusecase",
+      "type": "sync"
+    },
+    {
+      "source": "notifications:notifications:useCase:notifyorderplacedusecase",
+      "target": "notifications:notifications:domainOp:notification",
+      "type": "sync"
+    },
+    {
+      "source": "bff:bff:api:placeorderbffendpoint",
+      "target": "bff:bff:useCase:placeorderbffusecase",
+      "type": "sync"
+    },
+    {
+      "source": "bff:bff:useCase:placeorderbffusecase",
+      "target": "bff:bff:httpCall:checkfraud",
+      "type": "sync"
+    },
+    {
+      "source": "bff:bff:useCase:placeorderbffusecase",
+      "target": "bff:bff:httpCall:getprofile",
+      "type": "sync"
+    },
+    {
+      "source": "bff:bff:useCase:placeorderbffusecase",
+      "target": "bff:bff:httpCall:placeorder",
+      "type": "sync"
+    },
+    {
+      "source": "bff:bff:useCase:placeorderbffusecase",
+      "target": "bff:bff:httpCall:checkstock",
+      "type": "sync"
+    },
+    {
+      "source": "orders:orders:eventPublisher:publishorderplaced",
+      "target": "orders:orders:event:orderplaced",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:eventPublisher:publishorderconfirmed",
+      "target": "orders:orders:event:orderconfirmed",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:eventPublisher:publishordercancelled",
+      "target": "orders:orders:event:ordercancelled",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:eventPublisher:publishshipmentcreated",
+      "target": "shipping:shipping:event:shipmentcreated",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:eventPublisher:publishshipmentdispatched",
+      "target": "shipping:shipping:event:shipmentdispatched",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:eventPublisher:publishshipmentdelivered",
+      "target": "shipping:shipping:event:shipmentdelivered",
+      "type": "async"
+    },
+    {
+      "source": "inventory:inventory:eventPublisher:publishinventoryreserved",
+      "target": "inventory:inventory:event:inventoryreserved",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:eventPublisher:publishpaymentcompleted",
+      "target": "payment:payment:event:paymentcompleted",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:eventPublisher:publishpaymentfailed",
+      "target": "payment:payment:event:paymentfailed",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:eventPublisher:publishpaymentrefunded",
+      "target": "payment:payment:event:paymentrefunded",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:event:shipmentdispatched",
+      "target": "orders:orders:eventHandler:handle",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:event:shipmentdelivered",
+      "target": "orders:orders:eventHandler:handle",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:event:paymentfailed",
+      "target": "orders:orders:eventHandler:handle",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:event:paymentcompleted",
+      "target": "orders:orders:eventHandler:handle",
+      "type": "async"
+    },
+    {
+      "source": "inventory:inventory:event:inventoryreserved",
+      "target": "orders:orders:eventHandler:handle",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:orderconfirmed",
+      "target": "shipping:shipping:eventHandler:orderconfirmedhandler",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:event:shipmentcreated",
+      "target": "inventory:inventory:eventHandler:shipmentcreatedhandler",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:orderplaced",
+      "target": "inventory:inventory:eventHandler:orderplacedhandler",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:ordercancelled",
+      "target": "inventory:inventory:eventHandler:ordercancelledhandler",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:orderplaced",
+      "target": "payment:payment:eventHandler:orderplacedhandler",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:ordercancelled",
+      "target": "payment:payment:eventHandler:ordercancelledhandler",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:event:shipmentdispatched",
+      "target": "notifications:notifications:eventHandler:shipmentdispatchedhandler",
+      "type": "async"
+    },
+    {
+      "source": "shipping:shipping:event:shipmentdelivered",
+      "target": "notifications:notifications:eventHandler:shipmentdeliveredhandler",
+      "type": "async"
+    },
+    {
+      "source": "payment:payment:event:paymentcompleted",
+      "target": "notifications:notifications:eventHandler:paymentcompletedhandler",
+      "type": "async"
+    },
+    {
+      "source": "orders:orders:event:orderplaced",
+      "target": "notifications:notifications:eventHandler:orderplacedhandler",
+      "type": "async"
+    }
   ],
-  "externalLinks": [
-    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": { "name": "Fraud Detection Service", "url": "http://fraud-detection-service.internal/api/check" }, "type": "sync" },
-    { "source": "bff:useCase:PlaceOrderBFFUseCase", "target": { "name": "Customer Service", "url": "http://customer-service.internal/api/customers" }, "type": "sync" }
-  ]
+  "externalLinks": []
 }

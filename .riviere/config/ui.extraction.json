@@ -1,5 +1,6 @@
 {
   "name": "ui",
+  "domain": "ui",
   "path": "../../ui",
   "glob": "src/**/*.tsx",
   "useCase": { "notUsed": true },

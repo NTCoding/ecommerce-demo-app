@@ -1,5 +1,7 @@
+node scripts/update-living-architecture.mjs
 npm run validate:deps
 npm run build
 npm run lint:arch
 npm run lint:deps
+npm run test:arch
 npm run verify:connections
