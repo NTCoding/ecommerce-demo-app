@@ -1,5 +1,6 @@
 {
   "name": "bff",
+  "domain": "bff",
   "path": "../../bff",
   "glob": "src/**/*.ts",
   "useCase": {

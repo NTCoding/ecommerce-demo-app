@@ -1,5 +1,6 @@
 {
   "name": "notifications",
+  "domain": "notifications",
   "path": "../../notifications-domain",
   "glob": "src/**/*.ts",
   "useCase": {

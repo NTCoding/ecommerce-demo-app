@@ -955,6 +955,62 @@
       "metadata": {
         "route": "/order"
       }
+    },
+    {
+      "type": "httpCall",
+      "name": "checkFraud",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/infrastructure/fraud-detection-client.ts",
+        "line": 6
+      },
+      "domain": "bff",
+      "module": "bff",
+      "metadata": {
+        "serviceName": "Fraud Detection Service",
+        "route": "/api/check"
+      }
+    },
+    {
+      "type": "httpCall",
+      "name": "checkStock",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/infrastructure/inventory-service-client.ts",
+        "line": 6
+      },
+      "domain": "bff",
+      "module": "bff",
+      "metadata": {
+        "serviceName": "inventory",
+        "route": "/inventory/:sku"
+      }
+    },
+    {
+      "type": "httpCall",
+      "name": "getProfile",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/infrastructure/customer-service-client.ts",
+        "line": 6
+      },
+      "domain": "bff",
+      "module": "bff",
+      "metadata": {
+        "serviceName": "Customer Service",
+        "route": "/api/customers/:id/profile"
+      }
+    },
+    {
+      "type": "httpCall",
+      "name": "placeOrder",
+      "location": {
+        "file": "/Users/nicko/code/ecommerce-demo-app/bff/src/infrastructure/orders-service-client.ts",
+        "line": 6
+      },
+      "domain": "bff",
+      "module": "bff",
+      "metadata": {
+        "serviceName": "orders",
+        "route": "/orders"
+      }
     }
   ]
 }
