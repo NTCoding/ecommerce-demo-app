@@ -1,10 +1,8 @@
 import { EventPublisherContainer } from '@living-architecture/riviere-extract-conventions'
-import type { EventPublisherDef } from '@living-architecture/riviere-extract-conventions'
 import { eventBus, OrderPlaced, OrderConfirmed, OrderCancelled } from './events'
 
 @EventPublisherContainer
-export class OrderEventPublisher implements EventPublisherDef {
-  declare readonly __brand: 'EventPublisherDef'
+export class OrderEventPublisher {
 
   publishOrderPlaced(event: OrderPlaced): void {
     eventBus.emit(event.type, event)
