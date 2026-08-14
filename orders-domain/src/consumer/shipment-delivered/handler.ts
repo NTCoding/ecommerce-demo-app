@@ -1,4 +1,4 @@
-import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 import { Order } from '../../domain/Order'
 import type { ShipmentDelivered } from '../../infrastructure/events'
 import { CompleteOrderUseCase } from './use-cases/complete-order-use-case'

@@ -8,7 +8,7 @@ module.exports = {
         pathNot: '^orders-domain/'
       },
       to: {
-        path: '@living-architecture/riviere-extract-conventions'
+        path: '@living-architecture/riviere-extract-conventions-published-language'
       }
     }
   ],

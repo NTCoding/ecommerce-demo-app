@@ -1,4 +1,4 @@
-import { APIContainer } from '@living-architecture/riviere-extract-conventions'
+import { APIContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 import type { Request, Response } from 'express'
 import { Order } from '../../domain/Order'
 import { CancelOrderUseCase } from './use-cases/cancel-order-use-case'

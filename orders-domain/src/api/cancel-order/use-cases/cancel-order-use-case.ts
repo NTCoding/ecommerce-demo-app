@@ -1,4 +1,4 @@
-import { UseCase } from '@living-architecture/riviere-extract-conventions'
+import { UseCase } from '@living-architecture/riviere-extract-conventions-published-language'
 import { Order } from '../../../domain/Order'
 import { OrderCancelled } from '../../../infrastructure/events'
 import { OrderEventPublisher } from '../../../infrastructure/order-event-publisher'

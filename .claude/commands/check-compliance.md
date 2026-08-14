@@ -24,13 +24,13 @@ FILES TO READ:
 - All .ts files under orders-domain/src/api/, orders-domain/src/consumer/, orders-domain/src/domain/, orders-domain/src/infrastructure/
 
 CONFIG RULES (orders.extraction.json):
-- MUST have "extends": "@living-architecture/riviere-extract-conventions"
+- MUST have "extends": "@living-architecture/riviere-extract-conventions-published-language"
 - MUST have "name" and "path" keys
 - MUST NOT have any custom detection rules (no "useCase", "eventHandler", "api", "event", "domainOp", "ui" keys with "find"/"where" blocks)
 - The entire config should be ~3-4 keys total. If it has more, that's a violation.
 
 SOURCE RULES:
-- All use case classes MUST use @UseCase decorator from @living-architecture/riviere-extract-conventions
+- All use case classes MUST use @UseCase decorator from @living-architecture/riviere-extract-conventions-published-language
 - All API endpoint classes MUST use @APIContainer decorator and implement APIControllerDef
 - All event handler classes MUST use @EventHandlerContainer decorator and implement EventHandlerDef
 - All event classes MUST use @Event decorator and implement EventDef
@@ -42,7 +42,7 @@ ESLINT RULES (eslint.config.mjs):
 - Must include rules: api-controller-requires-route-and-method, event-requires-type-property, event-handler-requires-subscribed-events
 
 PACKAGE.JSON:
-- Must list @living-architecture/riviere-extract-conventions as a dependency
+- Must list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # Orders Domain Compliance Report
@@ -70,15 +70,15 @@ FILES TO READ:
 
 CONFIG RULES:
 - MUST use "hasJSDoc" detection for component types (useCase, eventHandler, api, event, domainOp)
-- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions"
+- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions-published-language"
 - MUST NOT have "hasDecorator" with convention package decorator names (UseCase, APIContainer, etc.)
 
 SOURCE RULES:
 - Components must use JSDoc tags like /** @useCase */, /** @eventHandler */, /** @api */, /** @event */, /** @domainOp */
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep for this string in ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep for this string in ALL files)
 
 PACKAGE.JSON:
-- MUST NOT list @living-architecture/riviere-extract-conventions as a dependency
+- MUST NOT list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # Shipping Domain Compliance Report
@@ -107,16 +107,16 @@ FILES TO READ:
 
 CONFIG RULES:
 - MUST use "hasDecorator" detection with custom names: StockUseCase, StockHandler, StockOp, StockAPI, StockEvent
-- Decorator entries MUST NOT have a "from" field pointing to @living-architecture/riviere-extract-conventions
+- Decorator entries MUST NOT have a "from" field pointing to @living-architecture/riviere-extract-conventions-published-language
 - MUST NOT have "extends" key
 
 SOURCE RULES:
 - Must have a local decorators.ts defining StockUseCase, StockHandler, StockOp, StockAPI, StockEvent
 - Components must import decorators from local path (e.g. '../decorators')
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep ALL files)
 
 PACKAGE.JSON:
-- MUST NOT list @living-architecture/riviere-extract-conventions as a dependency
+- MUST NOT list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # Inventory Domain Compliance Report
@@ -149,10 +149,10 @@ CONFIG RULES:
 
 SOURCE RULES:
 - Components must use implements clauses with domain-specific interfaces
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep ALL files)
 
 PACKAGE.JSON:
-- MUST NOT list @living-architecture/riviere-extract-conventions as a dependency
+- MUST NOT list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # Payment Domain Compliance Report
@@ -181,15 +181,15 @@ FILES TO READ:
 CONFIG RULES:
 - MUST use "extendsClass" detection with names like BaseNotificationUseCase, BaseNotificationDomainOp
 - May use "nameMatches" for handlers
-- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions"
+- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions-published-language"
 - MUST NOT have "hasDecorator" with convention names
 
 SOURCE RULES:
 - Components must extend base classes (BaseNotificationUseCase, etc.)
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep ALL files)
 
 PACKAGE.JSON:
-- MUST NOT list @living-architecture/riviere-extract-conventions as a dependency
+- MUST NOT list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # Notifications Domain Compliance Report
@@ -218,15 +218,15 @@ FILES TO READ:
 CONFIG RULES:
 - MUST use "nameEndsWith" for useCases
 - MUST use "hasJSDoc" for api (tag: "bffApi")
-- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions"
+- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions-published-language"
 
 SOURCE RULES:
 - UseCase classes must end with "UseCase" suffix
 - API classes must have /** @bffApi */ JSDoc tag
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep ALL files)
 
 PACKAGE.JSON:
-- MUST NOT list @living-architecture/riviere-extract-conventions as a dependency
+- MUST NOT list @living-architecture/riviere-extract-conventions-published-language as a dependency
 
 OUTPUT FORMAT:
 # BFF Domain Compliance Report
@@ -255,11 +255,11 @@ FILES TO READ:
 CONFIG RULES:
 - MUST use "nameEndsWith" for ui components (suffix: "Page")
 - Most other component types should be "notUsed": true
-- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions"
+- MUST NOT have "extends": "@living-architecture/riviere-extract-conventions-published-language"
 
 SOURCE RULES:
 - UI component classes must end with "Page" suffix
-- MUST NOT import from @living-architecture/riviere-extract-conventions (grep ALL files)
+- MUST NOT import from @living-architecture/riviere-extract-conventions-published-language (grep ALL files)
 
 OUTPUT FORMAT:
 # UI Domain Compliance Report
@@ -278,7 +278,7 @@ OUTPUT FORMAT:
 ## Cross-Cutting Check
 
 After the 7 agents complete, also check:
-- `.dependency-cruiser.cjs` has a rule preventing non-orders domains from importing `@living-architecture/riviere-extract-conventions`
+- `.dependency-cruiser.cjs` has a rule preventing non-orders domains from importing `@living-architecture/riviere-extract-conventions-published-language`
 - `extraction.config.json` at root references all 7 domain configs via `$ref`
 
 ## Final Output

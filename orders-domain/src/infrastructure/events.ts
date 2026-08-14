@@ -1,4 +1,4 @@
-import { Event } from '@living-architecture/riviere-extract-conventions'
+import { Event } from '@living-architecture/riviere-extract-conventions-published-language'
 import { EventEmitter } from 'events'
 
 @Event

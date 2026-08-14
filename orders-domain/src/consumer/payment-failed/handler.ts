@@ -1,4 +1,4 @@
-import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 import { Order } from '../../domain/Order'
 import type { PaymentFailed } from '../../infrastructure/events'
 import { CancelOrderAfterPaymentFailureUseCase } from './use-cases/cancel-order-after-payment-failure-use-case'

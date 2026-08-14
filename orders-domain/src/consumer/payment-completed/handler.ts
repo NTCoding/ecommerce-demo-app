@@ -1,4 +1,4 @@
-import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'
+import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 import { Order } from '../../domain/Order'
 import type { PaymentCompleted } from '../../infrastructure/events'
 import { ConfirmOrderAfterPaymentUseCase } from './use-cases/confirm-order-after-payment-use-case'
