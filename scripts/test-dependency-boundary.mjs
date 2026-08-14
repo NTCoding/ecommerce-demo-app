@@ -9,7 +9,7 @@ import { writeFileSync, unlinkSync } from 'fs'
 import { execSync } from 'child_process'
 
 const VIOLATION_FILE = 'shipping-domain/src/__test-depcruise-violation.ts'
-const VIOLATION_CONTENT = `import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions'\nexport const unused = EventHandlerContainer\n`
+const VIOLATION_CONTENT = `import { EventHandlerContainer } from '@living-architecture/riviere-extract-conventions-published-language'\nexport const unused = EventHandlerContainer\n`
 
 try {
   // Create violation file

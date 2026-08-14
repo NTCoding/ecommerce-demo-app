@@ -41,7 +41,7 @@ This guide shows how to set up deterministic component extraction with enforceme
 | bff | Crazy mix: different strategy per component type | Architectural unit tests |
 | ui | Name-based: `*Page` suffix | Architectural unit tests |
 
-**Key insight:** The `@living-architecture/riviere-extract-conventions` package includes an ESLint rule that enforces decorator usage. For other strategies (JSDoc, custom decorators, naming conventions), you need alternative enforcement like architectural unit tests or custom lint rules.
+**Key insight:** The `@living-architecture/riviere-extract-conventions-published-language` package includes an ESLint rule that enforces decorator usage. For other strategies (JSDoc, custom decorators, naming conventions), you need alternative enforcement like architectural unit tests or custom lint rules.
 
 ---
 
@@ -53,7 +53,7 @@ This domain uses the built-in ESLint enforcement from the conventions package.
 
 ```bash
 cd orders-domain
-npm install @living-architecture/riviere-extract-conventions eslint @typescript-eslint/parser
+npm install @living-architecture/riviere-extract-conventions-published-language eslint @typescript-eslint/parser
 ```
 
 ### Step 2: Set Up ESLint Enforcement
@@ -61,7 +61,7 @@ npm install @living-architecture/riviere-extract-conventions eslint @typescript-
 Create `eslint.config.mjs`:
 
 ```javascript
-import conventionsPlugin from '@living-architecture/riviere-extract-conventions/eslint-plugin'
+import conventionsPlugin from '@living-architecture/riviere-extract-conventions-published-language/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 
 export default [
@@ -118,7 +118,7 @@ The enforcement is working! Every use case class without a decorator is flagged.
 For use case classes, add `@UseCase`:
 
 ```typescript
-import { UseCase } from '@living-architecture/riviere-extract-conventions'
+import { UseCase } from '@living-architecture/riviere-extract-conventions-published-language'
 
 @UseCase
 export class PlaceOrderUseCase {
@@ -296,7 +296,7 @@ The complete extraction config (`extraction.config.json`) at the project root:
         "where": {
           "hasDecorator": {
             "name": "UseCase",
-            "from": "@living-architecture/riviere-extract-conventions"
+            "from": "@living-architecture/riviere-extract-conventions-published-language"
           }
         }
       }

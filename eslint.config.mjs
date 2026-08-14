@@ -1,4 +1,4 @@
-import conventionsPlugin from '@living-architecture/riviere-extract-conventions/eslint-plugin'
+import conventionsPlugin from '@living-architecture/riviere-extract-conventions-published-language/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 
 export default [

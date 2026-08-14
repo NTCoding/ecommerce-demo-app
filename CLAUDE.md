@@ -9,7 +9,7 @@ This repo exists to **test and demo the living-architecture npm packages**. It i
 ### Mandatory Protocol When You Hit a Bug
 
 1. **STOP.** Do not modify this repo to suppress, avoid, or work around the error.
-2. **Diagnose the root cause** in the living-architecture package (riviere-cli, riviere-extract-conventions, riviere-extract-ts, etc.).
+2. **Diagnose the root cause** in the living-architecture package (riviere-cli, riviere-extract-conventions-published-language, riviere-extract-ts-domain-model, etc.).
 3. **Fix the bug** in the living-architecture repo.
 4. **Publish a new npm version** of the affected package.
 5. **Update the dependency** in this repo (`pnpm update @living-architecture/<package>`).
@@ -81,7 +81,7 @@ A pre-commit hook runs `npm run validate:deps` which will **reject any commit** 
 This project depends on **published npm packages ONLY**:
 
 - `@living-architecture/riviere-cli` - Extraction CLI (from npm registry)
-- `@living-architecture/riviere-extract-conventions` - Default decorators (from npm registry)
+- `@living-architecture/riviere-extract-conventions-published-language` - Default decorators (from npm registry)
 
 ## Commands
 
@@ -100,23 +100,23 @@ pnpm verify:extract # Verify extraction output
 
 ### Convention boundary rule
 
-**ONLY `orders-domain` may import from `@living-architecture/riviere-extract-conventions`.** This is enforced by dependency-cruiser. No other domain may depend on the conventions package — each domain uses its own independent detection strategy.
+**ONLY `orders-domain` may import from `@living-architecture/riviere-extract-conventions-published-language`.** This is enforced by dependency-cruiser. No other domain may depend on the conventions package — each domain uses its own independent detection strategy.
 
 ### ESLint convention rules (orders-domain only)
 
-The ESLint convention rules (`api-controller-requires-route-and-method`, `event-requires-type-property`, `event-handler-requires-subscribed-events`) ONLY work on classes with `implements <ConventionInterface>`. Since only `orders-domain` uses convention interfaces from `@living-architecture/riviere-extract-conventions`, these rules are scoped exclusively to `orders-domain/src/**` in `eslint.config.mjs`. They have no effect on other domains and MUST NOT be applied to other domains.
+The ESLint convention rules (`api-controller-requires-route-and-method`, `event-requires-type-property`, `event-handler-requires-subscribed-events`) ONLY work on classes with `implements <ConventionInterface>`. Since only `orders-domain` uses convention interfaces from `@living-architecture/riviere-extract-conventions-published-language`, these rules are scoped exclusively to `orders-domain/src/**` in `eslint.config.mjs`. They have no effect on other domains and MUST NOT be applied to other domains.
 
 ### Per-domain summary
 
 | Domain | Detection Strategy | Enforcement | FORBIDDEN |
 |--------|-------------------|-------------|-----------|
 | orders | Riviere default decorators (`@UseCase`, `@EventHandler`, etc.) + `extends` convention | ESLint convention rules (built-in) | N/A — this is the reference implementation |
-| shipping | JSDoc tags (`@riviere useCase`, `@riviere eventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
-| inventory | Custom decorators (`@StockUseCase`, `@StockHandler`, `@StockOp`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
-| payments | Domain interfaces (`implements IPaymentUseCase`, `implements IEventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
-| notifications | Base classes (`extends BaseNotificationUseCase`, `extends BaseHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
-| bff | Mixed (nameEndsWith + JSDoc) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
-| ui | Name-based (`*Page` suffix) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions` |
+| shipping | JSDoc tags (`@riviere useCase`, `@riviere eventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
+| inventory | Custom decorators (`@StockUseCase`, `@StockHandler`, `@StockOp`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
+| payments | Domain interfaces (`implements IPaymentUseCase`, `implements IEventHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
+| notifications | Base classes (`extends BaseNotificationUseCase`, `extends BaseHandler`, etc.) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
+| bff | Mixed (nameEndsWith + JSDoc) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
+| ui | Name-based (`*Page` suffix) | Architectural unit tests | Importing `@living-architecture/riviere-extract-conventions-published-language` |
 
 ## Verifying Extraction
 
@@ -223,7 +223,7 @@ Each domain has:
 
 - [living-architecture](https://github.com/NTCoding/living-architecture) - Source for npm packages
   - `packages/riviere-cli` - The extraction CLI
-  - `packages/riviere-extract-conventions` - Default decorators
+  - `packages/riviere-extract-conventions/published-language` - Default decorators
 
 **If you find bugs in the npm packages, fix them there. Do not modify this repo to work around them. See the mandatory protocol at the top of this file.**
 

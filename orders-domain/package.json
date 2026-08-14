@@ -14,7 +14,7 @@
     "test:arch": "vitest run src/__tests__/architecture.test.ts"
   },
   "dependencies": {
-    "@living-architecture/riviere-extract-conventions": "latest",
+    "@living-architecture/riviere-extract-conventions-published-language": "latest",
     "@typescript-eslint/parser": "^8.52.0",
     "eslint": "^9.39.2",
     "express": "^4.18.2"

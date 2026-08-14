@@ -1,4 +1,4 @@
-import { DomainOpContainer } from '@living-architecture/riviere-extract-conventions'
+import { DomainOpContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 
 export enum OrderState {
   Draft = 'Draft',

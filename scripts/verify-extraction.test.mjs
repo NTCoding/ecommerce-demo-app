@@ -24,7 +24,7 @@ function runExtraction() {
     timeout: 60000,
   })
   const result = JSON.parse(cliOutput)
-  return result.data || result.components || result
+  return result.data?.components || result.components || result
 }
 
 // Test runner

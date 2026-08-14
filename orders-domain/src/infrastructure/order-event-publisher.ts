@@ -1,4 +1,4 @@
-import { EventPublisherContainer } from '@living-architecture/riviere-extract-conventions'
+import { EventPublisherContainer } from '@living-architecture/riviere-extract-conventions-published-language'
 import { eventBus, OrderPlaced, OrderConfirmed, OrderCancelled } from './events'
 
 @EventPublisherContainer
