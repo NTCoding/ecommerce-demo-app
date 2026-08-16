@@ -104,7 +104,7 @@ importers:
     dependencies:
       '@living-architecture/riviere-extract-conventions-published-language':
         specifier: latest
-        version: 0.8.0(eslint@9.39.4)(typescript@5.9.3)
+        version: 0.8.1(eslint@9.39.4)(typescript@5.9.3)
       '@typescript-eslint/parser':
         specifier: ^8.52.0
         version: 8.58.1(eslint@9.39.4)(typescript@5.9.3)
@@ -849,14 +849,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@living-architecture/riviere-extract-config-published-language@0.8.0':
-    resolution: {integrity: sha512-tWUFrlLLqP1dRxFepWBvdPH2fcXTRqS6b1QUkJ2bvWYdgGGispJJRTEg2ubydxTP3erb2gUb/6KVmFx8gROKEQ==}
-
   '@living-architecture/riviere-extract-config-published-language@0.8.1':
     resolution: {integrity: sha512-PKCdn83ucGCdq75NAyqHHCv8oMRYgkW/e6oUalTFmg4iOLy7dJvnXmna/rGWL1cYXmdgDzY7CyTvthKpTTYfag==}
-
-  '@living-architecture/riviere-extract-conventions-published-language@0.8.0':
-    resolution: {integrity: sha512-VKx4zciGOysRWppieIGnA3WPSzNrzL3pjS3CaT9/09ZMXUeO9p6GKwTOQV8LrAuZ0jH4S7WhmLALR+w/GfIXnw==}
 
   '@living-architecture/riviere-extract-conventions-published-language@0.8.1':
     resolution: {integrity: sha512-028XAl7CDO4cQz/fOFzbSPheSyzYCvFNlk8d+7TqecUUnA8vzZBDpmQQuGL9A0u8s27l1TrgK1LoyuPaJa7b/A==}
@@ -2857,24 +2851,10 @@ snapshots:
       commander: 14.0.3
       zod: 4.4.3
 
-  '@living-architecture/riviere-extract-config-published-language@0.8.0':
-    dependencies:
-      ajv: 8.20.0
-      ajv-formats: 3.0.1(ajv@8.20.0)
-
   '@living-architecture/riviere-extract-config-published-language@0.8.1':
     dependencies:
       ajv: 8.20.0
       ajv-formats: 3.0.1(ajv@8.20.0)
-
-  '@living-architecture/riviere-extract-conventions-published-language@0.8.0(eslint@9.39.4)(typescript@5.9.3)':
-    dependencies:
-      '@living-architecture/riviere-extract-config-published-language': 0.8.0
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.4)(typescript@5.9.3)
-    transitivePeerDependencies:
-      - eslint
-      - supports-color
-      - typescript
 
   '@living-architecture/riviere-extract-conventions-published-language@0.8.1(eslint@9.39.4)(typescript@5.9.3)':
     dependencies:
