@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       '@living-architecture/riviere-extract-conventions-published-language':
-        specifier: latest
-        version: 0.8.0(eslint@9.39.4)(typescript@5.9.3)
+        specifier: 0.8.1
+        version: 0.8.1(eslint@9.39.4)(typescript@5.9.3)
     devDependencies:
       '@living-architecture/riviere-cli':
-        specifier: latest
-        version: 0.12.0
+        specifier: 0.12.1
+        version: 0.12.1
       '@typescript-eslint/parser':
         specifier: ^8.56.0
         version: 8.58.1(eslint@9.39.4)(typescript@5.9.3)
@@ -838,37 +838,43 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@living-architecture/riviere-builder-domain-model@0.12.0':
-    resolution: {integrity: sha512-bPoSiL5T9EC3m1eY8f2vmk5njGsfTyZD6MUfbvltBmSOQpPC5r/4whMGEprWIld2V8WBJiMMZoez8MgUtYh5nA==}
+  '@living-architecture/riviere-builder-domain-model@0.12.1':
+    resolution: {integrity: sha512-vvpGXaqjUojl9rVKmkqz1LlqkNRby3C5fAUaclUBk9PzvtbMlhH5v8y8TGLBPNSyscOIHbqEPeivworyGqzZXQ==}
 
-  '@living-architecture/riviere-builder-use-cases@0.2.0':
-    resolution: {integrity: sha512-mhDgByV0AKh6uMdoXZykALLgyq+xvpc4huAJEfexlt49bNX1fEF1G5aGJKWmsZkDbOssinrJPYLEevqRpTccWQ==}
+  '@living-architecture/riviere-builder-use-cases@0.2.1':
+    resolution: {integrity: sha512-mHXES4nv91JlQ8VBMlZ5ia4xhT63CxqXGTI0JIxyyMkXB69+1jhJJVhP8ZGxEWIKkPHXDtBeFUcqKWDrgUHBpA==}
 
-  '@living-architecture/riviere-cli@0.12.0':
-    resolution: {integrity: sha512-sbSTzU1X2qOPVTr/S1wL+RLV1aKTWzUXq1AD0CBXrXu1MuQh0GJs0qjI7efwN6IqOnfd3wumK1NJ4Ux9jrZwzA==}
+  '@living-architecture/riviere-cli@0.12.1':
+    resolution: {integrity: sha512-4lKVSmru6k4yUBjh+YSruU98OJrYPbJm+Wi0r25DjnFc+ACIco4PUGhi6BjfnW4Pkj6tqD7Ldj66dfD7utJH5A==}
     engines: {node: '>=20'}
     hasBin: true
 
   '@living-architecture/riviere-extract-config-published-language@0.8.0':
     resolution: {integrity: sha512-tWUFrlLLqP1dRxFepWBvdPH2fcXTRqS6b1QUkJ2bvWYdgGGispJJRTEg2ubydxTP3erb2gUb/6KVmFx8gROKEQ==}
 
+  '@living-architecture/riviere-extract-config-published-language@0.8.1':
+    resolution: {integrity: sha512-PKCdn83ucGCdq75NAyqHHCv8oMRYgkW/e6oUalTFmg4iOLy7dJvnXmna/rGWL1cYXmdgDzY7CyTvthKpTTYfag==}
+
   '@living-architecture/riviere-extract-conventions-published-language@0.8.0':
     resolution: {integrity: sha512-VKx4zciGOysRWppieIGnA3WPSzNrzL3pjS3CaT9/09ZMXUeO9p6GKwTOQV8LrAuZ0jH4S7WhmLALR+w/GfIXnw==}
 
-  '@living-architecture/riviere-extract-ts-domain-model@0.8.0':
-    resolution: {integrity: sha512-y7GlOLlbKW+G2lpnRLPjj1aQARUFEkRthgb9N0iM7qtfM6vJoadlhFOEWWcQ0YIj8xcHcWOkEmQSTofjhDB2yw==}
+  '@living-architecture/riviere-extract-conventions-published-language@0.8.1':
+    resolution: {integrity: sha512-028XAl7CDO4cQz/fOFzbSPheSyzYCvFNlk8d+7TqecUUnA8vzZBDpmQQuGL9A0u8s27l1TrgK1LoyuPaJa7b/A==}
 
-  '@living-architecture/riviere-extract-ts-use-cases@0.2.0':
-    resolution: {integrity: sha512-IlUUYf8NJgs8JQjfM3S8KCBP/Sy6N74Arx9muFCRP0IdDSepH52cRMum+YKwQuidwc9mqNJAE61KdWGnYlTjjA==}
+  '@living-architecture/riviere-extract-ts-domain-model@0.8.1':
+    resolution: {integrity: sha512-A/6XjESqZBwKlGHwPiWZRDGCGcE+X/oJxzHa/XeJTSAX4aOOyzozjBdPGeP7myxAzgnTosnVeCwp2UJ3FTqDYw==}
 
-  '@living-architecture/riviere-role-enforcement-domain-model@0.5.0':
-    resolution: {integrity: sha512-tW/RQGMl/Hr6/O7lnh8tTribRSjsScJBeUMPSWs4WAp/YTqNnYi4qxRBmv4R/yyfrSyt7w9QDFhG2VIh8vRsRQ==}
+  '@living-architecture/riviere-extract-ts-use-cases@0.2.1':
+    resolution: {integrity: sha512-z7FVfFVuuX0lCLJNLeCryCD0m70HpztiszKQOtj3VrMtxo5S0lkNl3iniW5c9ktqrJOV4iyOOtilAp1SsuLkJA==}
 
-  '@living-architecture/riviere-role-enforcement-use-cases@0.2.0':
-    resolution: {integrity: sha512-s5uQEZ9PRMvHLps3Hz4ybbeVzo6hO2E9SgFeIMTFkEYUHBZnmyfN++ZbvjVm5oTxlExMAC/QuNUYLkgw3f43kg==}
+  '@living-architecture/riviere-role-enforcement-domain-model@0.5.1':
+    resolution: {integrity: sha512-GnFYRLPJJA0MH0Q2HdJ+QP919c2XI7Enr3BrOLP7BHcGJokA9/cyJHzlBk//bsgQu33jENii8IwW5kfLQZ1pKQ==}
 
-  '@living-architecture/riviere-schema-published-language@0.10.0':
-    resolution: {integrity: sha512-bkXqIqWoct/VmKlWhifxMrgohDd7KBhcFhV5ujBA5usk34dbKfo3GKWm+e1ys+iK7tOpCLy2ldBEt+EuKIE0OQ==}
+  '@living-architecture/riviere-role-enforcement-use-cases@0.2.1':
+    resolution: {integrity: sha512-XdjkWXoETfnxZjIV9BSVRCwa0Gptiyz8EQs+amCWNBSo8VTSsc09MhUCWSHhWx3TP6YAL0ieNHLxbKOoTRSTiA==}
+
+  '@living-architecture/riviere-schema-published-language@0.10.1':
+    resolution: {integrity: sha512-1Yx4nYP2il+ah7Cn/LigQ34UhOosHlM3Cy2HRjcRFBMV+KsNp0B6NfkdPzbpyRkLa7Men78hcOK3utPd5KggfA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2830,28 +2836,33 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@living-architecture/riviere-builder-domain-model@0.12.0':
+  '@living-architecture/riviere-builder-domain-model@0.12.1':
     dependencies:
-      '@living-architecture/riviere-schema-published-language': 0.10.0
+      '@living-architecture/riviere-schema-published-language': 0.10.1
       zod: 4.4.3
 
-  '@living-architecture/riviere-builder-use-cases@0.2.0':
+  '@living-architecture/riviere-builder-use-cases@0.2.1':
     dependencies:
-      '@living-architecture/riviere-builder-domain-model': 0.12.0
-      '@living-architecture/riviere-schema-published-language': 0.10.0
+      '@living-architecture/riviere-builder-domain-model': 0.12.1
+      '@living-architecture/riviere-schema-published-language': 0.10.1
 
-  '@living-architecture/riviere-cli@0.12.0':
+  '@living-architecture/riviere-cli@0.12.1':
     dependencies:
-      '@living-architecture/riviere-builder-use-cases': 0.2.0
-      '@living-architecture/riviere-extract-ts-domain-model': 0.8.0
-      '@living-architecture/riviere-extract-ts-use-cases': 0.2.0
-      '@living-architecture/riviere-role-enforcement-domain-model': 0.5.0
-      '@living-architecture/riviere-role-enforcement-use-cases': 0.2.0
-      '@living-architecture/riviere-schema-published-language': 0.10.0
+      '@living-architecture/riviere-builder-use-cases': 0.2.1
+      '@living-architecture/riviere-extract-ts-domain-model': 0.8.1
+      '@living-architecture/riviere-extract-ts-use-cases': 0.2.1
+      '@living-architecture/riviere-role-enforcement-domain-model': 0.5.1
+      '@living-architecture/riviere-role-enforcement-use-cases': 0.2.1
+      '@living-architecture/riviere-schema-published-language': 0.10.1
       commander: 14.0.3
       zod: 4.4.3
 
   '@living-architecture/riviere-extract-config-published-language@0.8.0':
+    dependencies:
+      ajv: 8.20.0
+      ajv-formats: 3.0.1(ajv@8.20.0)
+
+  '@living-architecture/riviere-extract-config-published-language@0.8.1':
     dependencies:
       ajv: 8.20.0
       ajv-formats: 3.0.1(ajv@8.20.0)
@@ -2865,33 +2876,42 @@ snapshots:
       - supports-color
       - typescript
 
-  '@living-architecture/riviere-extract-ts-domain-model@0.8.0':
+  '@living-architecture/riviere-extract-conventions-published-language@0.8.1(eslint@9.39.4)(typescript@5.9.3)':
     dependencies:
-      '@living-architecture/riviere-extract-config-published-language': 0.8.0
-      '@living-architecture/riviere-schema-published-language': 0.10.0
+      '@living-architecture/riviere-extract-config-published-language': 0.8.1
+      '@typescript-eslint/utils': 8.53.0(eslint@9.39.4)(typescript@5.9.3)
+    transitivePeerDependencies:
+      - eslint
+      - supports-color
+      - typescript
+
+  '@living-architecture/riviere-extract-ts-domain-model@0.8.1':
+    dependencies:
+      '@living-architecture/riviere-extract-config-published-language': 0.8.1
+      '@living-architecture/riviere-schema-published-language': 0.10.1
       ts-morph: 24.0.0
 
-  '@living-architecture/riviere-extract-ts-use-cases@0.2.0':
+  '@living-architecture/riviere-extract-ts-use-cases@0.2.1':
     dependencies:
-      '@living-architecture/riviere-extract-config-published-language': 0.8.0
-      '@living-architecture/riviere-extract-ts-domain-model': 0.8.0
-      '@living-architecture/riviere-schema-published-language': 0.10.0
+      '@living-architecture/riviere-extract-config-published-language': 0.8.1
+      '@living-architecture/riviere-extract-ts-domain-model': 0.8.1
+      '@living-architecture/riviere-schema-published-language': 0.10.1
       glob: 11.1.0
       ts-morph: 24.0.0
       yaml: 2.9.0
 
-  '@living-architecture/riviere-role-enforcement-domain-model@0.5.0':
+  '@living-architecture/riviere-role-enforcement-domain-model@0.5.1':
     dependencies:
       minimatch: 10.2.6
 
-  '@living-architecture/riviere-role-enforcement-use-cases@0.2.0':
+  '@living-architecture/riviere-role-enforcement-use-cases@0.2.1':
     dependencies:
-      '@living-architecture/riviere-role-enforcement-domain-model': 0.5.0
+      '@living-architecture/riviere-role-enforcement-domain-model': 0.5.1
       minimatch: 10.2.6
       tsx: 4.23.12
       yaml: 2.9.0
 
-  '@living-architecture/riviere-schema-published-language@0.10.0':
+  '@living-architecture/riviere-schema-published-language@0.10.1':
     dependencies:
       ajv: 8.20.0
       ajv-formats: 3.0.1(ajv@8.20.0)

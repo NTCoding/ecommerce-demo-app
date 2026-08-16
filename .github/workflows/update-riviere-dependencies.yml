@@ -1,0 +1,67 @@
+name: Update Rivière dependencies
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update Rivière packages
+        run: pnpm update --latest --save-exact @living-architecture/riviere-cli @living-architecture/riviere-extract-conventions-published-language
+
+      - name: Verify consumer build
+        run: pnpm build
+
+      - name: Verify architecture lint
+        run: pnpm lint:arch
+
+      - name: Verify architecture tests
+        run: pnpm test:arch
+
+      - name: Verify dependency boundaries
+        run: pnpm test:deps
+
+      - name: Verify extraction
+        run: pnpm extract
+
+      - name: Verify extraction output
+        run: pnpm verify:extract
+
+      - name: Verify connections
+        run: pnpm verify:connections
+
+      - name: Verify extraction tests
+        run: pnpm test:extract
+
+      - name: Create update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/update-riviere-dependencies
+          delete-branch: true
+          title: 'chore: update Rivière dependencies'
+          commit-message: 'chore: update Rivière dependencies'
+          body: |
+            Updates the published Rivière CLI and extraction conventions packages.
+
+            The scheduled workflow runs the full consumer verification before opening this pull request.
