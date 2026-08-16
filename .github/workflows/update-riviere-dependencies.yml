@@ -1,0 +1,106 @@
+name: Update Rivière dependencies
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: update-riviere-dependencies
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          version: 10
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update Rivière packages
+        run: pnpm update --latest --save-exact @living-architecture/riviere-cli @living-architecture/riviere-extract-conventions-published-language
+
+      - name: Verify consumer build
+        run: pnpm build
+
+      - name: Verify architecture lint
+        run: pnpm lint:arch
+
+      - name: Verify architecture tests
+        run: pnpm test:arch
+
+      - name: Verify dependency boundaries
+        run: pnpm test:deps
+
+      - name: Verify extraction
+        run: pnpm extract
+
+      - name: Verify extraction output
+        run: pnpm verify:extract
+
+      - name: Verify connections
+        run: pnpm verify:connections
+
+      - name: Verify extraction tests
+        run: pnpm test:extract
+
+      - name: Pass dependency files to PR job
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: riviere-dependency-update
+          path: |
+            package.json
+            pnpm-lock.yaml
+          if-no-files-found: error
+
+  create-pull-request:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Download dependency files
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: riviere-dependency-update
+          path: dependency-update
+
+      - name: Apply verified dependency files
+        run: |
+          cp dependency-update/package.json package.json
+          cp dependency-update/pnpm-lock.yaml pnpm-lock.yaml
+
+      - name: Create update pull request
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/update-riviere-dependencies
+          delete-branch: true
+          title: 'chore: update Rivière dependencies'
+          commit-message: 'chore: update Rivière dependencies'
+          body: |
+            Updates the published Rivière CLI and extraction conventions packages.
+
+            The scheduled workflow runs the full consumer verification before opening this pull request.
