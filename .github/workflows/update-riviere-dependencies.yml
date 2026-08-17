@@ -91,12 +91,14 @@ jobs:
         run: |
           cp dependency-update/package.json package.json
           cp dependency-update/pnpm-lock.yaml pnpm-lock.yaml
+          rm -rf dependency-update
 
       - name: Create update pull request
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: automation/update-riviere-dependencies
+          base: main
           delete-branch: true
           title: 'chore: update Rivière dependencies'
           commit-message: 'chore: update Rivière dependencies'
