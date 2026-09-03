@@ -1,0 +1,32 @@
+domains:
+  OrdersDomain: orders
+  ShippingDomain: shipping
+  InventoryDomain: inventory
+  PaymentDomain: payment
+  NotificationsDomain: notifications
+services:
+  OrdersService:
+    type: UseCase
+    domain: orders
+    name: PlaceOrderUseCase
+  ShippingService:
+    type: UseCase
+    domain: shipping
+    name: CreateShipmentUseCase
+  InventoryService:
+    type: UseCase
+    domain: inventory
+    name: ReserveInventoryUseCase
+  PaymentService:
+    type: UseCase
+    domain: payment
+    name: ProcessPaymentUseCase
+  NotificationsService:
+    type: UseCase
+    domain: notifications
+    name: NotifyOrderPlacedUseCase
+events:
+  OrderCreated:
+    name: OrderPlaced
+  OrderConfirmed:
+    name: OrderConfirmed

@@ -25,6 +25,29 @@ npm run test:arch      # Run architectural tests (all domains)
 npm run verify:extract # Verify extraction produces expected components
 ```
 
+### Phase 13 external specification fixtures
+
+The `specs/` directory contains the additive EventCatalog and AsyncAPI fixtures for the Phase 13 Workflow journey:
+
+```text
+specs/eventcatalog/
+specs/eventcatalog-import.yaml
+specs/eventcatalog-mappings.yaml
+specs/asyncapi.yaml
+specs/asyncapi-import.yaml
+specs/asyncapi-mappings.yaml
+```
+
+EventCatalog describes the five domains and the actual order event chain: `OrdersService` produces `OrderCreated`, which inventory, payment, and notifications consume; it then produces `OrderConfirmed`, which shipping consumes. The mapping normalises `OrderCreated` to the code-extracted `OrderPlaced` identity.
+
+AsyncAPI is a version 3 document. It defines messages and publish/subscribe operations for the same two-event flow. It deliberately has no request/reply operation, and its server and channel remain transport details rather than graph components.
+
+The mappings are authoritative for the canonical identity and scalar fields contributed by their respective import stages. They do not change the direct TypeScript extraction inputs, outputs, or verification fixtures. Run the published SDK and parser capability tests with:
+
+```bash
+npm run test:specs
+```
+
 ---
 
 ## Deterministic Extraction Setup Guide
