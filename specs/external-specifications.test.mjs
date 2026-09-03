@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { fileURLToPath } from 'node:url'
 import { Parser, fromFile } from '@asyncapi/parser'
 import eventCatalogSdk from '@eventcatalog/sdk'
 
-const eventCatalog = eventCatalogSdk(new URL('./eventcatalog', import.meta.url).pathname)
-const asyncApiPath = new URL('./asyncapi.yaml', import.meta.url).pathname
+const eventCatalog = eventCatalogSdk(fileURLToPath(new URL('./eventcatalog', import.meta.url)))
+const asyncApiPath = fileURLToPath(new URL('./asyncapi.yaml', import.meta.url))
 
 test('EventCatalog fixture exposes the five expected domains', async () => {
   const domains = await eventCatalog.getDomains()
