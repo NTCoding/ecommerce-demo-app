@@ -1,0 +1,32 @@
+messages:
+  OrderPlacedMessage:
+    domain: orders
+    name: OrderPlaced
+  OrderConfirmedMessage:
+    domain: orders
+    name: OrderConfirmed
+operations:
+  processOrder:
+    type: UseCase
+    domain: orders
+    name: PlaceOrderUseCase
+  reserveInventory:
+    type: UseCase
+    domain: inventory
+    name: ReserveInventoryUseCase
+  authorisePayment:
+    type: UseCase
+    domain: payment
+    name: ProcessPaymentUseCase
+  notifyCustomer:
+    type: UseCase
+    domain: notifications
+    name: NotifyOrderPlacedUseCase
+  confirmOrder:
+    type: UseCase
+    domain: orders
+    name: ConfirmOrderAfterPaymentUseCase
+  createShipment:
+    type: UseCase
+    domain: shipping
+    name: CreateShipmentUseCase

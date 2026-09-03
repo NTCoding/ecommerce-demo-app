@@ -1,0 +1,3 @@
+source: ./eventcatalog
+mappings: ./eventcatalog-mappings.yaml
+allow-unmapped: false

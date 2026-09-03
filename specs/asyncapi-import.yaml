@@ -1,0 +1,3 @@
+source: ./asyncapi.yaml
+mappings: ./asyncapi-mappings.yaml
+allow-unmapped: false
