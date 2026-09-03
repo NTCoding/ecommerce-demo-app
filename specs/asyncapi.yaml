@@ -1,0 +1,78 @@
+asyncapi: 3.0.0
+info:
+  title: E-commerce order events
+  version: 1.0.0
+  description: Publish and subscribe operations for the order-created event flow.
+servers:
+  ordersBroker:
+    host: broker.example.test
+    protocol: kafka
+channels:
+  orders:
+    address: orders
+    messages:
+      OrderPlacedMessage:
+        $ref: '#/components/messages/OrderPlacedMessage'
+      OrderConfirmedMessage:
+        $ref: '#/components/messages/OrderConfirmedMessage'
+operations:
+  processOrder:
+    action: send
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderPlacedMessage'
+  createShipment:
+    action: receive
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderConfirmedMessage'
+  reserveInventory:
+    action: receive
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderPlacedMessage'
+  authorisePayment:
+    action: receive
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderPlacedMessage'
+  notifyCustomer:
+    action: receive
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderPlacedMessage'
+  confirmOrder:
+    action: send
+    channel:
+      $ref: '#/channels/orders'
+    messages:
+      - $ref: '#/channels/orders/messages/OrderConfirmedMessage'
+components:
+  messages:
+    OrderPlacedMessage:
+      name: OrderPlacedMessage
+      title: Order placed
+      summary: An order has been placed during checkout.
+      payload:
+        type: object
+        required:
+          - orderId
+        properties:
+          orderId:
+            type: string
+    OrderConfirmedMessage:
+      name: OrderConfirmedMessage
+      title: Order confirmed
+      summary: An order has completed inventory reservation and payment authorisation.
+      payload:
+        type: object
+        required:
+          - orderId
+        properties:
+          orderId:
+            type: string
