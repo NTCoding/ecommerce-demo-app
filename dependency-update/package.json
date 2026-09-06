@@ -20,18 +20,21 @@
     "verify:extract": "node scripts/verify-extraction.mjs",
     "verify:connections": "node scripts/verify-connections.mjs",
     "test:extract": "node scripts/verify-extraction.test.mjs",
+    "test:specs": "node --test specs/*.test.mjs",
     "test:deps": "node scripts/test-dependency-boundary.mjs",
     "validate:deps": "node scripts/validate-dependencies.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
-    "@living-architecture/riviere-cli": "0.17.1",
+    "@asyncapi/parser": "^3.6.3",
+    "@eventcatalog/sdk": "^2.28.1",
+    "@living-architecture/riviere-cli": "0.17.2",
     "@typescript-eslint/parser": "^8.56.0",
     "dependency-cruiser": "^17.3.8",
     "eslint": "^9.39.3",
     "husky": "^9.1.7"
   },
   "dependencies": {
-    "@living-architecture/riviere-extract-conventions-published-language": "0.10.0"
+    "@living-architecture/riviere-extract-conventions-published-language": "0.11.8"
   }
 }

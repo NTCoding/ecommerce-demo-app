@@ -28,13 +28,13 @@
   "devDependencies": {
     "@asyncapi/parser": "^3.6.3",
     "@eventcatalog/sdk": "^2.28.1",
-    "@living-architecture/riviere-cli": "0.17.1",
+    "@living-architecture/riviere-cli": "0.17.2",
     "@typescript-eslint/parser": "^8.56.0",
     "dependency-cruiser": "^17.3.8",
     "eslint": "^9.39.3",
     "husky": "^9.1.7"
   },
   "dependencies": {
-    "@living-architecture/riviere-extract-conventions-published-language": "0.10.0"
+    "@living-architecture/riviere-extract-conventions-published-language": "0.11.8"
   }
 }
